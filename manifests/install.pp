@@ -1,15 +1,16 @@
+# Katello Install
 class katello::install {
 
-  $os = $operatingsystem ? {
-    "RedHat" => "RHEL",
-    "CentOS" => "RHEL",
-    default  => "Fedora"
+  $os = $::operatingsystem ? {
+    'RedHat' => 'RHEL',
+    'CentOS' => 'RHEL',
+    default  => 'Fedora'
   }
 
   $package = $os ? {
     'RHEL'   => 'ruby193-rubygem-katello',
     'Fedora' => 'rubygem-katello'
-  } 
+  }
 
   package{[$package]:
     ensure => installed,
@@ -66,7 +67,7 @@ class katello::install {
 #    },
 #    ensure  => installed
 #  }
-#  
+#
 #  Class["katello::install"] -> File["${katello::params::log_base}"]
 #  Class["katello::install"] -> File["${katello::params::config_dir}/thin.yml"]
 #  Class["katello::install"] -> File["${katello::params::config_dir}/katello.yml"]

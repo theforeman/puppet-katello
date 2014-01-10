@@ -21,7 +21,7 @@
 # $log_dir::            Location for Katello log files to be placed
 #
 class katello (
-  
+
   $user = $katello::params::user,
   $group = $katello::params::group,
   $user_groups = $katello::params::user_groups,
@@ -32,9 +32,9 @@ class katello (
   $log_dir = $katello::params::log_dir
 
   ) inherits katello::params {
-  
+
   group { $katello::group:
-    ensure => "present"
+    ensure => 'present'
   }
 
   user { $katello::user:
@@ -48,7 +48,7 @@ class katello (
 
   class{ 'katello::install': } ->
   class{ 'katello::config::files': } ~>
-  class{ 'certs': 
+  class{ 'certs':
     log_dir => $katello::log_dir
   } ~>
   class{ 'candlepin':
@@ -58,12 +58,12 @@ class katello (
     deployment_url => 'katello',
     before         => Exec['foreman-rake-db:seed']
   } ~>
-  class{ 'pulp': 
-    oauth_key => $katello::oauth_key,
-    oauth_secret => $katello::oauth_secret,
-    before         => Exec['foreman-rake-db:seed']
+  class{ 'pulp':
+    oauth_key     => $katello::oauth_key,
+    oauth_secret  => $katello::oauth_secret,
+    before        => Exec['foreman-rake-db:seed']
   } ~>
-  class{ 'elasticsearch': 
+  class{ 'elasticsearch':
     before         => Exec['foreman-rake-db:seed']
   }
 
