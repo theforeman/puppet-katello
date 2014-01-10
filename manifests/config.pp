@@ -1,3 +1,4 @@
+# Katello Config
 class katello::config {
   include katello::config::files
 
@@ -19,7 +20,7 @@ class katello::config {
   #File["/etc/httpd/conf.d/katello.d"] ~>
   #File["/etc/httpd/conf.d/katello.d/katello.conf"] ~> Exec["reload-apache"]
   #File["/etc/httpd/conf.d/katello.conf"] ~> Exec["reload-apache"]
-  
+
 
 #  exec {"httpd-restart":
 #    command => "/bin/sleep 5; /sbin/service httpd restart; /bin/sleep 10",
@@ -42,12 +43,12 @@ class katello::config {
 #    before  => Class["katello::service"],
 #    require => $katello::params::deployment ? {
 #                'katello' => [
-#                  Class["candlepin::service"], 
+#                  Class["candlepin::service"],
 #                  Class["pulp::service"],
 #                  Class["foreman"],
-#                  File["${katello::params::log_base}"], 
-#                  File["${katello::params::log_base}/production.log"], 
-#                  File["${katello::params::log_base}/production_sql.log"], 
+#                  File["${katello::params::log_base}"],
+#                  File["${katello::params::log_base}/production.log"],
+#                  File["${katello::params::log_base}/production_sql.log"],
 #                  File["${katello::params::config_dir}/katello.yml"]
 #                ],
 #                'headpin' => [
@@ -124,5 +125,5 @@ class katello::config {
 #  #  }
 #  #  default : {}
 #  #}
-  
+
 }
