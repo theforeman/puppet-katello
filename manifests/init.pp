@@ -46,12 +46,14 @@ class katello (
     require => Class['katello::install'],
   }
 
-  class{ 'katello::install': } ->
-  class{ 'katello::config::files': } ~>
-  class{ 'certs':
-    log_dir => $katello::log_dir
-  } ~>
-  class{ 'candlepin':
+  class { '::certs': generate => true, deploy => true }
+
+  class { 'apache::certs': } ->
+  class { 'katello::install': } ->
+  class { 'katello::ktcerts': } -> # TODO: don't include certs class directly from here and renamd ktcerts to certs later
+  class { 'katello::config::files': }
+
+  class { 'candlepin':
     user_groups    => $katello::user_groups,
     oauth_key      => $katello::oauth_key,
     oauth_secret   => $katello::oauth_secret,
