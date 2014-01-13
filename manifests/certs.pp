@@ -1,5 +1,5 @@
-# Katello specific certs
-class katello::ktcerts {
+# Katello specific certs settings
+class katello::certs {
 
   $ssl_build_path = '/root/ssl-build'
   $katello_www_pub_dir = '/var/www/html/pub'

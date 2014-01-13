@@ -37,22 +37,18 @@ class katello (
     ensure => 'present'
   }
 
-  user { $katello::user:
-    ensure  => 'present',
-    shell   => '/sbin/nologin',
-    comment => 'Katello',
-    gid     => $katello::group,
-    groups  => $katello::user_groups,
-    require => Class['katello::install'],
-  }
 
-  class { '::certs': generate => true, deploy => true }
+  class { 'apache::certs': } ~>
+  class { 'katello::install': } ~>
+  class { 'katello::certs': } ~>
+  class { 'katello::config': } ~>
+  Exec['foreman-rake-db:seed']
 
-  class { 'apache::certs': } ->
-  class { 'katello::install': } ->
-  class { 'katello::ktcerts': } -> # TODO: don't include certs class directly from here and renamd ktcerts to certs later
-  class { 'katello::config::files': }
-
+  class { 'pulp::parent::certs': } ~>
+  class { 'pulp':
+    oauth_key    => $katello::oauth_key,
+    oauth_secret => $katello::oauth_secret,
+  } ~>
   class { 'candlepin':
     user_groups    => $katello::user_groups,
     oauth_key      => $katello::oauth_key,
