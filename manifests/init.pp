@@ -65,6 +65,6 @@ class katello (
   } ~>
   class{ 'elasticsearch':
     before         => Exec['foreman-rake-db:seed']
-  }
-
+  } ~>
+  class{ 'katello::service': }
 }
