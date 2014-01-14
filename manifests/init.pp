@@ -46,8 +46,9 @@ class katello (
 
   class { 'pulp::parent::certs': } ~>
   class { 'pulp':
-    oauth_key    => $katello::oauth_key,
-    oauth_secret => $katello::oauth_secret,
+    oauth_key     => $katello::oauth_key,
+    oauth_secret  => $katello::oauth_secret,
+    messaging_url => 'ssl://localhost:5671',
   } ~>
   class { 'candlepin':
     user_groups    => $katello::user_groups,

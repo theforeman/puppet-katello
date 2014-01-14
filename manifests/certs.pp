@@ -3,7 +3,7 @@ class katello::certs {
 
   $ssl_build_path = '/root/ssl-build'
   $katello_www_pub_dir = '/var/www/html/pub'
-  $candlepin_cert_name = 'candlepin-cert'
+  $candlepin_cert_name = 'candlepin-ca'
   $candlepin_consumer_name = "${candlepin_cert_name}-consumer-${::fqdn}"
   $candlepin_consumer_summary = "Subscription-manager consumer certificate for Katello instance ${::fqdn}"
   $candlepin_consumer_description = 'Consumer certificate and post installation script that configures rhsm.'
