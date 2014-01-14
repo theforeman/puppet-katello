@@ -38,13 +38,13 @@ class katello (
   }
 
 
-  class { 'apache::certs': } ~>
+  class { 'certs::apache': } ~>
   class { 'katello::install': } ~>
-  class { 'katello::certs': } ~>
+  class { 'certs::katello': } ~>
   class { 'katello::config': } ~>
   Exec['foreman-rake-db:seed']
 
-  class { 'pulp::parent::certs': } ~>
+  class { '::certs::pulp_parent': } ~>
   class { 'pulp':
     oauth_key     => $katello::oauth_key,
     oauth_secret  => $katello::oauth_secret,
