@@ -71,30 +71,11 @@ class katello::config {
       mode => '0644';
   }
 
-#  exec { 'ktmigrate':
-#    command     => "${foreman::app_root}/extras/dbmigrate",
-#    user        => $foreman::user,
-#    environment => "HOME=${foreman::app_root}",
-#    logoutput   => 'on_failure',
-#  } ->
   #File["/etc/sysconfig/katello"] ~> Exec["reload-apache"]
   #File["/etc/httpd/conf.d/katello.d"] ~>
   #File["/etc/httpd/conf.d/katello.d/katello.conf"] ~> Exec["reload-apache"]
   #File["/etc/httpd/conf.d/katello.conf"] ~> Exec["reload-apache"]
 
-
-#  exec {"httpd-restart":
-#    command => "/bin/sleep 5; /sbin/service httpd restart; /bin/sleep 10",
-#    onlyif => "/usr/sbin/apachectl -t",
-#    before => Exec["katello_seed_db"],
-#    require   => $katello::params::deployment ? {
-#        'katello' => [ File["${katello::params::config_dir}/katello.yml"], Class["candlepin::service"], Class["pulp::service"] ],
-#        'headpin' => [ File["${katello::params::config_dir}/katello.yml"], Class["candlepin::service"], Class["thumbslug::service"] ],
-#         default  => [],
-#    },
-#    refreshonly => true,
-#  }
-#
 #  exec {"katello_db_printenv":
 #    cwd         => $katello::params::katello_dir,
 #    user        => $katello::params::user,
@@ -142,30 +123,6 @@ class katello::config {
 #        Exec["katello_seed_db"],
 #      ],
 #    }
-#  }
-#
-#  exec {"katello_migrate_db":
-#    cwd         => $katello::params::katello_dir,
-#    user        => "root",
-#    environment => ["RAILS_ENV=${katello::params::environment}", "BUNDLER_EXT_NOSTRICT=1"],
-#    command     => "/usr/bin/${katello::params::scl_prefix}rake db:migrate --trace --verbose > ${katello::params::migrate_log} 2>&1 && touch /var/lib/katello/db_migrate_done",
-#    creates => "/var/lib/katello/db_migrate_done",
-#    before  => Class["katello::service"],
-#    require => [ Exec["katello_db_printenv"] ],
-#  }
-#
-#  exec {"katello_seed_db":
-#    cwd         => $katello::params::katello_dir,
-#    user        => "root",
-#    environment => ["RAILS_ENV=${katello::params::environment}", "KATELLO_LOGGING=debug", "BUNDLER_EXT_NOSTRICT=1"],
-#    command     => "/usr/bin/${katello::params::scl_prefix}rake seed_with_logging --trace --verbose > ${katello::params::seed_log} 2>&1 && touch /var/lib/katello/db_seed_done",
-#    creates => "/var/lib/katello/db_seed_done",
-#    before  => Class["katello::service"],
-#    require => $katello::params::deployment ? {
-#                'katello' => [ Exec["katello_migrate_db"], Class["candlepin::service"], Class["pulp::service"], File["${katello::params::log_base}"] ],
-#                'headpin' => [ Exec["katello_migrate_db"], Class["candlepin::service"], Class["thumbslug::service"], File["${katello::params::log_base}"] ],
-#                default => [],
-#    },
 #  }
 #
 #  # during first installation we mark all 'once'  upgrade scripts as executed
