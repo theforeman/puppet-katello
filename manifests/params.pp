@@ -76,7 +76,8 @@ class katello::params {
   # comes from and can find the rigth secret. This way only one key-secret pair
   # is needed to be mainained for duplex communication.
   $foreman_oauth_key    = 'foreman'
-  $oauth_secret = find_or_create_password('oauth_token_file')
+  $oauth_token_file = '/etc/katello/oauth_token-file'
+  $oauth_secret = find_or_create_password($oauth_token_file)
 
   # Subsystems settings
   $candlepin_url = 'https://localhost:8443/candlepin'

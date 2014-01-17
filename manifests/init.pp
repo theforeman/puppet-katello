@@ -33,38 +33,30 @@ class katello (
 
   ) inherits katello::params {
 
-  group { $katello::group:
-    ensure => 'present'
+  class { 'certs::apache': } ~>
+  class { 'katello::install': } ~>
+  class { 'certs::katello': } ~>
+  class { 'katello::config': } ~>
+  Exec['foreman-rake-db:seed'] ~>
+  class{ 'katello::service': }
+
+  class { '::certs::pulp_parent': } ~>
+  class { 'pulp':
+    oauth_key     => $katello::oauth_key,
+    oauth_secret  => $katello::oauth_secret,
+    messaging_url => 'ssl://localhost:5671',
+    before        => Exec['foreman-rake-db:seed']
   }
 
-  user { $katello::user:
-    ensure  => 'present',
-    shell   => '/sbin/nologin',
-    comment => 'Katello',
-    gid     => $katello::group,
-    groups  => $katello::user_groups,
-    require => Class['katello::install'],
-  }
-
-  class{ 'katello::install': } ->
-  class{ 'katello::config::files': } ~>
-  class{ 'certs':
-    log_dir => $katello::log_dir
-  } ~>
-  class{ 'candlepin':
+  class { 'candlepin':
     user_groups    => $katello::user_groups,
     oauth_key      => $katello::oauth_key,
     oauth_secret   => $katello::oauth_secret,
     deployment_url => 'katello',
     before         => Exec['foreman-rake-db:seed']
-  } ~>
-  class{ 'pulp':
-    oauth_key     => $katello::oauth_key,
-    oauth_secret  => $katello::oauth_secret,
-    before        => Exec['foreman-rake-db:seed']
-  } ~>
+  }
+
   class{ 'elasticsearch':
     before         => Exec['foreman-rake-db:seed']
-  } ~>
-  class{ 'katello::service': }
+  }
 }
