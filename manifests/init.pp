@@ -20,6 +20,16 @@
 #
 # $log_dir::            Location for Katello log files to be placed
 #
+# $config_dir::         Location for Katello configurations to be placed
+#
+# $custom_repo::        If set to true, no repo will be added allowing custom installation
+#                       type: boolean
+#
+# $repo::               This can currently only be nightly
+#                       type: string
+#
+# $job_workers:: 	      The number of workers to used for delayed jobs
+#
 class katello (
 
   $user = $katello::params::user,
@@ -29,12 +39,23 @@ class katello (
   $oauth_key = $katello::params::oauth_key,
   $oauth_secret = $katello::params::oauth_secret,
 
-  $log_dir = $katello::params::log_dir
+  $log_dir = $katello::params::log_dir,
+  $config_dir = $katello::params::config_dir,
+
+  $custom_repo = $katello::params::custom_repo,
+  $repo = $katello::params::repo,
+
+  $job_workers = $katello::params::job_workers
 
   ) inherits katello::params {
 
-  class { 'certs::apache': } ~>
   class { 'katello::install': } ~>
+  class { 'certs': 
+    deploy      => true,
+    generate    => true,
+    custom_repo => $custom_repo
+  }
+  class { 'certs::apache': } ~>
   class { 'certs::katello': } ~>
   class { 'katello::config': } ~>
   class { 'katello::service': } ~>
