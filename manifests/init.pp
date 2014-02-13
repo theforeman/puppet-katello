@@ -40,6 +40,8 @@ class katello (
   class { 'katello::service': } ~>
   Exec['foreman-rake-db:seed']
 
+  class { 'certs::foreman': }
+
   class { 'certs::qpid': } ~>
   class { '::certs::pulp_parent': } ~>
   class { 'candlepin':
