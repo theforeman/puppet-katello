@@ -80,6 +80,10 @@ class katello (
 
   class { 'certs::foreman': }
 
+  class { 'foreman::plugin::bootdisk': }
+  class { 'foreman::plugin::discovery': }
+  class { 'foreman::plugin::hooks': }
+
   class { 'katello::service': }
 
   User<|title == apache|>{groups +> $user_groups}
