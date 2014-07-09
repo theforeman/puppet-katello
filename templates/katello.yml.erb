@@ -48,6 +48,10 @@ common:
     oauth_key: <%= scope.lookupvar("katello::params::oauth_key") %>
     oauth_secret: <%= scope.lookupvar("katello::params::oauth_secret") %>
 
+  qpid:
+    url: 'amqp:ssl:<%= scope.lookupvar("::fqdn") %>:5671'
+    subscriptions_queue_address: <%= scope.lookupvar("katello::params::candlepin_event_queue") %>
+
 <%- if @proxy_url -%>
   cdn_proxy:
     host: <%= @proxy_url %>

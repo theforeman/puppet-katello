@@ -67,6 +67,8 @@ class katello (
   class { 'katello::install': } ~>
   class { 'katello::config': } ~>
   class { 'certs::qpid': } ~>
+  class { 'qpid::client': } ~>
+  class { 'katello::qpid': } ~>
   class { 'certs::candlepin': } ~>
   class { 'candlepin':
     user_groups       => $katello::user_groups,

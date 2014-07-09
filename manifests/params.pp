@@ -71,4 +71,6 @@ class katello::params {
   $validate_ldap = false
 
   $use_passenger = true
+
+  $candlepin_event_queue = 'katello_event_queue'
 }
