@@ -2,10 +2,10 @@
 class katello::install {
 
   $os = $::operatingsystem ? {
-    'RedHat' => 'RHEL',
-    'CentOS' => 'RHEL',
+    'RedHat'      => 'RHEL',
+    'CentOS'      => 'RHEL',
     'OracleLinux' => 'RHEL',
-    default  => 'Fedora'
+    default       => 'Fedora'
   }
 
   $package = $os ? {
