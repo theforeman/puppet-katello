@@ -1,6 +1,6 @@
 # Katello Default Params
 class katello::params {
-
+  # Determine rubygems prefix
   if ($::operatingsystem == 'RedHat' or $::operatingsystem == 'CentOS' or $::operatingsystem == 'OracleLinux'){
     $scl_prefix = 'ruby193-'
     $scl_root = '/opt/rh/ruby193/root'
