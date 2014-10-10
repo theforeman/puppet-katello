@@ -17,7 +17,7 @@ class katello::params {
   }
   else {
     $tomcat = 'tomcat6'
-  }
+  }  
 
   # HTTP Proxy settings (currently used by pulp)
   $proxy_url = undef
