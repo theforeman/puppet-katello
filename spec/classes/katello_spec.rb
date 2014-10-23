@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 describe 'katello' do
-
  context 'on redhat' do
+   let(:params) do
+     {:user => 'foreman'}
+   end
     let :facts do
       {
         :concat_basedir             => '/tmp',
