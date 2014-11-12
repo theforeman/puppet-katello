@@ -5,11 +5,11 @@ class katello::install {
   } else {
     $os = 'Fedora'
   }
-  $package = $os ? {
+  $rubygem = $os ? {
     'RHEL'   => 'ruby193-rubygem-katello',
     'Fedora' => 'rubygem-katello'
   }
-  package{[$package]:
+  package{['katello', $rubygem]:
     ensure => installed,
   }
 }
