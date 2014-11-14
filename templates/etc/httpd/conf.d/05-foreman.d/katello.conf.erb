@@ -8,7 +8,7 @@ Alias /pub /var/www/html/pub
 <Location /pub>
   PassengerEnabled off 
   Options +FollowSymLinks +Indexes
-<% if ( @osfamily == 'RedHat' && @operatingsystem != 'Fedora' && @operatingsystemmajrelease >= 7 ) -%>
+<% if ( @osfamily == 'RedHat' && @operatingsystem != 'Fedora' && @operatingsystemmajrelease >= '7' ) -%>
   Require all granted
 <% else -%>
   Allow from all
