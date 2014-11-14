@@ -81,11 +81,11 @@ describe 'katello' do
     it { should contain_class('katello::service') }
   end
 
-  context 'on oel' do
+  context 'on sl' do
     let :facts do
       {
         :concat_basedir            => '/tmp',
-        :operatingsystem           => 'OracleLinux',
+        :operatingsystem           => 'ScientificLinux',
         :operatingsystemrelease    => '6.5',
         :operatingsystemmajrelease => '6',
         :osfamily                  => 'RedHat',
