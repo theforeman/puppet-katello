@@ -63,9 +63,6 @@ class katello (
 
   Class['certs'] ~>
   class { 'certs::apache': } ~>
-  class { 'certs::katello':
-    deployment_url => $katello::rhsm_url,
-  } ~>
   class { 'katello::install': } ~>
   class { 'katello::config': } ~>
   class { 'certs::qpid': } ~>
