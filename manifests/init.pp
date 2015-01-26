@@ -33,7 +33,9 @@
 #
 # $cdn_ssl_version::    SSL version used to communicate with the CDN. Optional. Use SSLv23 or TLSv1
 #
-# $package_names::      Packages that this module ensures are present instead of the default: katello and ${scl_prefix}rubygem-katello
+# $package_names::      Packages that this module ensures are present instead of the default: katello
+#
+# $scl_package_names::  Packages that this module ensures are present that may have a scl prefix eg rubygem-katello or rubygem-sam
 #
 class katello (
 
@@ -58,6 +60,7 @@ class katello (
   $cdn_ssl_version = $katello::params::cdn_ssl_version,
 
   $package_names = $katello::params::package_names,
+  $scl_package_names = $katello::params::scl_package_names,
   ) inherits katello::params {
 
   Class['certs'] ~>
