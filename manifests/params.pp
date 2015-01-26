@@ -14,7 +14,8 @@ class katello::params {
         }
       }
 
-      $package_names = ['katello', "${scl_prefix}rubygem-katello"]
+      $scl_package_names = ['rubygem-katello']
+      $package_names = ['katello']
     }
     default: {
       fail("${::hostname}: This module does not support osfamily ${::osfamily}")
