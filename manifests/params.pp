@@ -63,4 +63,15 @@ class katello::params {
 
   $qpid_url = "amqp:ssl:${::fqdn}:5671"
   $candlepin_event_queue = 'katello_event_queue'
+
+
+  if (versioncmp($::operatingsystemrelease, '7.0') < 0) {
+    $tomcat_service = 'tomcat6'
+  } else {
+    $tomcat_service = 'tomcat'
+  }
+
+  $services_directory = '/etc/katello/services.d'
+  $services_list      = ['httpd', 'elasticsearch', 'foreman-tasks', $tomcat_service]
+
 }
