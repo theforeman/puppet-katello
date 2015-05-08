@@ -35,6 +35,11 @@
 #
 # $package_names::      Packages that this module ensures are present instead of the default
 #
+# $services_directory:: Directory where services configuration is stored
+#
+# $services_list::      A list of services for the katello-service tool
+#                       type:array
+#
 class katello (
 
   $user = $katello::params::user,
@@ -58,7 +63,11 @@ class katello (
   $cdn_ssl_version = $katello::params::cdn_ssl_version,
 
   $package_names = $katello::params::package_names,
+
+  $services_directory = $katello::params::services_directory,
+  $services_list      = $katello::params::services_list,
   ) inherits katello::params {
+
 
   Class['certs'] ~>
   class { '::certs::apache': } ~>

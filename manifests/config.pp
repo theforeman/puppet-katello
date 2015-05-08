@@ -32,4 +32,6 @@ class katello::config {
     mode   => '0755',
   }
 
+  $services_real = prefix($katello::services_list, $katello::services_directory)
+  ensure_resource('file', $services_real, {'ensure' => 'file', 'mode' => '0644'})
 }
