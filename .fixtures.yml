@@ -14,7 +14,9 @@ fixtures:
     qpid:          "git://github.com/katello/puppet-qpid.git"
     candlepin:     "git://github.com/katello/puppet-candlepin.git"
     gutterball:     "git://github.com/katello/puppet-gutterball.git"
-    pulp:          "git://github.com/katello/puppet-pulp.git"
+    pulp:
+      repo: "git://github.com/katello/puppet-pulp.git"
+      branch: "0.1-stable"
     elasticsearch: "git://github.com/katello/puppet-elasticsearch.git"
   symlinks:
     katello: "#{source_dir}"
