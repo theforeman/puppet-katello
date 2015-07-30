@@ -33,20 +33,20 @@ describe 'katello::config' do
       should contain_file('/etc/foreman/plugins/katello.yaml')
       content = catalogue.resource('file', '/etc/foreman/plugins/katello.yaml').send(:parameters)[:content]
       content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
-        'common:',
-        '  rest_client_timeout: 120',
-        '  post_sync_url: https://localhost/katello/api/v2/repositories/sync_complete?token=test_token',
-        '  candlepin:',
-        '    url: https://localhost:8443/candlepin',
-        '    oauth_key: katello',
-        '    oauth_secret: secret',
-        '  pulp:',
-        "    url: https://#{facts[:fqdn]}/pulp/api/v2/",
-        '    oauth_key: katello',
-        '    oauth_secret: secret',
-        '  qpid:',
-        "    url: amqp:ssl:#{facts[:fqdn]}:5671",
-        '    subscriptions_queue_address: katello_event_queue'
+        ':katello:',
+        '  :rest_client_timeout: 120',
+        '  :post_sync_url: https://localhost/katello/api/v2/repositories/sync_complete?token=test_token',
+        '  :candlepin:',
+        '    :url: https://localhost:8443/candlepin',
+        '    :oauth_key: katello',
+        '    :oauth_secret: secret',
+        '  :pulp:',
+        "    :url: https://#{facts[:fqdn]}/pulp/api/v2/",
+        '    :oauth_key: katello',
+        '    :oauth_secret: secret',
+        '  :qpid:',
+        "    :url: amqp:ssl:#{facts[:fqdn]}:5671",
+        '    :subscriptions_queue_address: katello_event_queue'
       ]
     end
   end
@@ -71,25 +71,25 @@ describe 'katello::config' do
       should contain_file('/etc/foreman/plugins/katello.yaml')
       content = catalogue.resource('file', '/etc/foreman/plugins/katello.yaml').send(:parameters)[:content]
       content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
-        'common:',
-        '  rest_client_timeout: 120',
-        '  post_sync_url: https://localhost/katello/api/v2/repositories/sync_complete?token=test_token',
-        '  candlepin:',
-        '    url: https://localhost:8443/candlepin',
-        '    oauth_key: katello',
-        '    oauth_secret: secret',
-        '  pulp:',
-        "    url: https://#{facts[:fqdn]}/pulp/api/v2/",
-        '    oauth_key: katello',
-        '    oauth_secret: secret',
-        '  qpid:',
-        "    url: amqp:ssl:#{facts[:fqdn]}:5671",
-        '    subscriptions_queue_address: katello_event_queue',
-        '  cdn_proxy:',
-        '    host: http://myproxy.org',
-        '    port: 8888',
-        '    user: admin',
-        '    password: secret_password'
+        ':katello:',
+        '  :rest_client_timeout: 120',
+        '  :post_sync_url: https://localhost/katello/api/v2/repositories/sync_complete?token=test_token',
+        '  :candlepin:',
+        '    :url: https://localhost:8443/candlepin',
+        '    :oauth_key: katello',
+        '    :oauth_secret: secret',
+        '  :pulp:',
+        "    :url: https://#{facts[:fqdn]}/pulp/api/v2/",
+        '    :oauth_key: katello',
+        '    :oauth_secret: secret',
+        '  :qpid:',
+        "    :url: amqp:ssl:#{facts[:fqdn]}:5671",
+        '    :subscriptions_queue_address: katello_event_queue',
+        '  :cdn_proxy:',
+        '    :host: http://myproxy.org',
+        '    :port: 8888',
+        '    :user: admin',
+        '    :password: secret_password'
       ]
     end
   end

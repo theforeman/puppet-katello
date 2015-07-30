@@ -34,7 +34,7 @@ describe 'katello' do
 
       it 'should set up the cdn_ssl_version' do
         should contain_file('/etc/foreman/plugins/katello.yaml').
-          with_content(/^\s*cdn_ssl_version:\s*TLSv1$/)
+          with_content(/^\s*:cdn_ssl_version:\s*TLSv1$/)
       end
     end
   end
