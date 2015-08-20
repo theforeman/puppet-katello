@@ -8,7 +8,7 @@ class katello::params {
           $rubygem_katello = 'rubygem-katello'
         }
         default: {
-          $rubygem_katello = 'ruby193-rubygem-katello'
+          $rubygem_katello = 'tfm-rubygem-katello'
         }
       }
 
