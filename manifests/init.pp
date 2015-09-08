@@ -21,8 +21,6 @@
 #
 # $config_dir::         Location for Katello config files
 #
-# $mongodb_path::       Path where mongodb should be stored
-#
 # $use_passenger::      Whether Katello is being deployed with Passenger
 #
 # $proxy_url::          URL of the proxy server
@@ -50,7 +48,6 @@ class katello (
 
   $log_dir = $katello::params::log_dir,
   $config_dir = $katello::params::config_dir,
-  $mongodb_path = $katello::params::mongodb_path,
 
   $use_passenger = $katello::params::use_passenger,
 
@@ -78,23 +75,33 @@ class katello (
     ca_cert           => $certs::ca_cert_stripped,
     keystore_password => $::certs::candlepin::keystore_password,
   } ~>
+  class { '::qpid':
+    ssl                    => true,
+    ssl_cert_db            => $::certs::nss_db_dir,
+    ssl_cert_password_file => $::certs::qpid::nss_db_password_file,
+    ssl_cert_name          => 'broker',
+  } ~>
   class { '::certs::pulp_parent': } ~>
   class { '::pulp':
-    oauth_key                   => $katello::oauth_key,
-    oauth_secret                => $katello::oauth_secret,
-    messaging_url               => "ssl://${::fqdn}:5671",
-    qpid_ssl_cert_db            => $certs::nss_db_dir,
-    qpid_ssl_cert_password_file => $certs::qpid::nss_db_password_file,
-    messaging_ca_cert           => $certs::pulp_parent::messaging_ca_cert,
-    messaging_client_cert       => $certs::pulp_parent::messaging_client_cert,
-    consumers_ca_cert           => $certs::ca_cert,
-    consumers_ca_key            => $certs::ca_key,
-    consumers_crl               => $candlepin::crl_file,
-    proxy_url                   => $proxy_url,
-    proxy_port                  => $proxy_port,
-    proxy_username              => $proxy_username,
-    proxy_password              => $proxy_password,
-    mongodb_path                => $mongodb_path,
+    ca_cert               => $::certs::ca_cert,
+    ca_key                => $::certs::ca_key,
+    ssl_ca_cert           => $::certs::ca_cert,
+    oauth_enabled         => true,
+    oauth_key             => $katello::oauth_key,
+    oauth_secret          => $katello::oauth_secret,
+    messaging_url         => "ssl://${::fqdn}:5671",
+    messaging_ca_cert     => $certs::pulp_parent::messaging_ca_cert,
+    messaging_client_cert => $certs::pulp_parent::messaging_client_cert,
+    messaging_transport   => 'qpid',
+    broker_url            => "qpid://${::fqdn}:5671",
+    broker_use_ssl        => true,
+    consumers_crl         => $candlepin::crl_file,
+    proxy_url             => $proxy_url,
+    proxy_port            => $proxy_port,
+    proxy_username        => $proxy_username,
+    proxy_password        => $proxy_password,
+    manage_broker         => false,
+    manage_httpd          => false,
   } ~>
   class { '::qpid::client':
     ssl                    => true,
