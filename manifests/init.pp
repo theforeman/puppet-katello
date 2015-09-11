@@ -67,13 +67,16 @@ class katello (
   class { '::certs::qpid': } ~>
   class { '::certs::candlepin': } ~>
   class { '::candlepin':
-    user_groups       => $katello::user_groups,
-    oauth_key         => $katello::oauth_key,
-    oauth_secret      => $katello::oauth_secret,
-    deployment_url    => $katello::deployment_url,
-    ca_key            => $certs::ca_key,
-    ca_cert           => $certs::ca_cert_stripped,
-    keystore_password => $::certs::candlepin::keystore_password,
+    user_groups                  => $katello::user_groups,
+    oauth_key                    => $katello::oauth_key,
+    oauth_secret                 => $katello::oauth_secret,
+    deployment_url               => $katello::deployment_url,
+    ca_key                       => $certs::ca_key,
+    ca_cert                      => $certs::ca_cert_stripped,
+    keystore_password            => $::certs::candlepin::keystore_password,
+    enable_basic_auth            => false,
+    consumer_system_name_pattern => '.+',
+    adapter_module               => 'org.candlepin.katello.KatelloModule',
   } ~>
   class { '::qpid':
     ssl                    => true,
