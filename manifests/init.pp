@@ -74,6 +74,7 @@ class katello (
     ca_key            => $certs::ca_key,
     ca_cert           => $certs::ca_cert_stripped,
     keystore_password => $::certs::candlepin::keystore_password,
+    adapter_module    => 'org.candlepin.katello.KatelloModule',
   } ~>
   class { '::qpid':
     ssl                    => true,
