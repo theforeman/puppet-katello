@@ -123,7 +123,6 @@ class katello (
     client_key   => $certs::qpid::client_key,
     katello_user => $katello::user,
   } ~>
-  class{ '::elasticsearch': } ~>
   Exec['foreman-rake-db:seed']
 
   class { '::certs::foreman': }
