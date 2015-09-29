@@ -105,6 +105,7 @@ class katello (
     proxy_password        => $proxy_password,
     manage_broker         => false,
     manage_httpd          => false,
+    manage_plugins_httpd  => true,
     enable_rpm            => true,
     enable_puppet         => true,
     enable_docker         => true,
