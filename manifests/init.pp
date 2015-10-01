@@ -86,9 +86,6 @@ class katello (
   } ~>
   class { '::certs::pulp_parent': } ~>
   class { '::pulp':
-    ca_cert               => $::certs::ca_cert,
-    ca_key                => $::certs::ca_key,
-    ssl_ca_cert           => $::certs::ca_cert,
     oauth_enabled         => true,
     oauth_key             => $katello::oauth_key,
     oauth_secret          => $katello::oauth_secret,
