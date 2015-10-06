@@ -35,6 +35,8 @@ class katello::params {
   $proxy_username = undef
   $proxy_password = undef
 
+  $num_pulp_workers = min($::processorcount, 8)
+
   # cdn ssl settings
   $cdn_ssl_version = undef
 

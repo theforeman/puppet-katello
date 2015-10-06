@@ -33,6 +33,8 @@
 #
 # $cdn_ssl_version::    SSL version used to communicate with the CDN. Optional. Use SSLv23 or TLSv1
 #
+# $num_pulp_workers::   Number of pulp workers to use
+#
 # $package_names::      Packages that this module ensures are present instead of the default
 #
 class katello (
@@ -45,7 +47,7 @@ class katello (
   $oauth_secret = $katello::params::oauth_secret,
 
   $post_sync_token = $katello::params::post_sync_token,
-
+  $num_pulp_workers = $katello::params::num_pulp_workers,
   $log_dir = $katello::params::log_dir,
   $config_dir = $katello::params::config_dir,
 
@@ -106,6 +108,7 @@ class katello (
     enable_rpm            => true,
     enable_puppet         => true,
     enable_docker         => true,
+    num_workers           => $num_pulp_workers,
   } ~>
   class { '::qpid::client':
     ssl                    => true,
