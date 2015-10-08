@@ -109,6 +109,7 @@ class katello (
     enable_puppet         => true,
     enable_docker         => true,
     num_workers           => $num_pulp_workers,
+    parent                => true,
   } ~>
   class { '::qpid::client':
     ssl                    => true,
