@@ -50,9 +50,9 @@ class katello::params {
   # OAUTH settings
   $oauth_key = 'katello'
   $oauth_token_file = 'katello_oauth_secret'
-  $oauth_secret = cache_data($oauth_token_file, random_password(32))
+  $oauth_secret = cache_data('foreman_cache_data', $oauth_token_file, random_password(32))
 
-  $post_sync_token = cache_data('post_sync_token', random_password(32))
+  $post_sync_token = cache_data('foreman_cache_data', 'post_sync_token', random_password(32))
 
   # Subsystems settings
   $candlepin_url = 'https://localhost:8443/candlepin'
