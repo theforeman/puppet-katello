@@ -12,7 +12,7 @@ class katello::config {
 
   file { "${katello::config_dir}/katello.yaml":
     ensure  => file,
-    content => template('katello/katello.yml.erb'),
+    content => template('katello/katello.yaml.erb'),
     owner   => $katello::user,
     group   => $katello::group,
     mode    => '0644',
