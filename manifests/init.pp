@@ -79,6 +79,7 @@ class katello (
     enable_basic_auth            => false,
     consumer_system_name_pattern => '.+',
     adapter_module               => 'org.candlepin.katello.KatelloModule',
+    ssl_port                     => $katello::candlepin_port,
   } ~>
   class { '::qpid':
     ssl                    => true,
