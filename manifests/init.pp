@@ -76,7 +76,7 @@ class katello (
     ca_key                       => $certs::ca_key,
     ca_cert                      => $certs::ca_cert_stripped,
     keystore_password            => $::certs::candlepin::keystore_password,
-    truststore_password          => $::certs::candlepin::truststore_password,
+    truststore_password          => $::certs::candlepin::keystore_password,
     enable_basic_auth            => false,
     consumer_system_name_pattern => '.+',
     adapter_module               => 'org.candlepin.katello.KatelloModule',
