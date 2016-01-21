@@ -5,9 +5,10 @@ class katello::plugin::gutterball{
   class { '::certs::gutterball': } ->
   foreman::plugin { 'gutterball': } ->
   class { '::gutterball':
-    amqp_broker_host  => $::fqdn,
-    amqp_broker_port  => $::qpid::ssl_port,
-    keystore_password => $certs::gutterball::gutterball_keystore_password,
+    amqp_broker_host    => $::fqdn,
+    amqp_broker_port    => $::qpid::ssl_port,
+    keystore_password   => $certs::gutterball::gutterball_keystore_password,
+    truststore_password => $certs::gutterball::gutterball_keystore_password,
   } ~>
   class { '::katello::plugin::gutterball::config':
     foreman_plugins_dir => $katello::config_dir,
