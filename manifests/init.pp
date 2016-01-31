@@ -91,6 +91,7 @@ class katello (
     ssl_cert_password_file => $::certs::qpid::nss_db_password_file,
     ssl_cert_name          => 'broker',
   } ~>
+  class { '::certs::pulp_client': } ~>
   class { '::certs::pulp_parent': } ~>
   class { '::pulp':
     oauth_enabled          => true,
