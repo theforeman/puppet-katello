@@ -17,15 +17,23 @@ SSLInsecureRenegotiation on
 
 WSGIProcessGroup pulp
 WSGIApplicationGroup pulp
-WSGIDaemonProcess pulp user=apache group=apache processes=1 threads=8 display-name=%{GROUP}
+WSGIDaemonProcess pulp user=apache group=apache processes=3 display-name=%{GROUP}
 
 # DEBUG - uncomment the next 2 lines to enable debugging
 #WSGIRestrictStdin Off
 #WSGIRestrictStdout Off
 
 WSGISocketPrefix run/wsgi
-WSGIScriptAlias /pulp/api /srv/pulp/webservices.wsgi
-WSGIImportScript /srv/pulp/webservices.wsgi process-group=pulp application-group=pulp
+WSGIScriptAlias /pulp/api /usr/share/pulp/wsgi/webservices.wsgi
+WSGIImportScript /usr/share/pulp/wsgi/webservices.wsgi process-group=pulp application-group=pulp
+
+<Directory /usr/share/pulp/wsgi>
+<%- if scope.function_versioncmp([@apache_version, '2.4']) >= 0 -%>
+  Require all granted
+<% else -%>
+  Allow from all
+<% end -%>
+</Directory>
 
 <Files webservices.wsgi>
     WSGIPassAuthorization On
@@ -38,12 +46,14 @@ WSGIImportScript /srv/pulp/webservices.wsgi process-group=pulp application-group
     SSLVerifyClient optional
 </Files>
 
-<%- if scope.lookupvar('operatingsystem') == 'Fedora' && scope.lookupvar('operatingsystemrelease') == '18' -%>
-<Directory /srv/pulp>
-  Require all granted
-</Directory>
+Alias /pulp/static /var/lib/pulp/static
 
-<VirtualHost *:80>
-  Include /etc/pulp/vhosts80/*.conf
-</VirtualHost>
-<%- end -%>
+<Location /pulp/static>
+    SSLRequireSSL
+    Options +Indexes
+<%- if scope.function_versioncmp([@apache_version, '2.4']) >= 0 -%>
+     Require all granted
+<% else -%>
+     Allow from all
+<% end -%>
+</Location>
