@@ -35,7 +35,7 @@ describe 'katello::config' do
       content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
         ':katello:',
         '  :rest_client_timeout: 120',
-        '  :post_sync_url: https://localhost/katello/api/v2/repositories/sync_complete?token=test_token',
+        '  :post_sync_url: https://host.example.org/katello/api/v2/repositories/sync_complete?token=test_token',
         '  :candlepin:',
         '    :url: https://localhost:8443/candlepin',
         '    :oauth_key: katello',
@@ -73,7 +73,7 @@ describe 'katello::config' do
       content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
         ':katello:',
         '  :rest_client_timeout: 120',
-        '  :post_sync_url: https://localhost/katello/api/v2/repositories/sync_complete?token=test_token',
+        '  :post_sync_url: https://host.example.org/katello/api/v2/repositories/sync_complete?token=test_token',
         '  :candlepin:',
         '    :url: https://localhost:8443/candlepin',
         '    :oauth_key: katello',
