@@ -31,4 +31,17 @@ class katello::config {
     group  => 'root',
     mode   => '0755',
   }
+
+  foreman_config_entry { 'pulp_client_cert':
+    value          => $::certs::pulp_client::client_cert,
+    ignore_missing => false,
+    require        => [Exec['foreman-rake-db:seed'], Class['::certs::pulp_client']],
+  }
+
+  foreman_config_entry { 'pulp_client_key':
+    value          => $::certs::pulp_client::client_key,
+    ignore_missing => false,
+    require        => [Exec['foreman-rake-db:seed'], Class['::certs::pulp_client']],
+  }
+
 }
