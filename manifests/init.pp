@@ -37,6 +37,9 @@
 #
 # $package_names::      Packages that this module ensures are present instead of the default
 #
+# $enable_ostree::      Boolean to enable ostree plugin. This requires existence of an ostree install.
+#                       type:boolean
+#
 class katello (
 
   $user = $katello::params::user,
@@ -60,7 +63,9 @@ class katello (
   $cdn_ssl_version = $katello::params::cdn_ssl_version,
 
   $package_names = $katello::params::package_names,
+  $enable_ostree = $katello::params::enable_ostree,
   ) inherits katello::params {
+  validate_bool($enable_ostree)
 
   Class['certs'] ~>
   class { '::certs::apache': } ~>
@@ -115,6 +120,7 @@ class katello (
     enable_rpm             => true,
     enable_puppet          => true,
     enable_docker          => true,
+    enable_ostree          => $enable_ostree,
     num_workers            => $num_pulp_workers,
     enable_parent_node     => true,
   } ~>
