@@ -40,6 +40,10 @@
 # $enable_ostree::      Boolean to enable ostree plugin. This requires existence of an ostree install.
 #                       type:boolean
 #
+# $max_keep_alive::     Maximum number of requests to use for the apache MaxKeepAliveRequests parameter
+#                       on the virtualHost for port 443.
+#                       type: integer
+#
 class katello (
 
   $user = $katello::params::user,
@@ -64,8 +68,10 @@ class katello (
 
   $package_names = $katello::params::package_names,
   $enable_ostree = $katello::params::enable_ostree,
+  $max_keep_alive = $katello::params::max_keep_alive,
   ) inherits katello::params {
   validate_bool($enable_ostree)
+  validate_integer($max_keep_alive)
 
   Class['certs'] ~>
   class { '::certs::apache': } ~>

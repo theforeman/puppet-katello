@@ -67,4 +67,5 @@ class katello::params {
   $qpid_url = "amqp:ssl:${::fqdn}:5671"
   $candlepin_event_queue = 'katello_event_queue'
   $enable_ostree = false
+  $max_keep_alive = 10000
 }

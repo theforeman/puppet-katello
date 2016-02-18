@@ -26,3 +26,6 @@ Alias /pub /var/www/html/pub
   ErrorDocument 500 '{"displayMessage": "Internal error, contact administrator", "errors": ["Internal error, contact administrator"], "status": "500" }'
   ErrorDocument 503 '{"displayMessage": "Service unavailable or restarting, try later", "errors": ["Service unavailable or restarting, try later"], "status": "503" }'
 </LocationMatch>
+
+KeepAlive On
+MaxKeepAliveRequests <%= scope['::katello::max_keep_alive'] %>
