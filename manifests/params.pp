@@ -6,9 +6,11 @@ class katello::params {
       case $::operatingsystem {
         'Fedora': {
           $rubygem_katello = 'rubygem-katello'
+          $rubygem_katello_ostree ='rubygem-katello_ostree'
         }
         default: {
           $rubygem_katello = 'tfm-rubygem-katello'
+          $rubygem_katello_ostree ='tfm-rubygem-katello_ostree'
         }
       }
 
@@ -64,4 +66,5 @@ class katello::params {
 
   $qpid_url = "amqp:ssl:${::fqdn}:5671"
   $candlepin_event_queue = 'katello_event_queue'
+  $enable_ostree = false
 }
