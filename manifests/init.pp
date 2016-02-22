@@ -103,18 +103,19 @@ class katello (
     ssl_cert_db            => $::certs::nss_db_dir,
     ssl_cert_password_file => $::certs::qpid::nss_db_password_file,
     ssl_cert_name          => 'broker',
+    interface              => 'lo',
   } ~>
   class { '::certs::qpid_client': } ~>
   class { '::pulp':
     oauth_enabled          => true,
     oauth_key              => $katello::oauth_key,
     oauth_secret           => $katello::oauth_secret,
-    messaging_url          => "ssl://${::fqdn}:5671",
+    messaging_url          => 'ssl://localhost:5671',
     messaging_ca_cert      => $::certs::ca_cert,
     messaging_client_cert  => $certs::qpid_client::messaging_client_cert,
     messaging_transport    => 'qpid',
     messaging_auth_enabled => false,
-    broker_url             => "qpid://${::fqdn}:5671",
+    broker_url             => 'qpid://localhost:5671',
     broker_use_ssl         => true,
     consumers_crl          => $candlepin::crl_file,
     proxy_url              => $proxy_url,

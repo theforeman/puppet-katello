@@ -37,7 +37,7 @@ describe 'katello::config' do
           '    :oauth_key: katello',
           '    :oauth_secret: secret',
           '  :qpid:',
-          "    :url: amqp:ssl:#{facts[:fqdn]}:5671",
+          "    :url: amqp:ssl:localhost:5671",
           '    :subscriptions_queue_address: katello_event_queue'
         ]
       end
@@ -75,7 +75,7 @@ describe 'katello::config' do
           '    :oauth_key: katello',
           '    :oauth_secret: secret',
           '  :qpid:',
-          "    :url: amqp:ssl:#{facts[:fqdn]}:5671",
+          "    :url: amqp:ssl:localhost:5671",
           '    :subscriptions_queue_address: katello_event_queue',
           '  :cdn_proxy:',
           '    :host: http://myproxy.org',
