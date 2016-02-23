@@ -28,4 +28,6 @@ Alias /pub /var/www/html/pub
 </LocationMatch>
 
 KeepAlive On
+<% unless [nil, :undefined, :undef, ''].include?(scope.lookupvar('katello::max_keep_alive')) -%>
 MaxKeepAliveRequests <%= scope['::katello::max_keep_alive'] %>
+<% end -%>
