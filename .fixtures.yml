@@ -16,5 +16,6 @@ fixtures:
     candlepin:     "git://github.com/katello/puppet-candlepin.git"
     gutterball:    "git://github.com/katello/puppet-gutterball.git"
     pulp:          "git://github.com/katello/puppet-pulp.git"
+    squid3:        "git://github.com/thias/puppet-squid3.git"
   symlinks:
     katello: "#{source_dir}"
