@@ -130,7 +130,7 @@ class katello (
     enable_ostree          => $enable_ostree,
     num_workers            => $num_pulp_workers,
     enable_parent_node     => true,
-    repo_auth              => true,
+    repo_auth              => false,
   } ~>
   class { '::qpid::client':
     ssl                    => true,
