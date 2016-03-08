@@ -129,7 +129,7 @@ class katello (
     enable_docker          => true,
     enable_ostree          => $enable_ostree,
     num_workers            => $num_pulp_workers,
-    enable_parent_node     => true,
+    enable_parent_node     => false,
     repo_auth              => false,
   } ~>
   class { '::qpid::client':
