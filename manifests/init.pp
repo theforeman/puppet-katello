@@ -139,8 +139,9 @@ class katello (
     ssl_cert_password_file => $certs::qpid::nss_db_password_file,
   } ~>
   class { '::katello::qpid':
-    client_cert => $certs::qpid::client_cert,
-    client_key  => $certs::qpid::client_key,
+    client_cert  => $certs::qpid::client_cert,
+    client_key   => $certs::qpid::client_key,
+    katello_user => $katello::user,
   } ~>
   Exec['foreman-rake-db:seed']
 
