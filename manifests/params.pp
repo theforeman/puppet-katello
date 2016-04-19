@@ -57,7 +57,7 @@ class katello::params {
   $post_sync_token = cache_data('foreman_cache_data', 'post_sync_token', random_password(32))
 
   # Subsystems settings
-  $candlepin_url = 'https://localhost:8443/candlepin'
+  $candlepin_url = "https://${::fqdn}:8443/candlepin"
   $pulp_url      = "https://${::fqdn}/pulp/api/v2/"
   $mongodb_path  = '/var/lib/mongodb'
 
