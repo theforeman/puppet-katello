@@ -14,7 +14,6 @@ fixtures:
     common:        "git://github.com/katello/puppet-common.git"
     qpid:          "git://github.com/katello/puppet-qpid.git"
     candlepin:     "git://github.com/katello/puppet-candlepin.git"
-    gutterball:    "git://github.com/katello/puppet-gutterball.git"
     pulp:          "git://github.com/katello/puppet-pulp.git"
   symlinks:
     katello: "#{source_dir}"
