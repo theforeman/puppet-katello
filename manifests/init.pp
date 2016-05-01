@@ -44,6 +44,8 @@
 #                       on the virtualHost for port 443.
 #                       type: integer
 #
+# $pulp_admin_password:: password for the Pulp admin user. Defaults to a random password.
+#
 class katello (
 
   $user = $katello::params::user,
@@ -69,6 +71,7 @@ class katello (
   $package_names = $katello::params::package_names,
   $enable_ostree = $katello::params::enable_ostree,
   $max_keep_alive = $katello::params::max_keep_alive,
+  $pulp_admin_password = $katello::params::pulp_admin_password,
   ) inherits katello::params {
   validate_bool($enable_ostree)
   validate_integer($max_keep_alive)
@@ -108,6 +111,7 @@ class katello (
     oauth_enabled          => true,
     oauth_key              => $katello::oauth_key,
     oauth_secret           => $katello::oauth_secret,
+    default_password       => $katello::pulp_admin_password,
     messaging_url          => "ssl://${::fqdn}:5671",
     messaging_ca_cert      => $::certs::ca_cert,
     messaging_client_cert  => $certs::qpid_client::messaging_client_cert,
