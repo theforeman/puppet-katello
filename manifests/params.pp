@@ -39,6 +39,9 @@ class katello::params {
 
   $num_pulp_workers = min($::processorcount, 8)
 
+  $pulp_db_username = 'pulp'
+  $pulp_db_password = cache_data('foreman_cache_data', 'pulp_db_password', random_password(32))
+
   # cdn ssl settings
   $cdn_ssl_version = undef
 

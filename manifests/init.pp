@@ -46,6 +46,10 @@
 #
 # $repo_export_dir::    Directory to create for repository exports
 #
+# $pulp_db_username::   Username for the pulp database
+#
+# $pulp_db_password::   Password for the pulp database
+#
 class katello (
 
   $user = $katello::params::user,
@@ -73,6 +77,9 @@ class katello (
   $max_keep_alive = $katello::params::max_keep_alive,
 
   $repo_export_dir = $katello::params::repo_export_dir,
+
+  $pulp_db_username = $katello::params::pulp_db_username,
+  $pulp_db_password = $katello::params::pulp_db_password,
   ) inherits katello::params {
   validate_bool($enable_ostree)
   validate_integer($max_keep_alive)
@@ -136,6 +143,8 @@ class katello (
     num_workers            => $num_pulp_workers,
     enable_parent_node     => false,
     repo_auth              => false,
+    db_username            => $pulp_db_username,
+    db_password            => $pulp_db_password,
   } ~>
   class { '::qpid::client':
     ssl                    => true,
