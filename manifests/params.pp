@@ -21,7 +21,6 @@ class katello::params {
     }
   }
 
-  $rhsm_url = '/rhsm'
   $deployment_url = '/katello'
 
   # HTTP Proxy settings (currently used by pulp)
