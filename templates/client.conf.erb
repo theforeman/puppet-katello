@@ -7,11 +7,11 @@
 host = localhost.localdomain
 port = 443
 scheme = https
-path = <%= "/#{scope.lookupvar('katello::params::deployment_url')}" %>
+path = <%= "/#{scope['katello::params::deployment_url']}" %>
 
 [interface]
 grep_friendly = false
 
 [shell]
 nohistory = false
-prompt = <%= "#{scope.lookupvar('katello::params::deployment_url')}>" %>
+prompt = <%= "#{scope['katello::params::deployment_url']}>" %>
