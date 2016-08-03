@@ -7,9 +7,9 @@ SSLUsername SSL_CLIENT_S_DN_CN
 
 Alias /pub /var/www/html/pub
 <Location /pub>
-  <% if @use_passenger %>
-  PassengerEnabled off
-  <% end %>
+  <IfModule mod_passenger.c>
+    PassengerEnabled off
+  </IfModule>
   Options +FollowSymLinks +Indexes
 </Location>
 
