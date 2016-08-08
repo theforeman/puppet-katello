@@ -31,6 +31,8 @@
 #
 # $proxy_password::     Proxy password for authentication
 #
+# $puppet_repo_root::   Directory to write published puppet modules to
+#
 # $cdn_ssl_version::    SSL version used to communicate with the CDN. Optional. Use SSLv23 or TLSv1
 #
 # $num_pulp_workers::   Number of pulp workers to use
@@ -66,6 +68,7 @@ class katello (
   $proxy_port     = $katello::params::proxy_port,
   $proxy_username = $katello::params::proxy_username,
   $proxy_password = $katello::params::proxy_password,
+  $puppet_repo_root = $katello::params::puppet_repo_root,
   $cdn_ssl_version = $katello::params::cdn_ssl_version,
 
   $package_names = $katello::params::package_names,
@@ -77,6 +80,7 @@ class katello (
   validate_bool($enable_ostree)
   validate_integer($max_keep_alive)
   validate_absolute_path($repo_export_dir)
+  validate_absolute_path($puppet_repo_root)
 
   Class['certs'] ~>
   class { '::certs::apache': } ~>
