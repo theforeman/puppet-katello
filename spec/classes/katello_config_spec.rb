@@ -26,7 +26,7 @@ describe 'katello::config' do
       it 'should generate correct katello.yaml' do
         should contain_file('/etc/foreman/plugins/katello.yaml')
         content = catalogue.resource('file', '/etc/foreman/plugins/katello.yaml').send(:parameters)[:content]
-        content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
+        content.split("\n").reject { |c| c =~ /(^#|^$|^.*puppet_repo_root.*$)/ }.should == [
           ':katello:',
           '  :rest_client_timeout: 3600',
           '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
@@ -42,6 +42,7 @@ describe 'katello::config' do
           "    :url: amqp:ssl:#{facts[:fqdn]}:5671",
           '    :subscriptions_queue_address: katello_event_queue'
         ]
+        content.should =~ /^.*:puppet_repo_root: \/etc\/puppet.*$/
       end
     end
 
@@ -64,7 +65,7 @@ describe 'katello::config' do
       it 'should generate correct katello.yaml' do
         should contain_file('/etc/foreman/plugins/katello.yaml')
         content = catalogue.resource('file', '/etc/foreman/plugins/katello.yaml').send(:parameters)[:content]
-        content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
+        content.split("\n").reject { |c| c =~ /(^#|^$|^.*puppet_repo_root.*$)/ }.should == [
           ':katello:',
           '  :rest_client_timeout: 3600',
           '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
@@ -85,6 +86,7 @@ describe 'katello::config' do
           '    :user: admin',
           '    :password: secret_password'
         ]
+        content.should =~ /^.*:puppet_repo_root: \/etc\/puppet.*$/
       end
     end
   end

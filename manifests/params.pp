@@ -29,6 +29,13 @@ class katello::params {
   $proxy_username = undef
   $proxy_password = undef
 
+  if versioncmp($::puppetversion, '4.0') >= 0  {
+    $puppet_repo_root = '/etc/puppetlabs/code/environments/'
+  }
+  else {
+    $puppet_repo_root = '/etc/puppet/environments/'
+  }
+
   $num_pulp_workers = min($::processorcount, 8)
 
   # cdn ssl settings
