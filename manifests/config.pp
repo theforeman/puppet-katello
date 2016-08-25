@@ -27,13 +27,6 @@ class katello::config {
     ssl_content => template('katello/etc/httpd/conf.d/05-foreman-ssl.d/katello.conf.erb'),
   }
 
-  file { "${katello::config_dir}/katello":
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-
   # NB: we define this here to avoid a dependency cycle. It is not a problem if
   # this dir exists before the pulp RPMs are installed.
   file { '/var/lib/pulp':
