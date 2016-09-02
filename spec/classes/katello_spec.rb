@@ -4,7 +4,7 @@ describe 'katello' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let :facts do
-        facts.merge(:concat_basedir => '/tmp', :mongodb_version => '2.4.14')
+        facts.merge(:concat_basedir => '/tmp', :mongodb_version => '2.4.14', :root_home => '/root')
       end
 
       let(:pre_condition) do
@@ -44,6 +44,7 @@ describe 'katello' do
         :operatingsystemmajrelease => '1',
         :operatingsystemrelease    => '1',
         :osfamily                  => 'UNSUPPORTED OSFAMILY',
+        :root_home                 => '/root'
       }
     end
 

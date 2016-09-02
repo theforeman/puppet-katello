@@ -21,8 +21,6 @@
 #
 # $config_dir::         Location for Katello config files
 #
-# $use_passenger::      Whether Katello is being deployed with Passenger
-#
 # $proxy_url::          URL of the proxy server
 #
 # $proxy_port::         Port the proxy is running on
@@ -59,8 +57,6 @@ class katello (
   $num_pulp_workers = $katello::params::num_pulp_workers,
   $log_dir = $katello::params::log_dir,
   $config_dir = $katello::params::config_dir,
-
-  $use_passenger = $katello::params::use_passenger,
 
   $proxy_url      = $katello::params::proxy_url,
   $proxy_port     = $katello::params::proxy_port,
