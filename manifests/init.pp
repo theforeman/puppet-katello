@@ -136,6 +136,7 @@ class katello (
     num_workers            => $num_pulp_workers,
     enable_parent_node     => false,
     repo_auth              => true,
+    puppet_wsgi_processes  => 1,
   } ~>
   class { '::qpid::client':
     ssl                    => true,
