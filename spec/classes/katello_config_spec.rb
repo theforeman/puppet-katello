@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe 'katello::config' do
   on_supported_os.each do |os, facts|
-    let :facts do
-      facts.merge(:concat_basedir => '/tmp', :mongodb_version => '2.4.14', :root_home => '/root')
-    end
+    let(:facts) { facts }
 
     context 'default config settings' do
       let(:pre_condition) do
