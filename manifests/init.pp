@@ -34,6 +34,7 @@
 # $num_pulp_workers::   Number of pulp workers to use
 #
 # $package_names::      Packages that this module ensures are present instead of the default
+#                       type:array
 #
 # $enable_ostree::      Boolean to enable ostree plugin. This requires existence of an ostree install.
 #                       type:boolean
