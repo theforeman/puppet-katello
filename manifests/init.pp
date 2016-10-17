@@ -4,6 +4,21 @@
 #
 # === Parameters:
 #
+# $enable_ostree::      Boolean to enable ostree plugin. This requires existence of an ostree install.
+#                       type:boolean
+#
+# $proxy_url::          URL of the proxy server
+#
+# $proxy_port::         Port the proxy is running on
+#
+# $proxy_username::     Proxy username for authentication
+#
+# $proxy_password::     Proxy password for authentication
+#
+# $repo_export_dir::    Directory to create for repository exports
+#
+# === Advanced parameters:
+#
 # $user::               The Katello system user name
 #
 # $group::              The Katello system user group
@@ -21,14 +36,6 @@
 #
 # $config_dir::         Location for Katello config files
 #
-# $proxy_url::          URL of the proxy server
-#
-# $proxy_port::         Port the proxy is running on
-#
-# $proxy_username::     Proxy username for authentication
-#
-# $proxy_password::     Proxy password for authentication
-#
 # $cdn_ssl_version::    SSL version used to communicate with the CDN. Optional. Use SSLv23 or TLSv1
 #
 # $num_pulp_workers::   Number of pulp workers to use
@@ -36,14 +43,9 @@
 # $package_names::      Packages that this module ensures are present instead of the default
 #                       type:array
 #
-# $enable_ostree::      Boolean to enable ostree plugin. This requires existence of an ostree install.
-#                       type:boolean
-#
 # $max_keep_alive::     Maximum number of requests to use for the apache MaxKeepAliveRequests parameter
 #                       on the virtualHost for port 443.
 #                       type: integer
-#
-# $repo_export_dir::    Directory to create for repository exports
 #
 class katello (
 
