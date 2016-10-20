@@ -57,7 +57,7 @@ class katello::params {
   # database reinitialization flag
   $reset_data = 'NONE'
 
-  $qpid_url = "amqp:ssl:${::fqdn}:5671"
+  $qpid_url = 'amqp:ssl:localhost:5671'
   $candlepin_event_queue = 'katello_event_queue'
   $enable_ostree = false
   $max_keep_alive = 10000
