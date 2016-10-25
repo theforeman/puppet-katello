@@ -43,10 +43,6 @@
 # $package_names::      Packages that this module ensures are present instead of the default
 #                       type:array
 #
-# $max_keep_alive::     Maximum number of requests to use for the apache MaxKeepAliveRequests parameter
-#                       on the virtualHost for port 443.
-#                       type: integer
-#
 class katello (
 
   $user = $katello::params::user,
@@ -69,12 +65,10 @@ class katello (
 
   $package_names = $katello::params::package_names,
   $enable_ostree = $katello::params::enable_ostree,
-  $max_keep_alive = $katello::params::max_keep_alive,
 
   $repo_export_dir = $katello::params::repo_export_dir,
   ) inherits katello::params {
   validate_bool($enable_ostree)
-  validate_integer($max_keep_alive)
   validate_absolute_path($repo_export_dir)
 
   Class['certs'] ~>
