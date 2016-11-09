@@ -58,6 +58,9 @@
 # $num_pulp_workers::   Number of pulp workers to use
 #                       type:Integer[1]
 #
+# $max_tasks_per_pulp_worker:: Number of tasks after which the worker gets restarted
+#                              type:integer
+#
 # $package_names::      Packages that this module ensures are present instead of the default
 #                       type:Array[String]
 #
@@ -71,9 +74,9 @@ class katello (
 
   $post_sync_token  = $katello::params::post_sync_token,
   $num_pulp_workers = $katello::params::num_pulp_workers,
+  $max_tasks_per_pulp_worker = $katello::params::max_tasks_per_pulp_worker,
   $log_dir          = $katello::params::log_dir,
   $config_dir       = $katello::params::config_dir,
-
   $proxy_url        = $katello::params::proxy_url,
   $proxy_port       = $katello::params::proxy_port,
   $proxy_username   = $katello::params::proxy_username,
@@ -150,6 +153,7 @@ class katello (
     enable_docker          => true,
     enable_ostree          => $enable_ostree,
     num_workers            => $num_pulp_workers,
+    max_tasks_per_child    => $max_tasks_per_pulp_worker,
     enable_parent_node     => false,
     repo_auth              => true,
     puppet_wsgi_processes  => 1,
