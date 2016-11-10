@@ -132,6 +132,9 @@ class katello (
     enable_parent_node     => false,
     repo_auth              => true,
     puppet_wsgi_processes  => 1,
+    https_cert             => $::certs::apache::apache_cert,
+    https_key              => $::certs::apache::apache_key,
+    ca_cert                => $::certs::ca_cert,
   } ~>
   class { '::qpid::client':
     ssl                    => true,
