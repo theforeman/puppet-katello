@@ -71,6 +71,8 @@ class katello (
   validate_bool($enable_ostree)
   validate_absolute_path($repo_export_dir)
 
+  $candlepin_ca_cert = $::certs::ca_cert
+
   Class['certs'] ~>
   class { '::certs::apache': } ~>
   class { '::katello::install': } ~>

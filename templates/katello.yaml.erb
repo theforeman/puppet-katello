@@ -13,6 +13,7 @@
     :url: <%= scope['katello::candlepin_url'] %>
     :oauth_key: <%= scope['katello::oauth_key'] %>
     :oauth_secret: <%= scope['katello::oauth_secret'] %>
+    :ca_cert_file: <%= scope['katello::candlepin_ca_cert'] %>
 
   :pulp:
     :url: <%= scope['katello::pulp_url'] %>
