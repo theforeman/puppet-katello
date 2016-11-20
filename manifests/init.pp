@@ -72,6 +72,7 @@ class katello (
   validate_absolute_path($repo_export_dir)
 
   $candlepin_ca_cert = $::certs::ca_cert
+  $pulp_ca_cert = $::certs::ca_cert
 
   Class['certs'] ~>
   class { '::certs::apache': } ~>
