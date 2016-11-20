@@ -37,6 +37,7 @@ describe 'katello::config' do
           "    :url: https://#{facts[:fqdn]}/pulp/api/v2/",
           '    :oauth_key: katello',
           '    :oauth_secret: secret',
+          '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
           '  :qpid:',
           "    :url: amqp:ssl:localhost:5671",
           '    :subscriptions_queue_address: katello_event_queue'
@@ -76,6 +77,7 @@ describe 'katello::config' do
           "    :url: https://#{facts[:fqdn]}/pulp/api/v2/",
           '    :oauth_key: katello',
           '    :oauth_secret: secret',
+          '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
           '  :qpid:',
           "    :url: amqp:ssl:localhost:5671",
           '    :subscriptions_queue_address: katello_event_queue',
