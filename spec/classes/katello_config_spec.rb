@@ -23,8 +23,7 @@ describe 'katello::config' do
 
       it 'should generate correct katello.yaml' do
         should contain_file('/etc/foreman/plugins/katello.yaml')
-        content = catalogue.resource('file', '/etc/foreman/plugins/katello.yaml').send(:parameters)[:content]
-        content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
+        verify_exact_contents(catalogue,  '/etc/foreman/plugins/katello.yaml', [
           ':katello:',
           '  :rest_client_timeout: 3600',
           '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
@@ -41,7 +40,7 @@ describe 'katello::config' do
           '  :qpid:',
           "    :url: amqp:ssl:localhost:5671",
           '    :subscriptions_queue_address: katello_event_queue'
-        ]
+        ])
       end
     end
 
@@ -63,8 +62,7 @@ describe 'katello::config' do
 
       it 'should generate correct katello.yaml' do
         should contain_file('/etc/foreman/plugins/katello.yaml')
-        content = catalogue.resource('file', '/etc/foreman/plugins/katello.yaml').send(:parameters)[:content]
-        content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
+        verify_exact_contents(catalogue,  '/etc/foreman/plugins/katello.yaml', [
           ':katello:',
           '  :rest_client_timeout: 3600',
           '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
@@ -86,7 +84,7 @@ describe 'katello::config' do
           '    :port: 8888',
           '    :user: admin',
           '    :password: secret_password'
-        ]
+        ])
       end
     end
   end
