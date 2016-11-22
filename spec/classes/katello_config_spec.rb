@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'katello::config' do
-  on_supported_os.each do |os, facts|
+  on_os_under_test.each do |os, facts|
     let(:facts) { facts }
 
     context 'default config settings' do

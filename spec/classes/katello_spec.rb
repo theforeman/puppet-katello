@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'katello' do
-  on_supported_os.each do |os, facts|
+  on_os_under_test.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts }
 
