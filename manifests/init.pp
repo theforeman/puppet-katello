@@ -144,12 +144,11 @@ class katello (
   class { '::katello::qpid':
     client_cert => $certs::qpid::client_cert,
     client_key  => $certs::qpid::client_key,
-  } ~>
-  Exec['foreman-rake-db:seed']
+  }
 
   class { '::certs::foreman': }
 
-  Service['httpd'] -> Exec['foreman-rake-db:seed']
+  Exec['cpinit'] -> Exec['foreman-rake-db:seed']
 
   User<|title == apache|>{groups +> $user_groups}
 }
