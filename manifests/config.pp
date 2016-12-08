@@ -3,6 +3,12 @@ class katello::config {
 
   $apache_version = $::apache::apache_version
 
+  exec { 'foreman-rake-db:migrate':
+    command     => 'foreman-rake db:migrate',
+    path        => '/bin:/sbin:/usr/bin:/usr/sbin:',
+    refreshonly => true,
+  }
+
   class { '::katello::config::pulp_client': }
 
   file { '/usr/share/foreman/bundler.d/katello.rb':

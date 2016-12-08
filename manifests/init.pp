@@ -74,6 +74,12 @@ class katello (
   $candlepin_ca_cert = $::certs::ca_cert
   $pulp_ca_cert = $::certs::ca_cert
 
+  exec { 'foreman-rake-db:seed':
+    command     => 'foreman-rake db:seed',
+    path        => '/bin:/sbin:/usr/bin:/usr/sbin:',
+    refreshonly => true,
+  }
+
   Class['certs'] ~>
   class { '::certs::apache': } ~>
   class { '::katello::install': } ~>
