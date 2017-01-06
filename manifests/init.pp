@@ -7,6 +7,8 @@
 # $enable_ostree::      Boolean to enable ostree plugin. This requires existence of an ostree install.
 #                       type:boolean
 #
+# $docker_registry_port::  Docker registry port value other than 5000 (default) or 5001 may require SELinux changes
+#
 # $proxy_url::          URL of the proxy server
 #
 # $proxy_port::         Port the proxy is running on
@@ -65,8 +67,8 @@ class katello (
 
   $package_names = $katello::params::package_names,
   $enable_ostree = $katello::params::enable_ostree,
-
   $repo_export_dir = $katello::params::repo_export_dir,
+  $docker_registry_port = $katello::params::docker_registry_port,
   ) inherits katello::params {
   validate_bool($enable_ostree)
   validate_absolute_path($repo_export_dir)

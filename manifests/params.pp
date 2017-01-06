@@ -60,4 +60,5 @@ class katello::params {
   $qpid_url = 'amqp:ssl:localhost:5671'
   $candlepin_event_queue = 'katello_event_queue'
   $enable_ostree = false
+  $docker_registry_port = 5000
 }

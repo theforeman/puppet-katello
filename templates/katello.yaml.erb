@@ -9,6 +9,8 @@
 
   :post_sync_url: https://<%= scope['katello::fqdn'] %><%= scope['katello::deployment_url'] %>/api/v2/repositories/sync_complete?token=<%= scope['katello::post_sync_token'] %>
 
+  :pulp_docker_registry_port: <%= scope['katello::docker_registry_port'] %>
+
   :candlepin:
     :url: <%= scope['katello::candlepin_url'] %>
     :oauth_key: <%= scope['katello::oauth_key'] %>
