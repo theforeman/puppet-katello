@@ -31,6 +31,9 @@ class katello::params {
 
   $num_pulp_workers = min($::processorcount, 8)
 
+  # Pulp max speed setting
+  $pulp_max_speed = undef
+
   # cdn ssl settings
   $cdn_ssl_version = undef
 

@@ -19,6 +19,9 @@
 # $proxy_password::     Proxy password for authentication
 #                       type:Optional[String]
 #
+# $pulp_max_speed::     The maximum download speed per second for a Pulp task, such as a sync. (e.g. "4 Kb" (Uses SI KB), 4MB, or 1GB" )
+#                       type:String
+#
 # $repo_export_dir::    Directory to create for repository exports
 #                       type:Stdlib::Absolutepath
 #
@@ -75,6 +78,7 @@ class katello (
   $proxy_port       = $katello::params::proxy_port,
   $proxy_username   = $katello::params::proxy_username,
   $proxy_password   = $katello::params::proxy_password,
+  $pulp_max_speed   = $katello::params::pulp_max_speed,
   $cdn_ssl_version  = $katello::params::cdn_ssl_version,
 
   $package_names    = $katello::params::package_names,
@@ -136,6 +140,7 @@ class katello (
     proxy_port             => $proxy_port,
     proxy_username         => $proxy_username,
     proxy_password         => $proxy_password,
+    yum_max_speed          => $pulp_max_speed,
     manage_broker          => false,
     manage_httpd           => false,
     manage_plugins_httpd   => true,
