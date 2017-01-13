@@ -83,7 +83,7 @@ class katello (
   $qpid_client_cert = undef,
   $qpid_client_key  = undef,
 
-
+  $qpid_url         = $katello::params::qpid_url,
   $repo_export_dir  = $katello::params::repo_export_dir,
   ) inherits katello::params {
   validate_bool($enable_ostree)
