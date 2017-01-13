@@ -80,6 +80,10 @@ class katello (
   $package_names    = $katello::params::package_names,
   $enable_ostree    = $katello::params::enable_ostree,
 
+  $qpid_client_cert = undef,
+  $qpid_client_key  = undef,
+
+
   $repo_export_dir  = $katello::params::repo_export_dir,
   ) inherits katello::params {
   validate_bool($enable_ostree)
@@ -88,7 +92,7 @@ class katello (
   class { '::katello::install': } ~>
   class { '::katello::config': } ~>
   class { '::katello::qpid':
-    client_cert => $certs::qpid::client_cert,
-    client_key  => $certs::qpid::client_key,
+    client_cert => $qpid_client_cert,
+    client_key  => $qpid_client_key,
   }
 }
