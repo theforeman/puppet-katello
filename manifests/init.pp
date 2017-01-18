@@ -148,6 +148,7 @@ class katello (
     enable_parent_node     => false,
     repo_auth              => true,
     puppet_wsgi_processes  => 1,
+    crane_data_dir         => '/var/lib/pulp/published/docker/v2/app',
   } ~>
   class { '::qpid::client':
     ssl                    => true,
