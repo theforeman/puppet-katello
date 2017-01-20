@@ -17,7 +17,7 @@ class katello::qpid (
     path      => '/usr/bin',
     require   => Service['qpidd'],
     logoutput => true,
-  } ~>
+  } ->
   exec { 'bind katello entitlements queue to qpid exchange messages that deal with entitlements':
     command   => "qpid-config --ssl-certificate ${client_cert} --ssl-key ${client_key} -b 'amqps://localhost:5671' bind event ${candlepin_event_queue} '*.*'",
     onlyif    => "qpid-config --ssl-certificate ${client_cert} --ssl-key ${client_key} -b 'amqps://localhost:5671' queues ${candlepin_event_queue}",
