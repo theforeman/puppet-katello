@@ -8,16 +8,16 @@
 #                       type:Boolean
 #
 # $proxy_url::          URL of the proxy server
-#                       type:Stdlib::HTTPUrl
+#                       type:Optional[Stdlib::HTTPUrl]
 #
 # $proxy_port::         Port the proxy is running on
-#                       type:Integer[0, 65535]
+#                       type:Optional[Integer[0, 65535]]
 #
 # $proxy_username::     Proxy username for authentication
-#                       type:String
+#                       type:Optional[String]
 #
 # $proxy_password::     Proxy password for authentication
-#                       type:String
+#                       type:Optional[String]
 #
 # $repo_export_dir::    Directory to create for repository exports
 #                       type:Stdlib::Absolutepath
