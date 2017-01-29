@@ -20,7 +20,7 @@
 #                       type:Optional[String]
 #
 # $pulp_max_speed::     The maximum download speed per second for a Pulp task, such as a sync. (e.g. "4 Kb" (Uses SI KB), 4MB, or 1GB" )
-#                       type:String
+#                       type:Optional[String]
 #
 # $repo_export_dir::    Directory to create for repository exports
 #                       type:Stdlib::Absolutepath
