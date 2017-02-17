@@ -58,6 +58,9 @@
 # $package_names::      Packages that this module ensures are present instead of the default
 #                       type:Array[String]
 #
+# $amqp_port::          Packages that this module ensures are present instead of the default
+#                       type: string , default: '5671'
+#
 class katello (
   $user             = $katello::params::user,
   $group            = $katello::params::group,
@@ -85,6 +88,7 @@ class katello (
 
   $qpid_url         = $katello::params::qpid_url,
   $repo_export_dir  = $katello::params::repo_export_dir,
+  $amqp_port        = $katello::params::amqp_port,
   ) inherits katello::params {
   validate_bool($enable_ostree)
   validate_absolute_path($repo_export_dir)
