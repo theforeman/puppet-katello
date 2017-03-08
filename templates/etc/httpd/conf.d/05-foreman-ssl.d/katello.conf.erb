@@ -3,7 +3,9 @@
 # CHANGES WILL LIKELY BE OVERWRITTEN.
 #
 
-SSLUsername SSL_CLIENT_S_DN_CN
+<Location /pulp/api>
+  SSLUsername SSL_CLIENT_S_DN_CN
+</Location>
 
 Alias /pub /var/www/html/pub
 <Location /pub>
