@@ -79,13 +79,13 @@
 # $package_names::      Packages that this module ensures are present instead of the default
 #                       type:Array[String]
 #
-# $candlepin_hostname:: Hostname of the candlepin instance
+# $candlepin_url::      Hostname of the candlepin instance
 #                       type:String
 #
-# $pulp_hostname::      Hostname of the pulp instance
+# $pulp_url::           Hostname of the pulp instance
 #                       type:String
 #
-# $qpid_hostname::      Hostname of the qpid server instance
+# $qpid_url::           Hostname of the qpid server instance
 #                       type:String
 #
 class katello (
@@ -119,9 +119,9 @@ class katello (
   $enable_pulp               = $katello::params::enable_pulp,
   $enable_katello            = $katello::params::enable_katello,
 
-  $candlepin_hostname        = $katello::params::candlepin_hostname,
-  $pulp_hostname             = $katello::params::pulp_hostname,
-  $qpid_hostname             = $katello::params::qpid_hostname,
+  $candlepin_url             = $katello::params::candlepin_url,
+  $pulp_url                  = $katello::params::pulp_url,
+  $qpid_url                  = $katello::params::qpid_url,
 
   ) inherits katello::params {
   validate_bool($enable_ostree)
