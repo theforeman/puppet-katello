@@ -29,23 +29,18 @@
 #
 # $enable_candlepin::   Should candlepin be installed
 #                       type:Boolean
-#                       Default value: 'true'.
 #
 # $enable_qpid::        Should qpid server be installed
 #                       type:Boolean
-#                       Default value: 'true'.
 #
 # $enable_qpid_client:: Should qpid client be installed
 #                       type:Boolean
-#                       Default value: 'true'.
 #
 # $enable_pulp::        Should pulp master node be installed
 #                       type:Boolean
-#                       Default value: 'true'.
 #
 # $enable_katello::     Should the katello webui be installed
 #                       type:Boolean
-#                       Default value: 'true'.
 #
 # $user::               The Katello system user name
 #                       type:String
@@ -86,15 +81,12 @@
 #
 # $candlepin_hostname:: Hostname of the candlepin instance
 #                       type:String
-#                       Default value: '${::fqdn}'.
 #
 # $pulp_hostname::      Hostname of the pulp instance
 #                       type:String
-#                       Default value: '${::fqdn}'.
 #
 # $qpid_hostname::      Hostname of the qpid server instance
 #                       type:String
-#                       Default value: 'localhost'.
 #
 class katello (
   $user                      = $katello::params::user,
