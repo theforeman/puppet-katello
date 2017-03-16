@@ -38,6 +38,13 @@ class katello::params {
   # cdn ssl settings
   $cdn_ssl_version = undef
 
+  # advanced enable_*
+  $enable_candlepin   = true
+  $enable_qpid        = true
+  $enable_qpid_client = true
+  $enable_pulp        = true
+  $enable_katello     = true
+
   # system settings
   $user = 'foreman'
   $group = 'foreman'
