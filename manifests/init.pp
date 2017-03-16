@@ -159,6 +159,11 @@ class katello (
       interface              => 'lo',
     }
 
+    class { '::katello::qpid':
+      client_cert => $certs::qpid::client_cert,
+      client_key  => $certs::qpid::client_key,
+    }
+
     Class['certs::qpid'] ~> Service['qpidd']
   }
 
@@ -222,17 +227,11 @@ class katello (
   }
 
   if $enable_katello {
-    include '::certs::qpid'
 
     Class['certs'] ~>
     class { '::certs::apache': } ~>
     class { '::katello::install': } ~>
-    class { '::katello::config': } ~>
-    Class['::certs::qpid'] ~>
-    class { '::katello::qpid':
-      client_cert => $certs::qpid::client_cert,
-      client_key  => $certs::qpid::client_key,
-    }
+    class { '::katello::config': }
 
     if defined(Exec['cpinit']) {
       Exec['cpinit'] -> Exec['foreman-rake-db:seed']
