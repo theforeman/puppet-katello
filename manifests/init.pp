@@ -84,6 +84,18 @@
 # $package_names::      Packages that this module ensures are present instead of the default
 #                       type:Array[String]
 #
+# $candlepin_hostname:: Hostname of the candlepin instance
+#                       type:String
+#                       Default value: '${::fqdn}'.
+#
+# $pulp_hostname::      Hostname of the pulp instance
+#                       type:String
+#                       Default value: '${::fqdn}'.
+#
+# $qpid_hostname::      Hostname of the qpid server instance
+#                       type:String
+#                       Default value: 'localhost'.
+#
 class katello (
   $user                      = $katello::params::user,
   $group                     = $katello::params::group,
@@ -114,6 +126,10 @@ class katello (
   $enable_qpid_client        = $katello::params::enable_qpid_client,
   $enable_pulp               = $katello::params::enable_pulp,
   $enable_katello            = $katello::params::enable_katello,
+
+  $candlepin_hostname        = $katello::params::candlepin_hostname,
+  $pulp_hostname             = $katello::params::pulp_hostname,
+  $qpid_hostname             = $katello::params::qpid_hostname,
 
   ) inherits katello::params {
   validate_bool($enable_ostree)
