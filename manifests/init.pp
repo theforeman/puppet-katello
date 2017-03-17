@@ -79,49 +79,61 @@
 # $package_names::      Packages that this module ensures are present instead of the default
 #                       type:Array[String]
 #
-# $candlepin_url::      Hostname of the candlepin instance
+# $candlepin_host::     Hostname of the candlepin instance
 #                       type:String
 #
-# $pulp_url::           Hostname of the pulp instance
+# $candlepin_url::      URL of the candlepin instance
 #                       type:String
 #
-# $qpid_url::           Hostname of the qpid server instance
+# $pulp_host::          Hostname of the pulp instance
+#                       type:String
+#
+# $pulp_url::           URL of the pulp instance
+#                       type:String
+#
+# $qpid_host::          Hostname of the qpid server instance
+#                       type:String
+#
+# $qpid_url::           URL of the qpid server instance
 #                       type:String
 #
 class katello (
-  $user                      = $katello::params::user,
-  $group                     = $katello::params::group,
-  $user_groups               = $katello::params::user_groups,
+  $user                      = $::katello::params::user,
+  $group                     = $::katello::params::group,
+  $user_groups               = $::katello::params::user_groups,
 
-  $oauth_key                 = $katello::params::oauth_key,
-  $oauth_secret              = $katello::params::oauth_secret,
+  $oauth_key                 = $::katello::params::oauth_key,
+  $oauth_secret              = $::katello::params::oauth_secret,
 
-  $post_sync_token           = $katello::params::post_sync_token,
-  $num_pulp_workers          = $katello::params::num_pulp_workers,
-  $max_tasks_per_pulp_worker = $katello::params::max_tasks_per_pulp_worker,
-  $log_dir                   = $katello::params::log_dir,
-  $config_dir                = $katello::params::config_dir,
-  $proxy_url                 = $katello::params::proxy_url,
-  $proxy_port                = $katello::params::proxy_port,
-  $proxy_username            = $katello::params::proxy_username,
-  $proxy_password            = $katello::params::proxy_password,
-  $pulp_max_speed            = $katello::params::pulp_max_speed,
-  $cdn_ssl_version           = $katello::params::cdn_ssl_version,
+  $post_sync_token           = $::katello::params::post_sync_token,
+  $num_pulp_workers          = $::katello::params::num_pulp_workers,
+  $max_tasks_per_pulp_worker = $::katello::params::max_tasks_per_pulp_worker,
+  $log_dir                   = $::katello::params::log_dir,
+  $config_dir                = $::katello::params::config_dir,
+  $proxy_url                 = $::katello::params::proxy_url,
+  $proxy_port                = $::katello::params::proxy_port,
+  $proxy_username            = $::katello::params::proxy_username,
+  $proxy_password            = $::katello::params::proxy_password,
+  $pulp_max_speed            = $::katello::params::pulp_max_speed,
+  $cdn_ssl_version           = $::katello::params::cdn_ssl_version,
 
-  $package_names             = $katello::params::package_names,
-  $enable_ostree             = $katello::params::enable_ostree,
+  $package_names             = $::katello::params::package_names,
+  $enable_ostree             = $::katello::params::enable_ostree,
 
-  $repo_export_dir           = $katello::params::repo_export_dir,
+  $repo_export_dir           = $::katello::params::repo_export_dir,
 
-  $enable_candlepin          = $katello::params::enable_candlepin,
-  $enable_qpid               = $katello::params::enable_qpid,
-  $enable_qpid_client        = $katello::params::enable_qpid_client,
-  $enable_pulp               = $katello::params::enable_pulp,
-  $enable_katello            = $katello::params::enable_katello,
+  $enable_candlepin          = $::katello::params::enable_candlepin,
+  $enable_qpid               = $::katello::params::enable_qpid,
+  $enable_qpid_client        = $::katello::params::enable_qpid_client,
+  $enable_pulp               = $::katello::params::enable_pulp,
+  $enable_katello            = $::katello::params::enable_katello,
 
-  $candlepin_url             = $katello::params::candlepin_url,
-  $pulp_url                  = $katello::params::pulp_url,
-  $qpid_url                  = $katello::params::qpid_url,
+  $candlepin_host            = $::katello::params::candlepin_host,
+  $pulp_host                 = $::katello::params::pulp_host,
+  $qpid_host                 = $::katello::params::qpid_host,
+  $candlepin_url             = "https://${candlepin_host}:8443/candlepin",
+  $pulp_url                  = "https://${pulp_host}/pulp/api/v2/",
+  $qpid_url                  = "amqp:ssl:${qpid_host}:5671",
 
   ) inherits katello::params {
   validate_bool($enable_ostree)
