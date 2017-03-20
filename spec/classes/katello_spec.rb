@@ -53,7 +53,7 @@ describe 'katello' do
 
         it 'should set up pulp_url' do
           should contain_file('/etc/foreman/plugins/katello.yaml').
-            with_content(/^\s*:url:\s*https:\/\/other.pulp.host.com\/pulp\/api\/v2\/$/)
+            with_content(%r{^\s*:url:\s*https://other.pulp.host.com/pulp/api/v2/$})
         end
       end
 
@@ -66,7 +66,7 @@ describe 'katello' do
 
         it 'should set up candlepin_url' do
           should contain_file('/etc/foreman/plugins/katello.yaml').
-            with_content(/^\s*:url:\s*https:\/\/other.candlepin.host.com:8443\/candlepin$/)
+            with_content(%r{^\s*:url:\s*https://other.candlepin.host.com:8443/candlepin$})
         end
       end
     end
