@@ -8,16 +8,19 @@
 #                       type:Boolean
 #
 # $proxy_url::          URL of the proxy server
-#                       type:Stdlib::HTTPUrl
+#                       type:Optional[Stdlib::HTTPUrl]
 #
 # $proxy_port::         Port the proxy is running on
-#                       type:Integer[0, 65535]
+#                       type:Optional[Integer[0, 65535]]
 #
 # $proxy_username::     Proxy username for authentication
-#                       type:String
+#                       type:Optional[String]
 #
 # $proxy_password::     Proxy password for authentication
-#                       type:String
+#                       type:Optional[String]
+#
+# $pulp_max_speed::     The maximum download speed per second for a Pulp task, such as a sync. (e.g. "4 Kb" (Uses SI KB), 4MB, or 1GB" )
+#                       type:Optional[String]
 #
 # $repo_export_dir::    Directory to create for repository exports
 #                       type:Stdlib::Absolutepath
@@ -55,6 +58,9 @@
 # $num_pulp_workers::   Number of pulp workers to use
 #                       type:Integer[1]
 #
+# $max_tasks_per_pulp_worker:: Number of tasks after which the worker gets restarted
+#                              type:integer
+#
 # $package_names::      Packages that this module ensures are present instead of the default
 #                       type:Array[String]
 #
@@ -71,13 +77,14 @@ class katello (
 
   $post_sync_token  = $katello::params::post_sync_token,
   $num_pulp_workers = $katello::params::num_pulp_workers,
+  $max_tasks_per_pulp_worker = $katello::params::max_tasks_per_pulp_worker,
   $log_dir          = $katello::params::log_dir,
   $config_dir       = $katello::params::config_dir,
-
   $proxy_url        = $katello::params::proxy_url,
   $proxy_port       = $katello::params::proxy_port,
   $proxy_username   = $katello::params::proxy_username,
   $proxy_password   = $katello::params::proxy_password,
+  $pulp_max_speed   = $katello::params::pulp_max_speed,
   $cdn_ssl_version  = $katello::params::cdn_ssl_version,
 
   $package_names    = $katello::params::package_names,

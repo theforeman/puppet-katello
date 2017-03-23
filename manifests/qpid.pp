@@ -18,14 +18,10 @@ class katello::qpid (
     path      => '/usr/bin',
     require   => Service['qpidd'],
     logoutput => true,
-  } ->
-  exec { 'bind katello entitlements queue to qpid exchange messages that deal with entitlements':
-    command   => "qpid-config --ssl-certificate ${client_cert} --ssl-key ${client_key} -b 'amqps://localhost:${amqp_port}' bind event ${candlepin_event_queue} '*.*'",
-    onlyif    => "qpid-config --ssl-certificate ${client_cert} --ssl-key ${client_key} -b 'amqps://localhost:${amqp_port}' queues ${candlepin_event_queue}",
-    unless    => "qpid-config --ssl-certificate ${client_cert} --ssl-key ${client_key} -b 'amqps://localhost:${amqp_port}' queues ${candlepin_event_queue} -r | /bin/grep '\[\*\.\*\]'",
-    path      => '/usr/bin',
-    require   => Service['qpidd'],
-    logoutput => true,
+  } ~>
+  qpid::bind_event { ['entitlement.created', 'entitlement.deleted', 'pool.created', 'pool.deleted', 'compliance.created']:
+    ssl_cert => $client_cert,
+    queue    => $candlepin_event_queue,
+    port     => $amqp_port,
   }
-
 }
