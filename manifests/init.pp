@@ -106,4 +106,5 @@ class katello (
     client_cert => $qpid_client_cert,
     client_key  => $qpid_client_key,
   }
+
 }
