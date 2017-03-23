@@ -64,6 +64,9 @@
 # $package_names::      Packages that this module ensures are present instead of the default
 #                       type:Array[String]
 #
+# $amqp_port::          Packages that this module ensures are present instead of the default
+#                       type: String['5671']
+#
 class katello (
   $user             = $katello::params::user,
   $group            = $katello::params::group,
@@ -87,95 +90,21 @@ class katello (
   $package_names    = $katello::params::package_names,
   $enable_ostree    = $katello::params::enable_ostree,
 
+  $qpid_client_cert = undef,
+  $qpid_client_key  = undef,
+
+  $qpid_url         = $katello::params::qpid_url,
   $repo_export_dir  = $katello::params::repo_export_dir,
+  $amqp_port        = $katello::params::amqp_port,
   ) inherits katello::params {
   validate_bool($enable_ostree)
   validate_absolute_path($repo_export_dir)
 
-  $candlepin_ca_cert = $::certs::ca_cert
-  $pulp_ca_cert = $::certs::katello_server_ca_cert
-
-  Class['certs'] ~>
-  class { '::certs::apache': } ~>
   class { '::katello::install': } ~>
   class { '::katello::config': } ~>
-  class { '::certs::qpid': } ~>
-  class { '::certs::candlepin': } ~>
-  class { '::candlepin':
-    user_groups                  => $katello::user_groups,
-    oauth_key                    => $katello::oauth_key,
-    oauth_secret                 => $katello::oauth_secret,
-    deployment_url               => $katello::deployment_url,
-    ca_key                       => $certs::ca_key,
-    ca_cert                      => $certs::ca_cert_stripped,
-    keystore_password            => $::certs::candlepin::keystore_password,
-    truststore_password          => $::certs::candlepin::keystore_password,
-    enable_basic_auth            => false,
-    consumer_system_name_pattern => '.+',
-    adapter_module               => 'org.candlepin.katello.KatelloModule',
-    amq_enable                   => true,
-    amqp_keystore_password       => $::certs::candlepin::keystore_password,
-    amqp_truststore_password     => $::certs::candlepin::keystore_password,
-    amqp_keystore                => $::certs::candlepin::amqp_keystore,
-    amqp_truststore              => $::certs::candlepin::amqp_truststore,
-  } ~>
-  class { '::qpid':
-    ssl                    => true,
-    ssl_cert_db            => $::certs::nss_db_dir,
-    ssl_cert_password_file => $::certs::qpid::nss_db_password_file,
-    ssl_cert_name          => 'broker',
-    interface              => 'lo',
-  } ~>
-  class { '::certs::qpid_client': } ~>
-  class { '::pulp':
-    oauth_enabled          => true,
-    oauth_key              => $katello::oauth_key,
-    oauth_secret           => $katello::oauth_secret,
-    messaging_url          => 'ssl://localhost:5671',
-    messaging_ca_cert      => $::certs::ca_cert,
-    messaging_client_cert  => $certs::qpid_client::messaging_client_cert,
-    messaging_transport    => 'qpid',
-    messaging_auth_enabled => false,
-    broker_url             => 'qpid://localhost:5671',
-    broker_use_ssl         => true,
-    consumers_crl          => $candlepin::crl_file,
-    proxy_url              => $proxy_url,
-    proxy_port             => $proxy_port,
-    proxy_username         => $proxy_username,
-    proxy_password         => $proxy_password,
-    yum_max_speed          => $pulp_max_speed,
-    manage_broker          => false,
-    manage_httpd           => false,
-    manage_plugins_httpd   => true,
-    manage_squid           => true,
-    enable_rpm             => true,
-    enable_puppet          => true,
-    enable_docker          => true,
-    enable_ostree          => $enable_ostree,
-    num_workers            => $num_pulp_workers,
-    max_tasks_per_child    => $max_tasks_per_pulp_worker,
-    enable_parent_node     => false,
-    repo_auth              => true,
-    puppet_wsgi_processes  => 1,
-    crane_data_dir         => '/var/lib/pulp/published/docker/v2/app',
-    enable_katello         => true,
-  } ~>
-  class { '::qpid::client':
-    ssl                    => true,
-    ssl_cert_name          => 'broker',
-    ssl_cert_db            => $certs::nss_db_dir,
-    ssl_cert_password_file => $certs::qpid::nss_db_password_file,
-  } ~>
   class { '::katello::qpid':
-    client_cert => $certs::qpid::client_cert,
-    client_key  => $certs::qpid::client_key,
+    client_cert => $qpid_client_cert,
+    client_key  => $qpid_client_key,
   }
 
-  class { '::certs::foreman': }
-
-  Exec['cpinit'] -> Exec['foreman-rake-db:seed']
-  Class['certs::candlepin'] ~> Service['tomcat']
-  Class['certs::qpid'] ~> Service['qpidd']
-
-  User<|title == apache|>{groups +> $user_groups}
 }
