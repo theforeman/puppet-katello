@@ -4,6 +4,7 @@ class katello::qpid (
   $client_key,
   $katello_user          = $::katello::user,
   $candlepin_event_queue = $::katello::candlepin_event_queue,
+  $qpid_host             = $::katello::qpid_host,
 ){
   if $katello_user == undef {
     fail('katello_user not defined')
@@ -19,13 +20,14 @@ class katello::qpid (
     logoutput => true,
   } ->
   exec { 'create katello entitlements queue':
-    command   => "qpid-config --ssl-certificate ${client_cert} --ssl-key ${client_key} -b 'amqps://localhost:5671' add queue ${candlepin_event_queue} --durable",
-    unless    => "qpid-config --ssl-certificate ${client_cert} --ssl-key ${client_key} -b 'amqps://localhost:5671' queues ${candlepin_event_queue}",
+    command   => "qpid-config --ssl-certificate ${client_cert} --ssl-key ${client_key} -b 'amqps://${qpid_host}:5671' add queue ${candlepin_event_queue} --durable",
+    unless    => "qpid-config --ssl-certificate ${client_cert} --ssl-key ${client_key} -b 'amqps://${qpid_host}:5671' queues ${candlepin_event_queue}",
     path      => '/usr/bin',
     require   => Service['qpidd'],
     logoutput => true,
   } ~>
   qpid::bind_event { ['entitlement.created', 'entitlement.deleted', 'pool.created', 'pool.deleted', 'compliance.created']:
+    hostname => $qpid_host,
     ssl_cert => $client_cert,
     queue    => $candlepin_event_queue,
   }

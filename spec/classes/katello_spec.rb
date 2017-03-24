@@ -30,6 +30,45 @@ describe 'katello' do
             with_content(/^\s*:cdn_ssl_version:\s*TLSv1$/)
         end
       end
+
+      context 'on setting qpid_host' do
+        let :params do
+          {
+            :qpid_host => 'other.qpid.host.com'
+          }
+        end
+
+        it 'should set up qpid_url' do
+          should contain_file('/etc/foreman/plugins/katello.yaml').
+            with_content(/^\s*:url:\s*amqp:ssl:other.qpid.host.com:5671$/)
+        end
+      end
+
+      context 'on setting pulp_host' do
+        let :params do
+          {
+            :pulp_host => 'other.pulp.host.com'
+          }
+        end
+
+        it 'should set up pulp_url' do
+          should contain_file('/etc/foreman/plugins/katello.yaml').
+            with_content(%r{^\s*:url:\s*https://other.pulp.host.com/pulp/api/v2/$})
+        end
+      end
+
+      context 'on setting candlepin_host' do
+        let :params do
+          {
+            :candlepin_host => 'other.candlepin.host.com'
+          }
+        end
+
+        it 'should set up candlepin_url' do
+          should contain_file('/etc/foreman/plugins/katello.yaml').
+            with_content(%r{^\s*:url:\s*https://other.candlepin.host.com:8443/candlepin$})
+        end
+      end
     end
   end
 

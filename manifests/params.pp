@@ -38,6 +38,13 @@ class katello::params {
   # cdn ssl settings
   $cdn_ssl_version = undef
 
+  # advanced enable_*
+  $enable_candlepin   = true
+  $enable_qpid        = true
+  $enable_qpid_client = true
+  $enable_pulp        = true
+  $enable_katello     = true
+
   # system settings
   $user = 'foreman'
   $group = 'foreman'
@@ -54,14 +61,17 @@ class katello::params {
   $post_sync_token = cache_data('foreman_cache_data', 'post_sync_token', random_password(32))
 
   # Subsystems settings
-  $candlepin_url = "https://${::fqdn}:8443/candlepin"
-  $pulp_url      = "https://${::fqdn}/pulp/api/v2/"
-  $mongodb_path  = '/var/lib/mongodb'
+  $candlepin_host     = $::fqdn
+  #$candlepin_url     set in init.pp 
+  $pulp_host          = $::fqdn
+  #$pulp_url          set in init.pp
+  $mongodb_path       = '/var/lib/mongodb'
 
   # database reinitialization flag
   $reset_data = 'NONE'
 
-  $qpid_url = 'amqp:ssl:localhost:5671'
+  $qpid_host = 'localhost'
+  #$qpid_url set in init.pp
   $candlepin_event_queue = 'katello_event_queue'
   $enable_ostree = false
 }
