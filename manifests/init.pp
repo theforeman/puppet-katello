@@ -88,7 +88,7 @@ class katello (
   $enable_ostree    = $katello::params::enable_ostree,
 
   $repo_export_dir  = $katello::params::repo_export_dir,
-  ) inherits katello::params {
+) inherits katello::params {
   validate_bool($enable_ostree)
   validate_absolute_path($repo_export_dir)
 
