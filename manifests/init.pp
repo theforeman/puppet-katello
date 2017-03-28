@@ -118,6 +118,8 @@ class katello (
     amqp_truststore_password     => $::certs::candlepin::keystore_password,
     amqp_keystore                => $::certs::candlepin::amqp_keystore,
     amqp_truststore              => $::certs::candlepin::amqp_truststore,
+    qpid_ssl_cert                => $::certs::qpid::client_cert,
+    qpid_ssl_key                 => $::certs::qpid::client_key,
   } ~>
   class { '::qpid':
     ssl                    => true,
