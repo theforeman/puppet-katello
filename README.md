@@ -1,7 +1,7 @@
 [![Puppet Forge](http://img.shields.io/puppetforge/v/katello/katello.svg)](https://forge.puppetlabs.com/katello/katello)
 [![Build Status](https://travis-ci.org/Katello/puppet-katello.svg?branch=master)](https://travis-ci.org/Katello/puppet-katello)
 
-####Table of Contents
+#### Table of Contents
 
 1. [Overview](#overview)
 2. [Setup - The basics of getting started with katello](#setup)
@@ -13,32 +13,26 @@
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
-##Overview
+## Overview
 
-This module is designed to setup a Candlepin server.
+This module is designed to setup a full katello server, including candlepin, pulp and qpid.
 
-##Setup
+## Setup
 
-###What katello affects
+### What katello affects
 
-* Installs and configures Katello 
+* Installs and configures Katello
+* Installs additional required services
 
-###Beginning with katello
+## Usage
 
-The very basic steps needed for a user to get the module up and running. 
+## Reference
 
-If your most recent release breaks compatibility or requires particular steps for upgrading, you may wish to include an additional section here: Upgrading (For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+## Limitations
 
-##Usage
-
-##Reference
-
-##Limitations
-
-* EL6 (RHEL6 / CentOS 6)
 * EL7 (RHEL7 / CentOS 7)
 
-##Development
+## Development
 
 See the CONTRIBUTING guide for steps on how to make a change and get it accepted upstream.
 
