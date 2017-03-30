@@ -102,12 +102,12 @@ class katello (
   } ~>
   class { '::certs::candlepin': } ~>
   class { '::candlepin':
-    user_groups                  => $katello::user_groups,
-    oauth_key                    => $katello::oauth_key,
-    oauth_secret                 => $katello::oauth_secret,
-    deployment_url               => $katello::deployment_url,
-    ca_key                       => $certs::ca_key,
-    ca_cert                      => $certs::ca_cert_stripped,
+    user_groups                  => $user_groups,
+    oauth_key                    => $oauth_key,
+    oauth_secret                 => $oauth_secret,
+    deployment_url               => $::katello::deployment_url,
+    ca_key                       => $::certs::ca_key,
+    ca_cert                      => $::certs::ca_cert_stripped,
     keystore_password            => $::certs::candlepin::keystore_password,
     truststore_password          => $::certs::candlepin::keystore_password,
     enable_basic_auth            => false,
@@ -124,16 +124,16 @@ class katello (
   class { '::certs::qpid_client': } ~>
   class { '::pulp':
     oauth_enabled          => true,
-    oauth_key              => $katello::oauth_key,
-    oauth_secret           => $katello::oauth_secret,
+    oauth_key              => $oauth_key,
+    oauth_secret           => $oauth_secret,
     messaging_url          => 'ssl://localhost:5671',
     messaging_ca_cert      => $::certs::ca_cert,
-    messaging_client_cert  => $certs::qpid_client::messaging_client_cert,
+    messaging_client_cert  => $::certs::qpid_client::messaging_client_cert,
     messaging_transport    => 'qpid',
     messaging_auth_enabled => false,
     broker_url             => 'qpid://localhost:5671',
     broker_use_ssl         => true,
-    consumers_crl          => $candlepin::crl_file,
+    consumers_crl          => $::candlepin::crl_file,
     proxy_url              => $proxy_url,
     proxy_port             => $proxy_port,
     proxy_username         => $proxy_username,
@@ -157,12 +157,12 @@ class katello (
   class { '::qpid::client':
     ssl                    => true,
     ssl_cert_name          => 'broker',
-    ssl_cert_db            => $certs::nss_db_dir,
-    ssl_cert_password_file => $certs::qpid::nss_db_password_file,
+    ssl_cert_db            => $::certs::nss_db_dir,
+    ssl_cert_password_file => $::certs::qpid::nss_db_password_file,
   } ~>
   class { '::katello::qpid':
-    client_cert => $certs::qpid::client_cert,
-    client_key  => $certs::qpid::client_key,
+    client_cert => $::certs::qpid::client_cert,
+    client_key  => $::certs::qpid::client_key,
   }
 
   class { '::certs::foreman': }
