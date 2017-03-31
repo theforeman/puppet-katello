@@ -100,6 +100,13 @@ class katello (
   class { '::katello::install': } ~>
   class { '::katello::config': } ~>
   class { '::certs::qpid': } ~>
+  class { '::qpid':
+    ssl                    => true,
+    ssl_cert_db            => $::certs::nss_db_dir,
+    ssl_cert_password_file => $::certs::qpid::nss_db_password_file,
+    ssl_cert_name          => 'broker',
+    interface              => 'lo',
+  } ~>
   class { '::certs::candlepin': } ~>
   class { '::candlepin':
     user_groups                  => $katello::user_groups,
@@ -120,13 +127,6 @@ class katello (
     amqp_truststore              => $::certs::candlepin::amqp_truststore,
     qpid_ssl_cert                => $::certs::qpid::client_cert,
     qpid_ssl_key                 => $::certs::qpid::client_key,
-  } ~>
-  class { '::qpid':
-    ssl                    => true,
-    ssl_cert_db            => $::certs::nss_db_dir,
-    ssl_cert_password_file => $::certs::qpid::nss_db_password_file,
-    ssl_cert_name          => 'broker',
-    interface              => 'lo',
   } ~>
   class { '::certs::qpid_client': } ~>
   class { '::pulp':
