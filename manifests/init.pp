@@ -64,6 +64,19 @@
 # $package_names::      Packages that this module ensures are present instead of the default
 #                       type:Array[String]
 #
+# $manage_repo::        Whether to manage the yum repository
+#                       type:Boolean
+#
+# $repo_version::       Which yum repository to install. For example
+#                       latest or 3.3.
+#                       type:String
+#
+# $repo_gpgcheck::      Whether to check the GPG signatures
+#                       type:Boolean
+#
+# $repo_gpgkey::        The GPG key to use
+#                       type:String
+#
 class katello (
   $user             = $katello::params::user,
   $group            = $katello::params::group,
@@ -88,6 +101,11 @@ class katello (
   $enable_ostree    = $katello::params::enable_ostree,
 
   $repo_export_dir  = $katello::params::repo_export_dir,
+
+  $manage_repo      = $katello::params::manage_repo,
+  $repo_version     = $katello::params::repo_version,
+  $repo_gpgcheck    = $katello::params::repo_gpgcheck,
+  $repo_gpgkey      = $katello::params::repo_gpgkey,
 ) inherits katello::params {
   validate_bool($enable_ostree)
   validate_absolute_path($repo_export_dir)
@@ -97,6 +115,7 @@ class katello (
 
   Class['certs'] ~>
   class { '::certs::apache': } ~>
+  class { '::katello::repo': } ~>
   class { '::katello::install': } ~>
   class { '::katello::config': } ~>
   class { '::certs::qpid': } ~>

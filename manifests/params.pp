@@ -65,4 +65,10 @@ class katello::params {
   $candlepin_event_queue = 'katello_event_queue'
   $candlepin_qpid_exchange = 'event'
   $enable_ostree = false
+
+  $manage_repo = false
+  $repo_version = 'latest'
+  $repo_yumcode = "el${::operatingsystemmajrelease}"
+  $repo_gpgcheck = false
+  $repo_gpgkey = undef
 }
