@@ -75,7 +75,7 @@
 #                       type:Boolean
 #
 # $repo_gpgkey::        The GPG key to use
-#                       type:String
+#                       type:Optional[String]
 #
 class katello (
   $user             = $katello::params::user,
