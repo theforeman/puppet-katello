@@ -1,6 +1,6 @@
 {
   "name": "katello-katello",
-  "version": "6.0.4",
+  "version": "6.1.0",
   "author": "Katello",
   "summary": "Handles deploying and managing a Katello + Foreman server",
   "license": "GPL-3.0+",
@@ -34,19 +34,19 @@
     },
     {
       "name": "katello-certs",
-      "version_requirement": ">= 1.0.0 < 2.0.0"
+      "version_requirement": ">= 2.0.0 < 3.0.0"
     },
     {
       "name": "katello-qpid",
-      "version_requirement": ">= 2.0.0 < 3.0.0"
+      "version_requirement": ">= 2.1.0 < 3.0.0"
     },
     {
       "name": "katello-candlepin",
-      "version_requirement": ">= 2.0.0 < 3.0.0"
+      "version_requirement": ">= 3.0.0 < 4.0.0"
     },
     {
       "name": "katello-pulp",
-      "version_requirement": ">= 4.0.0 < 5.0.0"
+      "version_requirement": ">= 4.3.0 < 5.0.0"
     },
     {
       "name": "katello-common",
