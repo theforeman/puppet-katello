@@ -1,5 +1,7 @@
 [![Puppet Forge](http://img.shields.io/puppetforge/v/katello/katello.svg)](https://forge.puppetlabs.com/katello/katello)
 [![Build Status](https://travis-ci.org/Katello/puppet-katello.svg?branch=master)](https://travis-ci.org/Katello/puppet-katello)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/katello/katello.svg)](https://forge.puppetlabs.com/katello/katello)
+[![Build Status](https://travis-ci.org/Katello/puppet-katello.svg?branch=master)](https://travis-ci.org/Katello/puppet-katello)
 
 #### Table of Contents
 
@@ -35,4 +37,3 @@ This module is designed to setup a full katello server, including candlepin, pul
 ## Development
 
 See the CONTRIBUTING guide for steps on how to make a change and get it accepted upstream.
-
