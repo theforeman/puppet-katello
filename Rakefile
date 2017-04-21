@@ -22,6 +22,9 @@ PuppetLint.configuration.log_format = '%{path}:%{line}:%{KIND}: %{message}'
 # Used for type alias tests
 PuppetSyntax.exclude_paths << 'spec/static_fixtures/test_module/**/*.pp' if Puppet.version.to_f < 4.0
 
+# Used for type alias tests
+PuppetSyntax.exclude_paths << 'spec/static_fixtures/test_module/**/*.pp' if Puppet.version.to_f < 4.0
+
 require 'puppet-lint-param-docs/tasks'
 PuppetLintParamDocs.define_selective do |config|
   config.pattern = ["manifests/init.pp"]
