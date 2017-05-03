@@ -56,7 +56,6 @@ class katello::params {
   # Subsystems settings
   $candlepin_url = "https://${::fqdn}:8443/candlepin"
   $pulp_url      = "https://${::fqdn}/pulp/api/v2/"
-  $mongodb_path  = '/var/lib/mongodb'
 
   # database reinitialization flag
   $reset_data = 'NONE'
