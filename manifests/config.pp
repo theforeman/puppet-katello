@@ -1,8 +1,6 @@
 # Katello Config
 class katello::config {
 
-  $apache_version = $::apache::apache_version
-
   class { '::katello::config::pulp_client': }
 
   file { '/usr/share/foreman/bundler.d/katello.rb':
@@ -23,8 +21,12 @@ class katello::config {
   }
 
   foreman::config::passenger::fragment{ 'katello':
-    content     => template('katello/etc/httpd/conf.d/05-foreman.d/katello.conf.erb'),
-    ssl_content => template('katello/etc/httpd/conf.d/05-foreman-ssl.d/katello.conf.erb'),
+    ssl_content => file('katello/katello-apache-ssl.conf'),
+  }
+
+  foreman::config::passenger::fragment{ 'pulp':
+    content     => file('katello/pulp-apache.conf'),
+    ssl_content => file('katello/pulp-apache-ssl.conf'),
   }
 
   # NB: we define this here to avoid a dependency cycle. It is not a problem if
