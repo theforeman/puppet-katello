@@ -70,4 +70,11 @@ class katello::params {
   $repo_yumcode = "el${::operatingsystemmajrelease}"
   $repo_gpgcheck = false
   $repo_gpgkey = undef
+
+  # candlepin database settings
+  $candlepin_db_host = 'localhost'
+  $candlepin_db_port = undef
+  $candlepin_db_name = 'candlepin'
+  $candlepin_db_user = 'candlepin'
+  $candlepin_db_password = cache_data('foreman_cache_data', 'candlepin_db_password', random_password(32))
 }

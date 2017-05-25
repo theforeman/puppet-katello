@@ -54,6 +54,16 @@
 #
 # $repo_gpgkey::        The GPG key to use
 #
+# $candlepin_db_host::  Host with Candlepin DB
+#
+# $candlepin_db_port::  Port accepting connections to Candlepin DB
+#
+# $candlepin_db_name::  Name of the Candlepin DB
+#
+# $candlepin_db_user::  Candlepin DB user
+#
+# $candlepin_db_password:: Candlepin DB password
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -83,6 +93,12 @@ class katello (
   String $repo_version = $::katello::params::repo_version,
   Boolean $repo_gpgcheck = $::katello::params::repo_gpgcheck,
   Optional[String] $repo_gpgkey = $::katello::params::repo_gpgkey,
+
+  String $candlepin_db_host = $::katello::params::candlepin_db_host,
+  Optional[String] $candlepin_db_port = $::katello::params::candlepin_db_port,
+  String $candlepin_db_name = $::katello::params::candlepin_db_name,
+  String $candlepin_db_user = $::katello::params::candlepin_db_user,
+  String $candlepin_db_password = $::katello::params::candlepin_db_password,
 ) inherits katello::params {
   $candlepin_ca_cert = $::certs::ca_cert
   $pulp_ca_cert = $::certs::katello_server_ca_cert
@@ -120,6 +136,11 @@ class katello (
     amqp_truststore              => $::certs::candlepin::amqp_truststore,
     qpid_ssl_cert                => $::certs::qpid::client_cert,
     qpid_ssl_key                 => $::certs::qpid::client_key,
+    db_host                      => $katello::candlepin_db_host,
+    db_port                      => $katello::candlepin_db_port,
+    db_name                      => $katello::candlepin_db_name,
+    db_user                      => $katello::candlepin_db_user,
+    db_password                  => $katello::candlepin_db_password,
   } ~>
   class { '::certs::qpid_client': } ~>
   class { '::pulp':
