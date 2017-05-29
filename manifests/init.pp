@@ -95,7 +95,7 @@ class katello (
   Optional[String] $repo_gpgkey = $::katello::params::repo_gpgkey,
 
   String $candlepin_db_host = $::katello::params::candlepin_db_host,
-  Optional[String] $candlepin_db_port = $::katello::params::candlepin_db_port,
+  Optional[Integer[0, 65535]] $candlepin_db_port = $::katello::params::candlepin_db_port,
   String $candlepin_db_name = $::katello::params::candlepin_db_name,
   String $candlepin_db_user = $::katello::params::candlepin_db_user,
   String $candlepin_db_password = $::katello::params::candlepin_db_password,
