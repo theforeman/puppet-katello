@@ -136,11 +136,11 @@ class katello (
     amqp_truststore              => $::certs::candlepin::amqp_truststore,
     qpid_ssl_cert                => $::certs::qpid::client_cert,
     qpid_ssl_key                 => $::certs::qpid::client_key,
-    db_host                      => $katello::candlepin_db_host,
-    db_port                      => $katello::candlepin_db_port,
-    db_name                      => $katello::candlepin_db_name,
-    db_user                      => $katello::candlepin_db_user,
-    db_password                  => $katello::candlepin_db_password,
+    db_host                      => $candlepin_db_host,
+    db_port                      => $candlepin_db_port,
+    db_name                      => $candlepin_db_name,
+    db_user                      => $candlepin_db_user,
+    db_password                  => $candlepin_db_password,
   } ~>
   class { '::certs::qpid_client': } ~>
   class { '::pulp':
