@@ -64,6 +64,11 @@
 #
 # $candlepin_db_password:: Candlepin DB password
 #
+# $candlepin_db_ssl::   Boolean indicating if the connection to the database should be over
+#                       an SSL connection.
+#
+# $candlepin_db_ssl_verify:: Boolean indicating if the SSL connection to the database should be verified
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -99,6 +104,8 @@ class katello (
   String $candlepin_db_name = $::katello::params::candlepin_db_name,
   String $candlepin_db_user = $::katello::params::candlepin_db_user,
   String $candlepin_db_password = $::katello::params::candlepin_db_password,
+  Boolean $candlepin_db_ssl = $::katello::params::candlepin_db_ssl,
+  Boolean $candlepin_db_ssl_verify = $::katello::params::candlepin_db_ssl_verify,
 ) inherits katello::params {
   $candlepin_ca_cert = $::certs::ca_cert
   $pulp_ca_cert = $::certs::katello_server_ca_cert
@@ -141,6 +148,8 @@ class katello (
     db_name                      => $candlepin_db_name,
     db_user                      => $candlepin_db_user,
     db_password                  => $candlepin_db_password,
+    db_ssl                       => $candlepin_db_ssl,
+    db_ssl_verify                => $candlepin_db_ssl_verify,
   } ~>
   class { '::certs::qpid_client': } ~>
   class { '::pulp':
