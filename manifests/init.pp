@@ -69,6 +69,8 @@
 #
 # $candlepin_db_ssl_verify:: Boolean indicating if the SSL connection to the database should be verified
 #
+# $candlepin_manage_db:: Boolean indicating whether a database should be installed, this includes db creation and user
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
