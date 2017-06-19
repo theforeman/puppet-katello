@@ -79,4 +79,5 @@ class katello::params {
   $candlepin_db_password = cache_data('foreman_cache_data', 'candlepin_db_password', random_password(32))
   $candlepin_db_ssl = false
   $candlepin_db_ssl_verify = true
+  $candlepin_manage_db = true
 }

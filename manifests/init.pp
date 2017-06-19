@@ -106,6 +106,7 @@ class katello (
   String $candlepin_db_password = $::katello::params::candlepin_db_password,
   Boolean $candlepin_db_ssl = $::katello::params::candlepin_db_ssl,
   Boolean $candlepin_db_ssl_verify = $::katello::params::candlepin_db_ssl_verify,
+  Boolean $candlepin_manage_db = $::katello::params::candlepin_manage_db,
 ) inherits katello::params {
   $candlepin_ca_cert = $::certs::ca_cert
   $pulp_ca_cert = $::certs::katello_server_ca_cert
@@ -150,6 +151,7 @@ class katello (
     db_password                  => $candlepin_db_password,
     db_ssl                       => $candlepin_db_ssl,
     db_ssl_verify                => $candlepin_db_ssl_verify,
+    manage_db                    => $candlepin_manage_db,
   } ~>
   class { '::certs::qpid_client': } ~>
   class { '::pulp':
