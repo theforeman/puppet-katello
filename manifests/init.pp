@@ -170,6 +170,7 @@ class katello (
   Exec['cpinit'] -> Exec['foreman-rake-db:seed']
   Class['certs::candlepin'] ~> Service['tomcat']
   Class['certs::qpid'] ~> Service['qpidd']
+  Class['certs::ca'] ~> Service['httpd']
 
   User<|title == apache|>{groups +> $user_groups}
 }
