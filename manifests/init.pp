@@ -65,7 +65,7 @@
 # $candlepin_db_password:: Candlepin DB password
 #
 # $candlepin_db_ssl::   Boolean indicating if the connection to the database should be over
-#                       an SSL connection.
+#                       an SSL connection. Requires DB host's CA Cert in the system trust
 #
 # $candlepin_db_ssl_verify:: Boolean indicating if the SSL connection to the database should be verified
 #
