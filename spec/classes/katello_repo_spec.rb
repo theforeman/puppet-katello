@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe 'katello::repo' do
-  context 'with manage_repo => false' do let :params do
+  context 'with manage_repo => false' do
+    let :params do
       {
         'manage_repo'  => false,
         'repo_version' => 'latest',
