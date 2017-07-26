@@ -5,31 +5,15 @@ describe 'katello' do
     context "on #{os}" do
       let(:facts) { facts }
 
-      let(:pre_condition) do
-        ['include foreman', 'include foreman::plugin::tasks', 'include certs']
-      end
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_class('katello::repo') }
+      it { is_expected.to contain_class('katello::candlepin') }
+      it { is_expected.to contain_class('katello::application') }
+      it { is_expected.to contain_class('katello::pulp') }
+      it { is_expected.to contain_class('katello::qpid_client') }
+      it { is_expected.to contain_class('katello::qpid') }
 
-      it { should contain_class('katello::install') }
-      it { should contain_class('katello::config') }
-
-      it "should configure a qpid client" do
-        should contain_class('qpid::client').
-          with(:ssl             => true,
-               :ssl_cert_name   => 'broker')
-      end
-
-      context 'on setting cdn-ssl-version' do
-        let :params do
-          {
-            "cdn_ssl_version" => 'TLSv1'
-          }
-        end
-
-        it 'should set up the cdn_ssl_version' do
-          should contain_file('/etc/foreman/plugins/katello.yaml').
-            with_content(/^\s*:cdn_ssl_version:\s*TLSv1$/)
-        end
-      end
+      it { is_expected.to contain_package('katello').that_requires('Exec[cpinit]') }
     end
   end
 

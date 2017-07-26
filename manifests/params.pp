@@ -45,7 +45,6 @@ class katello::params {
   $user = 'foreman'
   $group = 'foreman'
   $user_groups = ['foreman']
-  $config_dir  = '/etc/foreman/plugins'
   $repo_export_dir = '/var/lib/pulp/katello-export'
 
   # OAUTH settings
@@ -62,7 +61,8 @@ class katello::params {
   # database reinitialization flag
   $reset_data = 'NONE'
 
-  $qpid_url = 'amqp:ssl:localhost:5671'
+  $qpid_hostname = 'localhost'
+  $qpid_url = "amqp:ssl:${qpid_hostname}:5671"
   $candlepin_event_queue = 'katello_event_queue'
   $candlepin_qpid_exchange = 'event'
   $enable_ostree = false

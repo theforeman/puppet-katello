@@ -33,8 +33,6 @@
 # $post_sync_token::    The shared secret for pulp notifying katello about
 #                       completed syncs
 #
-# $config_dir::         Location for Katello config files
-#
 # $cdn_ssl_version::    SSL version used to communicate with the CDN
 #
 # $num_pulp_workers::   Number of pulp workers to use
@@ -83,7 +81,6 @@ class katello (
   Integer[0, 1000] $qpid_wcache_page_size = $::katello::params::qpid_wcache_page_size,
   Integer[1] $num_pulp_workers = $::katello::params::num_pulp_workers,
   Optional[Integer] $max_tasks_per_pulp_worker = $::katello::params::max_tasks_per_pulp_worker,
-  Stdlib::Absolutepath $config_dir = $::katello::params::config_dir,
   Optional[Stdlib::HTTPUrl] $proxy_url = $::katello::params::proxy_url,
   Optional[Integer[0, 65535]] $proxy_port = $::katello::params::proxy_port,
   Optional[String] $proxy_username = $::katello::params::proxy_username,
@@ -110,102 +107,14 @@ class katello (
   Boolean $candlepin_db_ssl_verify = $::katello::params::candlepin_db_ssl_verify,
   Boolean $candlepin_manage_db = $::katello::params::candlepin_manage_db,
 ) inherits katello::params {
-  $candlepin_ca_cert = $::certs::ca_cert
-  $pulp_ca_cert = $::certs::katello_server_ca_cert
-
-  Class['certs'] ~>
-  class { '::certs::apache': } ~>
-  class { '::katello::repo': } ~>
-  class { '::katello::install': } ~>
-  class { '::katello::config': } ~>
-  class { '::certs::qpid': } ~>
-  class { '::qpid':
-    ssl                    => true,
-    ssl_cert_db            => $::certs::nss_db_dir,
-    ssl_cert_password_file => $::certs::qpid::nss_db_password_file,
-    ssl_cert_name          => 'broker',
-    interface              => 'lo',
-    wcache_page_size       => $qpid_wcache_page_size,
-  } ~>
-  class { '::certs::candlepin': } ~>
-  class { '::candlepin':
-    user_groups                  => $katello::user_groups,
-    oauth_key                    => $katello::oauth_key,
-    oauth_secret                 => $katello::oauth_secret,
-    deployment_url               => $katello::deployment_url,
-    ca_key                       => $certs::ca_key,
-    ca_cert                      => $certs::ca_cert_stripped,
-    keystore_password            => $::certs::candlepin::keystore_password,
-    truststore_password          => $::certs::candlepin::keystore_password,
-    enable_basic_auth            => false,
-    consumer_system_name_pattern => '.+',
-    adapter_module               => 'org.candlepin.katello.KatelloModule',
-    amq_enable                   => true,
-    amqp_keystore_password       => $::certs::candlepin::keystore_password,
-    amqp_truststore_password     => $::certs::candlepin::keystore_password,
-    amqp_keystore                => $::certs::candlepin::amqp_keystore,
-    amqp_truststore              => $::certs::candlepin::amqp_truststore,
-    qpid_ssl_cert                => $::certs::qpid::client_cert,
-    qpid_ssl_key                 => $::certs::qpid::client_key,
-    db_host                      => $candlepin_db_host,
-    db_port                      => $candlepin_db_port,
-    db_name                      => $candlepin_db_name,
-    db_user                      => $candlepin_db_user,
-    db_password                  => $candlepin_db_password,
-    db_ssl                       => $candlepin_db_ssl,
-    db_ssl_verify                => $candlepin_db_ssl_verify,
-    manage_db                    => $candlepin_manage_db,
-  } ~>
-  class { '::certs::qpid_client': } ~>
-  class { '::pulp':
-    oauth_enabled          => true,
-    oauth_key              => $katello::oauth_key,
-    oauth_secret           => $katello::oauth_secret,
-    messaging_url          => 'ssl://localhost:5671',
-    messaging_ca_cert      => $::certs::ca_cert,
-    messaging_client_cert  => $certs::qpid_client::messaging_client_cert,
-    messaging_transport    => 'qpid',
-    messaging_auth_enabled => false,
-    broker_url             => 'qpid://localhost:5671',
-    broker_use_ssl         => true,
-    consumers_crl          => $candlepin::crl_file,
-    proxy_url              => $proxy_url,
-    proxy_port             => $proxy_port,
-    proxy_username         => $proxy_username,
-    proxy_password         => $proxy_password,
-    yum_max_speed          => $pulp_max_speed,
-    manage_broker          => false,
-    manage_httpd           => false,
-    manage_plugins_httpd   => true,
-    manage_squid           => true,
-    enable_rpm             => true,
-    enable_puppet          => true,
-    enable_docker          => true,
-    enable_ostree          => $enable_ostree,
-    num_workers            => $num_pulp_workers,
-    max_tasks_per_child    => $max_tasks_per_pulp_worker,
-    enable_parent_node     => false,
-    repo_auth              => true,
-    puppet_wsgi_processes  => 1,
-    enable_katello         => true,
-  } ~>
-  class { '::qpid::client':
-    ssl                    => true,
-    ssl_cert_name          => 'broker',
-    ssl_cert_db            => $certs::nss_db_dir,
-    ssl_cert_password_file => $certs::qpid::nss_db_password_file,
-  } ~>
-  class { '::katello::qpid':
-    client_cert => $certs::qpid::client_cert,
-    client_key  => $certs::qpid::client_key,
-  }
-
-  class { '::certs::foreman': }
-
-  Exec['cpinit'] -> Exec['foreman-rake-db:seed']
-  Class['certs::candlepin'] ~> Service['tomcat']
-  Class['certs::qpid'] ~> Service['qpidd']
-  Class['certs::ca'] ~> Service['httpd']
+  include ::katello::repo
+  include ::katello::candlepin
+  include ::katello::qpid
+  include ::katello::pulp
+  Class['katello::repo'] -> Class['katello::pulp']
+  include ::katello::application
+  Class['katello::repo'] -> Class['katello::application']
+  Class['katello::candlepin'] -> Class['katello::application']
 
   User<|title == apache|>{groups +> $user_groups}
 }

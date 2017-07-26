@@ -2,33 +2,33 @@
 ## Module: puppet-katello
 
 :katello:
-  <%- unless [nil, :undefined, :undef].include?(scope['katello::cdn_ssl_version']) -%>
-  :cdn_ssl_version: <%= scope['katello::cdn_ssl_version']%>
+  <%- unless [nil, :undefined, :undef, ''].include?(@cdn_ssl_version) -%>
+  :cdn_ssl_version: <%= @cdn_ssl_version %>
   <%- end -%>
   :rest_client_timeout: 3600
 
-  :post_sync_url: https://<%= @fqdn %><%= scope['katello::deployment_url'] %>/api/v2/repositories/sync_complete?token=<%= scope['katello::post_sync_token'] %>
+  :post_sync_url: https://<%= @fqdn %><%= @deployment_url %>/api/v2/repositories/sync_complete?token=<%= @post_sync_token %>
 
   :candlepin:
-    :url: <%= scope['katello::candlepin_url'] %>
-    :oauth_key: <%= scope['katello::oauth_key'] %>
-    :oauth_secret: <%= scope['katello::oauth_secret'] %>
-    :ca_cert_file: <%= scope['katello::candlepin_ca_cert'] %>
+    :url: <%= @candlepin_url %>
+    :oauth_key: <%= @oauth_key %>
+    :oauth_secret: <%= @oauth_secret %>
+    :ca_cert_file: <%= @candlepin_ca_cert %>
 
   :pulp:
-    :url: <%= scope['katello::pulp_url'] %>
-    :oauth_key: <%= scope['katello::oauth_key'] %>
-    :oauth_secret: <%= scope['katello::oauth_secret'] %>
-    :ca_cert_file: <%= scope['katello::pulp_ca_cert'] %>
+    :url: <%= @pulp_url %>
+    :oauth_key: <%= @oauth_key %>
+    :oauth_secret: <%= @oauth_secret %>
+    :ca_cert_file: <%= @pulp_ca_cert %>
 
   :qpid:
-    :url: <%= scope['katello::qpid_url'] %>
-    :subscriptions_queue_address: <%= scope['katello::candlepin_event_queue'] %>
+    :url: <%= @qpid_url %>
+    :subscriptions_queue_address: <%= @candlepin_event_queue %>
 
-<%- unless [nil, :undefined, :undef].include?(scope['katello::proxy_url']) -%>
+<%- unless [nil, :undefined, :undef, ''].include?(@proxy_host) -%>
   :cdn_proxy:
-    :host: <%= scope['katello::proxy_url'] %>
-    :port: <%= scope['katello::proxy_port'] %>
-    :user: <%= scope['katello::proxy_username'] %>
-    :password: <%= scope['katello::proxy_password'] %>
+    :host: <%= @proxy_host %>
+    :port: <%= @proxy_port %>
+    :user: <%= @proxy_username %>
+    :password: <%= @proxy_password %>
 <%- end -%>
