@@ -7,7 +7,7 @@
   <%- end -%>
   :rest_client_timeout: 3600
 
-  :post_sync_url: https://<%= scope['katello::fqdn'] %><%= scope['katello::deployment_url'] %>/api/v2/repositories/sync_complete?token=<%= scope['katello::post_sync_token'] %>
+  :post_sync_url: https://<%= @fqdn %><%= scope['katello::deployment_url'] %>/api/v2/repositories/sync_complete?token=<%= scope['katello::post_sync_token'] %>
 
   :candlepin:
     :url: <%= scope['katello::candlepin_url'] %>
