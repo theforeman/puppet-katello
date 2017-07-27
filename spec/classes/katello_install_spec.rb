@@ -8,6 +8,7 @@ describe 'katello::install' do
       describe 'with enable_ostree == false' do
         let(:pre_condition) do
           ['include foreman',
+           'include foreman::plugin::tasks',
            'include certs',
            "class {'katello':
               enable_ostree => false,
@@ -21,6 +22,7 @@ describe 'katello::install' do
       describe 'with enable_ostree == true' do
         let(:pre_condition) do
           ['include foreman',
+           'include foreman::plugin::tasks',
            'include certs',
            "class {'katello':
               enable_ostree => true,

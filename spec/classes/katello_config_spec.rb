@@ -8,6 +8,7 @@ describe 'katello::config' do
       let(:pre_condition) do
         [
           'include foreman',
+          'include foreman::plugin::tasks',
           'include certs',
           'class {"katello":' \
             'post_sync_token => test_token,' \
@@ -48,6 +49,7 @@ describe 'katello::config' do
       let(:pre_condition) do
         [
           'include foreman',
+          'include foreman::plugin::tasks',
           'include certs',
           'class {"katello":' \
             'post_sync_token => "test_token",' \

@@ -6,7 +6,7 @@ describe 'katello' do
       let(:facts) { facts }
 
       let(:pre_condition) do
-        ['include foreman', 'include certs']
+        ['include foreman', 'include foreman::plugin::tasks', 'include certs']
       end
 
       it { should contain_class('katello::install') }
