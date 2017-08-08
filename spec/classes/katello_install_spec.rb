@@ -30,7 +30,7 @@ describe 'katello::install' do
           ]
         end
         it { should contain_package("tfm-rubygem-katello_ostree").with_ensure('installed').
-                                                                  with_notify(["Service[foreman-tasks]", "Service[httpd]"]) }
+                                                                  with_notify(["Service[foreman-tasks]", "Service[httpd]", "Exec[foreman-rake-apipie:cache:index]"]) }
       end
     end
   end
