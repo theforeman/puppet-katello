@@ -58,6 +58,23 @@
 #
 # $repo_gpgkey::        The GPG key to use
 #
+# $candlepin_db_host::  Host with Candlepin DB
+#
+# $candlepin_db_port::  Port accepting connections to Candlepin DB
+#
+# $candlepin_db_name::  Name of the Candlepin DB
+#
+# $candlepin_db_user::  Candlepin DB user
+#
+# $candlepin_db_password:: Candlepin DB password
+#
+# $candlepin_db_ssl::   Boolean indicating if the connection to the database should be over
+#                       an SSL connection. Requires DB host's CA Cert in the system trust
+#
+# $candlepin_db_ssl_verify:: Boolean indicating if the SSL connection to the database should be verified
+#
+# $candlepin_manage_db:: Boolean indicating whether a database should be installed, this includes db creation and user
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -89,6 +106,15 @@ class katello (
   String $repo_version = $::katello::params::repo_version,
   Boolean $repo_gpgcheck = $::katello::params::repo_gpgcheck,
   Optional[String] $repo_gpgkey = $::katello::params::repo_gpgkey,
+
+  String $candlepin_db_host = $::katello::params::candlepin_db_host,
+  Optional[Integer[0, 65535]] $candlepin_db_port = $::katello::params::candlepin_db_port,
+  String $candlepin_db_name = $::katello::params::candlepin_db_name,
+  String $candlepin_db_user = $::katello::params::candlepin_db_user,
+  String $candlepin_db_password = $::katello::params::candlepin_db_password,
+  Boolean $candlepin_db_ssl = $::katello::params::candlepin_db_ssl,
+  Boolean $candlepin_db_ssl_verify = $::katello::params::candlepin_db_ssl_verify,
+  Boolean $candlepin_manage_db = $::katello::params::candlepin_manage_db,
 ) inherits katello::params {
   $candlepin_ca_cert = $::certs::ca_cert
   $pulp_ca_cert = $::certs::katello_server_ca_cert
@@ -128,6 +154,14 @@ class katello (
     amqp_truststore              => $::certs::candlepin::amqp_truststore,
     qpid_ssl_cert                => $::certs::qpid::client_cert,
     qpid_ssl_key                 => $::certs::qpid::client_key,
+    db_host                      => $candlepin_db_host,
+    db_port                      => $candlepin_db_port,
+    db_name                      => $candlepin_db_name,
+    db_user                      => $candlepin_db_user,
+    db_password                  => $candlepin_db_password,
+    db_ssl                       => $candlepin_db_ssl,
+    db_ssl_verify                => $candlepin_db_ssl_verify,
+    manage_db                    => $candlepin_manage_db,
   } ~>
   class { '::certs::qpid_client': } ~>
   class { '::pulp':
