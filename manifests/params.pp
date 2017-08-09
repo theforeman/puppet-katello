@@ -67,6 +67,7 @@ class katello::params {
 
   $qpid_hostname = 'localhost'
   #$qpid_url built in init.pp
+  $qpid_interface = 'lo'
   $candlepin_event_queue = 'katello_event_queue'
   $candlepin_qpid_exchange = 'event'
   $enable_ostree = false

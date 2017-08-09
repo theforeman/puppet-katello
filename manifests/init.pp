@@ -89,6 +89,8 @@
 #
 # $qpid_hostname::      Hostname of the qpid server instance
 #
+# $qpid_interface::     Interface that qpid should listen on
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -138,6 +140,8 @@ class katello (
   String $candlepin_hostname = $::katello::params::candlepin_hostname,
   String $pulp_hostname = $::katello::params::pulp_hostname,
   String $qpid_hostname = $::katello::params::qpid_hostname,
+
+  String $qpid_interface = $::katello::params::qpid_interface,
 ) inherits katello::params {
   $candlepin_url = "https://${candlepin_hostname}:8443/candlepin"
   $pulp_url = "https://${pulp_hostname}/pulp/api/v2/"

@@ -14,11 +14,18 @@ describe 'katello::qpid' do
             :candlepin_event_queue   => 'katello_event_queue',
             :candlepin_qpid_exchange => 'event',
             :wcache_page_size        => 8,
+            :interface               => 'eth0',
           }
         end
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_class('qpid').with_wcache_page_size(8) }
+
+        it do
+          is_expected.to contain_class('qpid')
+            .with_wcache_page_size(8)
+            .with_interface('eth0')
+        end
+
         it { is_expected.to contain_class('certs::qpid').that_notifies('Service[qpidd]') }
       end
 
@@ -28,7 +35,13 @@ describe 'katello::qpid' do
         end
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_class('qpid').with_wcache_page_size(4) }
+
+        it do
+          is_expected.to contain_class('qpid')
+            .with_wcache_page_size(4)
+            .with_interface('lo')
+        end
+
         it { is_expected.to contain_class('certs::qpid').that_notifies(['Service[qpidd]', 'Class[qpid]']) }
       end
     end
