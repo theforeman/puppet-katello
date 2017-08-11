@@ -16,6 +16,7 @@ class katello::candlepin(
   include ::certs
   include ::certs::qpid
   include ::certs::candlepin
+  include ::katello::qpid_client
 
   class { '::candlepin':
     user_groups                  => $user_groups,

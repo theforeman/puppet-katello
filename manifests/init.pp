@@ -73,6 +73,16 @@
 #
 # $candlepin_manage_db:: Boolean indicating whether a database should be installed, this includes db creation and user
 #
+# $enable_candlepin::   Whether to enable candlepin
+#
+# $enable_qpid::        Whether to enable qpid
+#
+# $enable_qpid_client:: Whether to enable qpid client
+#
+# $enable_pulp::        Whether to enable pulp
+#
+# $enable_application:: Whether to enable application (katello web ui)
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -112,21 +122,56 @@ class katello (
   Boolean $candlepin_db_ssl = $::katello::params::candlepin_db_ssl,
   Boolean $candlepin_db_ssl_verify = $::katello::params::candlepin_db_ssl_verify,
   Boolean $candlepin_manage_db = $::katello::params::candlepin_manage_db,
+
+  Boolean $enable_candlepin = $::katello::params::enable_candlepin,
+  Boolean $enable_qpid = $::katello::params::enable_qpid,
+  Boolean $enable_qpid_client = $::katello::params::enable_qpid_client,
+  Boolean $enable_pulp = $::katello::params::enable_pulp,
+  Boolean $enable_application = $::katello::params::enable_application,
 ) inherits katello::params {
   include ::certs
 
-  Class['certs'] ~>
-  class { '::certs::apache': } ~>
-  class { '::katello::repo': } ~>
-  class { '::katello::candlepin': } ~>
-  class { '::katello::application': } ~>
-  class { '::katello::pulp': } ~>
-  class { '::katello::qpid_client': }
-  class { '::katello::qpid': }
+  include ::katello::repo
 
-  # TODO: Is this still needed with proper containment?
-  Exec['cpinit'] -> Exec['foreman-rake-db:seed']
-  Class['certs::ca'] ~> Service['httpd']
+  # Not strictly needed but the easiest way to ensure it's done before everything else
+  Class['katello::repo'] -> Class['certs']
+
+  if $enable_candlepin {
+    include ::katello::candlepin
+    Class['certs'] ~> Class['katello::candlepin']
+  }
+
+  if $enable_qpid {
+    include ::katello::qpid
+    Class['certs'] ~> Class['katello::qpid']
+  }
+
+
+  if $enable_qpid_client {
+    include ::katello::qpid_client
+    Class['certs'] ~> Class['katello::qpid_client']
+  }
+
+  if $enable_pulp {
+    include ::katello::pulp
+    Class['certs'] ~> Class['katello::pulp']
+  }
+
+  if $enable_application {
+    include ::katello::application
+    Class['certs'] ~> Class['katello::application']
+
+    if $enable_qpid {
+      Class['katello::qpid'] -> Class['katello::application']
+    }
+
+    if $enable_candlepin {
+      Class['katello::candlepin'] -> Class['katello::application']
+    }
+
+    # TODO: Is this still needed with proper containment?
+    Class['certs::ca'] ~> Service['httpd']
+  }
 
   User<|title == apache|>{groups +> $user_groups}
 }

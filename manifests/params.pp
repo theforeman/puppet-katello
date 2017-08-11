@@ -83,4 +83,10 @@ class katello::params {
   $candlepin_db_ssl = false
   $candlepin_db_ssl_verify = true
   $candlepin_manage_db = true
+
+  $enable_candlepin = true
+  $enable_qpid = true
+  $enable_qpid_client = true
+  $enable_pulp = true
+  $enable_application = true
 }
