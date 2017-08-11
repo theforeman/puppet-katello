@@ -19,6 +19,7 @@ describe 'katello::candlepin' do
           :db_ssl         => false,
           :db_ssl_verify  => true,
           :manage_db      => true,
+          :qpid_hostname  => 'localhost',
         }
       end
 

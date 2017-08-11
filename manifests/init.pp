@@ -83,6 +83,12 @@
 #
 # $enable_application:: Whether to enable application (katello web ui)
 #
+# $candlepin_hostname:: Hostname of the candlepin instance
+#
+# $pulp_hostname::      Hostname of the pulp instance
+#
+# $qpid_hostname::      Hostname of the qpid server instance
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -128,7 +134,15 @@ class katello (
   Boolean $enable_qpid_client = $::katello::params::enable_qpid_client,
   Boolean $enable_pulp = $::katello::params::enable_pulp,
   Boolean $enable_application = $::katello::params::enable_application,
+
+  String $candlepin_hostname = $::katello::params::candlepin_hostname,
+  String $pulp_hostname = $::katello::params::pulp_hostname,
+  String $qpid_hostname = $::katello::params::qpid_hostname,
 ) inherits katello::params {
+  $candlepin_url = "https://${candlepin_hostname}:8443/candlepin"
+  $pulp_url = "https://${pulp_hostname}/pulp/api/v2/"
+  $qpid_url = "amqp:ssl:${qpid_hostname}:5671"
+
   include ::certs
 
   include ::katello::repo
