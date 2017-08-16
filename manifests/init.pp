@@ -43,8 +43,6 @@
 #
 # $max_tasks_per_pulp_worker:: Number of tasks after which the worker gets restarted
 #
-# $qpid_session_unacked:: Buffer if the broker has a large number of sessions and the memory overhead is a problem
-#
 # $qpid_wcache_page_size:: The size (in KB) of the pages in the write page cache
 #
 # $package_names::      Packages that this module ensures are present instead of the default
@@ -84,7 +82,6 @@ class katello (
   String $oauth_secret = $::katello::params::oauth_secret,
 
   String $post_sync_token = $::katello::params::post_sync_token,
-  Integer[0, 5000] $qpid_session_unacked = $::katello::params::qpid_session_unacked,
   Integer[0, 1000] $qpid_wcache_page_size = $::katello::params::qpid_wcache_page_size,
   Integer[1] $num_pulp_workers = $::katello::params::num_pulp_workers,
   Optional[Integer] $max_tasks_per_pulp_worker = $::katello::params::max_tasks_per_pulp_worker,
@@ -131,7 +128,6 @@ class katello (
     ssl_cert_password_file => $::certs::qpid::nss_db_password_file,
     ssl_cert_name          => 'broker',
     interface              => 'lo',
-    session_unacked        => $qpid_session_unacked,
     wcache_page_size       => $qpid_wcache_page_size,
   } ~>
   class { '::certs::candlepin': } ~>

@@ -36,7 +36,6 @@ class katello::params {
   $pulp_max_speed = undef
 
   # Qpid perf settings
-  $qpid_session_unacked = 10
   $qpid_wcache_page_size = 4
 
   # cdn ssl settings
