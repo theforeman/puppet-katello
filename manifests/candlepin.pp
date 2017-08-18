@@ -1,5 +1,5 @@
-# Katello configuration for pulp
-class katello::candlepin(
+# Katello configuration for candlepin
+class katello::candlepin (
   Variant[Array[String], String] $user_groups = $::katello::user_groups,
   String $oauth_key = $::katello::oauth_key,
   String $oauth_secret = $::katello::oauth_secret,
@@ -49,7 +49,4 @@ class katello::candlepin(
     manage_db                    => $manage_db,
     subscribe                    => Class['certs::qpid', 'certs::candlepin'],
   }
-
-  # TODO: Is this still needed with proper containment?
-  Class['certs::candlepin'] ~> Service['tomcat']
 }
