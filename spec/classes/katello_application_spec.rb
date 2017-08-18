@@ -32,12 +32,11 @@ describe 'katello::application' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.not_to contain_package('tfm-rubygem-katello_ostree') }
+          it { is_expected.to contain_package('tfm-rubygem-katello') }
 
           it do
-            is_expected.to contain_foreman__plugin('katello')
-              .with_package('tfm-rubygem-katello')
-              .with_config_file('/etc/foreman/plugins/katello.yaml')
-              .that_notifies('Class[foreman::plugin::tasks]')
+            is_expected.to contain_file('/etc/foreman/plugins/katello.yaml')
+              .that_notifies(['Class[Foreman::Plugin::Tasks]', 'Class[Foreman::Service]', 'Exec[foreman-rake-db:seed]', 'Exec[restart_foreman]'])
           end
 
           it 'should generate correct katello.yaml' do
@@ -72,7 +71,7 @@ describe 'katello::application' do
           it do
             is_expected.to contain_package('tfm-rubygem-katello_ostree')
               .with_ensure('installed')
-              .that_notifies(['Class[Foreman::Plugin::Tasks]', 'Exec[foreman-rake-apipie:cache:index]'])
+              .that_notifies(['Class[Foreman::Service]', 'Class[Foreman::Plugin::Tasks]', 'Exec[foreman-rake-apipie:cache:index]'])
           end
         end
 
@@ -156,6 +155,10 @@ describe 'katello::application' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.not_to contain_package('tfm-rubygem-katello_ostree')}
+        it do
+          is_expected.to contain_package('tfm-rubygem-katello')
+            .that_requires('Exec[cpinit]')
+        end
 
         it 'should generate correct katello.yaml' do
           verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
