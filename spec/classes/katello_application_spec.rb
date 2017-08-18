@@ -35,6 +35,11 @@ describe 'katello::application' do
           it { is_expected.to contain_package('tfm-rubygem-katello') }
 
           it do
+            is_expected.to contain_service('httpd')
+              .that_subscribes_to(['Class[Certs::Apache]', 'Class[Certs::Ca]'])
+          end
+
+          it do
             is_expected.to contain_file('/etc/foreman/plugins/katello.yaml')
               .that_notifies(['Class[Foreman::Plugin::Tasks]', 'Class[Foreman::Service]', 'Exec[foreman-rake-db:seed]', 'Exec[restart_foreman]'])
           end

@@ -186,9 +186,6 @@ class katello (
     if $enable_candlepin {
       Class['katello::candlepin'] -> Class['katello::application']
     }
-
-    # TODO: Is this still needed with proper containment?
-    Class['certs::ca'] ~> Service['httpd']
   }
 
   User<|title == apache|>{groups +> $user_groups}

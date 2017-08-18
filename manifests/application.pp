@@ -48,7 +48,7 @@ class katello::application (
   include ::foreman
   include ::foreman::plugin::tasks
 
-  Class['certs::apache'] ~> Class['foreman::service']
+  Class['certs::ca', 'certs::apache'] ~> Class['apache::service']
 
   # Katello database seeding needs candlepin
   Exec <| tag == 'cpinit' |> ->
