@@ -58,7 +58,7 @@ class katello::application (
   file { "${::foreman::plugin_config_dir}/katello.yaml":
     ensure  => file,
     owner   => 'root',
-    group   => 'root',
+    group   => $::foreman::group,
     mode    => '0640',
     content => template('katello/katello.yaml.erb'),
     notify  => [Class['foreman::service', 'foreman::plugin::tasks'], Foreman::Rake['db:seed']],
