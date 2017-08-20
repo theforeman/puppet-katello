@@ -46,7 +46,6 @@ class katello::params {
   $group = 'foreman'
   $user_groups = ['foreman']
   $config_dir  = '/etc/foreman/plugins'
-  $log_dir     = '/var/log/foreman/plugins'
   $repo_export_dir = '/var/lib/pulp/katello-export'
 
   # OAUTH settings

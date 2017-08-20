@@ -33,8 +33,6 @@
 # $post_sync_token::    The shared secret for pulp notifying katello about
 #                       completed syncs
 #
-# $log_dir::            Location for Katello log files to be placed
-#
 # $config_dir::         Location for Katello config files
 #
 # $cdn_ssl_version::    SSL version used to communicate with the CDN
@@ -85,7 +83,6 @@ class katello (
   Integer[0, 1000] $qpid_wcache_page_size = $::katello::params::qpid_wcache_page_size,
   Integer[1] $num_pulp_workers = $::katello::params::num_pulp_workers,
   Optional[Integer] $max_tasks_per_pulp_worker = $::katello::params::max_tasks_per_pulp_worker,
-  Stdlib::Absolutepath $log_dir = $::katello::params::log_dir,
   Stdlib::Absolutepath $config_dir = $::katello::params::config_dir,
   Optional[Stdlib::HTTPUrl] $proxy_url = $::katello::params::proxy_url,
   Optional[Integer[0, 65535]] $proxy_port = $::katello::params::proxy_port,
