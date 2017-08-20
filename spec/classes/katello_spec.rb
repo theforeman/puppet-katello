@@ -5,12 +5,11 @@ describe 'katello' do
     context "on #{os}" do
       let(:facts) { facts }
 
-      let(:pre_condition) do
-        ['include foreman', 'include foreman::plugin::tasks', 'include certs']
-      end
-
-      it { should contain_class('katello::install') }
-      it { should contain_class('katello::config') }
+      it { is_expected.to contain_class('katello::candlepin') }
+      it { is_expected.to contain_class('katello::application') }
+      it { is_expected.to contain_class('katello::pulp') }
+      it { is_expected.to contain_class('katello::qpid_client') }
+      it { is_expected.to contain_class('katello::qpid') }
 
       it "should configure a qpid client" do
         should contain_class('qpid::client').
