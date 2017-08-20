@@ -19,12 +19,11 @@ class katello::qpid (
     ssl_cert => $client_cert,
     ssl_key  => $client_key,
   } ->
-  qpid::config_cmd { 'create katello entitlements queue':
-    command  => "add queue ${candlepin_event_queue} --durable",
-    unless   => "queues ${candlepin_event_queue}",
+  qpid::queue { $candlepin_event_queue:
     ssl_cert => $client_cert,
     ssl_key  => $client_key,
-  } ->
+  }
+
   qpid::config::bind { ['entitlement.created', 'entitlement.deleted', 'pool.created', 'pool.deleted', 'compliance.created']:
     queue    => $candlepin_event_queue,
     exchange => $candlepin_qpid_exchange,
