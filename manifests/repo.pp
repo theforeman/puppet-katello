@@ -1,9 +1,9 @@
 class katello::repo (
-  $manage_repo  = $::katello::manage_repo,
-  $repo_version = $::katello::repo_version,
-  $dist         = $::katello::repo_yumcode,
-  $gpgcheck     = $::katello::repo_gpgcheck,
-  $gpgkey       = $::katello::repo_gpgkey,
+  Boolean $manage_repo = $::katello::manage_repo,
+  String $repo_version = $::katello::repo_version,
+  String $dist = $::katello::repo_yumcode,
+  Boolean $gpgcheck = $::katello::repo_gpgcheck,
+  Optional[String] $gpgkey = $::katello::repo_gpgkey,
 ) {
   if $manage_repo {
     yumrepo { 'katello':
