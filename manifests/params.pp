@@ -108,4 +108,10 @@ class katello::params {
   $pulp_db_ca_path = '/etc/pki/tls/certs/ca-bundle.crt'
   $pulp_db_unsafe_autoretry = false
   $pulp_db_write_concern = undef
+
+  # What parts to manage
+  $manage_candlepin = true
+  $manage_qpid = true
+  $manage_pulp = true
+  $manage_foreman_application = true
 }

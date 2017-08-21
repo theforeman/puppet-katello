@@ -123,6 +123,14 @@
 #
 # $pulp_manage_db::      Boolean to install and configure the mongodb.
 #
+# $manage_candlepin::    Whether to manage candlepin
+#
+# $manage_qpid::         Whether to manage qpid
+#
+# $manage_pulp::         Whether to manage pulp. Currently requires $manage_foreman_application and $manage_candlepin to be true as well.
+#
+# $manage_foreman_application::  Whether to manage application (katello web ui)
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -184,17 +192,36 @@ class katello (
   Boolean $pulp_db_unsafe_autoretry = $::katello::params::pulp_db_unsafe_autoretry,
   Optional[Enum['majority', 'all']] $pulp_db_write_concern = $::katello::params::pulp_db_write_concern,
   Boolean $pulp_manage_db = $::katello::params::pulp_manage_db,
+
+  Boolean $manage_candlepin = $::katello::params::manage_candlepin,
+  Boolean $manage_qpid = $::katello::params::manage_qpid,
+  Boolean $manage_pulp = $::katello::params::manage_pulp,
+  Boolean $manage_foreman_application = $::katello::params::manage_foreman_application,
 ) inherits katello::params {
-  $pulp_manage_httpd = false
+  $pulp_manage_httpd = ! $manage_foreman_application
 
-  include ::katello::repo
-  include ::katello::candlepin
-  include ::katello::qpid
-  include ::katello::pulp
-  Class['katello::repo'] -> Class['katello::pulp']
-  include ::katello::application
-  Class['katello::repo'] -> Class['katello::application']
-  Class['katello::candlepin'] -> Class['katello::application']
+  if $manage_candlepin {
+    include ::katello::candlepin
+  }
 
-  User<|title == apache|>{groups +> $user_groups}
+  if $manage_qpid {
+    include ::katello::qpid
+  }
+
+  if $manage_pulp {
+    include ::katello::pulp
+  }
+
+  if $manage_foreman_application {
+    include ::katello::repo
+    include ::katello::application
+    Class['katello::repo'] -> Class['katello::application']
+
+    if $manage_candlepin {
+      Class['katello::candlepin'] -> Class['katello::application']
+    }
+
+    User<|title == apache|>{groups +> $user_groups}
+  }
+
 }

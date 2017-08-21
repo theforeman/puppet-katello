@@ -136,10 +136,13 @@ class katello::pulp (
     mode   => '0755',
   }
 
-  file { $repo_export_dir:
-    ensure => directory,
-    owner  => $repo_export_dir_owner,
-    group  => $repo_export_dir_group,
-    mode   => '0755',
+  # TODO: This needs a proper fix.
+  unless $manage_httpd {
+    file { $repo_export_dir:
+      ensure => directory,
+      owner  => $repo_export_dir_owner,
+      group  => $repo_export_dir_group,
+      mode   => '0755',
+    }
   }
 }
