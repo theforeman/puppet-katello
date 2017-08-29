@@ -1,6 +1,5 @@
 # Katello configuration for candlepin
 class katello::candlepin (
-  Variant[Array[String], String] $user_groups = $::katello::user_groups,
   String $oauth_key = $::katello::candlepin_oauth_key,
   String $oauth_secret = $::katello::candlepin_oauth_secret,
   String $db_host = $::katello::candlepin_db_host,
@@ -17,7 +16,7 @@ class katello::candlepin (
   include ::certs::candlepin
 
   class { '::candlepin':
-    user_groups                  => $user_groups,
+    user_groups                  => $::certs::group,
     oauth_key                    => $oauth_key,
     oauth_secret                 => $oauth_secret,
     ca_key                       => $::certs::ca_key,
