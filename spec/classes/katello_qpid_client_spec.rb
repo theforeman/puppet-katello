@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'katello' do
+describe 'katello::qpid_client' do
   on_os_under_test.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts }
