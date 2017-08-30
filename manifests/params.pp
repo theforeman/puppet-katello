@@ -60,15 +60,14 @@ class katello::params {
   $post_sync_token = cache_data('foreman_cache_data', 'post_sync_token', random_password(32))
 
   # Subsystems settings
-  $candlepin_url = "https://${::fqdn}:8443/candlepin"
-  $pulp_url      = "https://${::fqdn}/pulp/api/v2/"
+  $candlepin_hostname = $::fqdn
+  $pulp_hostname = $::fqdn
 
   # database reinitialization flag
   $reset_data = 'NONE'
 
   $qpid_hostname = 'localhost'
   $qpid_interface = 'lo'
-  $qpid_url = "amqp:ssl:${qpid_hostname}:5671"
   $candlepin_event_queue = 'katello_event_queue'
   $candlepin_qpid_exchange = 'event'
   $enable_ostree = false

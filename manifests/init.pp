@@ -131,6 +131,12 @@
 #
 # $manage_foreman_application::  Whether to manage application (katello web ui)
 #
+# $candlepin_hostname:: The hostname of the Candlepin server. Used to construct the Candlepin URL.
+#
+# $qpid_hostname::      The hostname of the qpid server. Used to construct the qpid URL.
+#
+# $pulp_hostname::      The hostname of the Pulp server. Used to construct the Pulp URL.
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -144,6 +150,7 @@ class katello (
   Integer[0, 1000] $qpid_wcache_page_size = $::katello::params::qpid_wcache_page_size,
   String $qpid_interface = $::katello::params::qpid_interface,
   String $qpid_hostname = $::katello::params::qpid_hostname,
+  String $pulp_hostname = $::katello::params::pulp_hostname,
   Integer[1] $num_pulp_workers = $::katello::params::num_pulp_workers,
   Integer[0] $pulp_worker_timeout = $::katello::params::pulp_worker_timeout,
   Optional[Integer] $max_tasks_per_pulp_worker = $::katello::params::max_tasks_per_pulp_worker,
@@ -170,6 +177,7 @@ class katello (
   Boolean $repo_gpgcheck = $::katello::params::repo_gpgcheck,
   Optional[String] $repo_gpgkey = $::katello::params::repo_gpgkey,
 
+  String $candlepin_hostname = $::katello::params::candlepin_hostname,
   String $candlepin_db_host = $::katello::params::candlepin_db_host,
   Optional[Integer[0, 65535]] $candlepin_db_port = $::katello::params::candlepin_db_port,
   String $candlepin_db_name = $::katello::params::candlepin_db_name,
@@ -199,6 +207,9 @@ class katello (
   Boolean $manage_foreman_application = $::katello::params::manage_foreman_application,
 ) inherits katello::params {
   $pulp_manage_httpd = ! $manage_foreman_application
+  $candlepin_url = "https://${candlepin_hostname}:8443/candlepin"
+  $qpid_url = "amqp:ssl:${qpid_hostname}:5671"
+  $pulp_url = "https://${pulp_hostname}/pulp/api/v2/"
 
   if $manage_candlepin {
     include ::katello::candlepin
