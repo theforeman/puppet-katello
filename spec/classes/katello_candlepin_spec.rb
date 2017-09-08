@@ -9,7 +9,7 @@ describe 'katello::candlepin' do
         let(:params) do
           {
             :user_groups    => ['foreman'],
-            :oauth_key      => 'katello',
+            :oauth_key      => 'candlepin',
             :oauth_secret   => 'secret',
             :db_host        => 'localhost',
             :db_port        => 5432,

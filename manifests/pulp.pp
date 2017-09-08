@@ -1,7 +1,5 @@
 # Katello configuration for pulp
 class katello::pulp (
-  String $oauth_key = $::katello::oauth_key,
-  String $oauth_secret = $::katello::oauth_secret,
   Optional[String] $proxy_url = $::katello::proxy_url,
   Optional[Integer[0, 65535]] $proxy_port = $::katello::proxy_port,
   Optional[String] $proxy_username = $::katello::proxy_username,
@@ -20,9 +18,6 @@ class katello::pulp (
   include ::certs::qpid_client
 
   class { '::pulp':
-    oauth_enabled          => true,
-    oauth_key              => $oauth_key,
-    oauth_secret           => $oauth_secret,
     messaging_url          => $messaging_url,
     messaging_ca_cert      => $::certs::ca_cert,
     messaging_client_cert  => $::certs::qpid_client::messaging_client_cert,
