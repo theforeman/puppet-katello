@@ -51,4 +51,13 @@ class katello::candlepin (
   }
 
   contain ::candlepin
+
+  file { '/etc/tomcat/keystore':
+    ensure  => link,
+    target  => $::certs::candlepin::keystore,
+    owner   => 'tomcat',
+    group   => $::certs::group,
+    require => Class['candlepin::install', 'certs::candlepin'],
+    notify  => Class['candlepin::service'],
+  }
 }
