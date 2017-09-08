@@ -1,8 +1,8 @@
 # Katello configuration for candlepin
 class katello::candlepin (
   Variant[Array[String], String] $user_groups = $::katello::user_groups,
-  String $oauth_key = $::katello::oauth_key,
-  String $oauth_secret = $::katello::oauth_secret,
+  String $oauth_key = $::katello::candlepin_oauth_key,
+  String $oauth_secret = $::katello::candlepin_oauth_secret,
   String $db_host = $::katello::candlepin_db_host,
   Optional[Integer[0, 65535]] $db_port = $::katello::candlepin_db_port,
   String $db_name = $::katello::candlepin_db_name,

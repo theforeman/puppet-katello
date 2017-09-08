@@ -1,7 +1,7 @@
 # Katello configuration for pulp
 class katello::pulp (
-  String $oauth_key = $::katello::oauth_key,
-  String $oauth_secret = $::katello::oauth_secret,
+  String $oauth_key = $::katello::pulp_oauth_key,
+  String $oauth_secret = $::katello::pulp_oauth_secret,
   Optional[String] $proxy_url = $::katello::proxy_url,
   Optional[Integer[0, 65535]] $proxy_port = $::katello::proxy_port,
   Optional[String] $proxy_username = $::katello::proxy_username,

@@ -26,9 +26,13 @@
 #
 # $user_groups::        Extra user groups the Katello user is a part of
 #
-# $oauth_key::          The OAuth key for talking to the candlepin API
+# $candlepin_oauth_key:: The OAuth key for talking to the candlepin API
 #
-# $oauth_secret::       The OAuth secret for talking to the candlepin API
+# $candlepin_oauth_secret:: The OAuth secret for talking to the candlepin API
+#
+# $pulp_oauth_key::     The OAuth key for talking to the Pulp API
+#
+# $pulp_oauth_secret::  The OAuth secret for talking to the Pulp API
 #
 # $post_sync_token::    The shared secret for pulp notifying katello about
 #                       completed syncs
@@ -74,8 +78,10 @@ class katello (
   String $group = $::katello::params::group,
   Variant[Array[String], String] $user_groups = $::katello::params::user_groups,
 
-  String $oauth_key = $::katello::params::oauth_key,
-  String $oauth_secret = $::katello::params::oauth_secret,
+  String $candlepin_oauth_key = $::katello::params::candlepin_oauth_key,
+  String $candlepin_oauth_secret = $::katello::params::candlepin_oauth_secret,
+  String $pulp_oauth_key = $::katello::params::pulp_oauth_key,
+  String $pulp_oauth_secret = $::katello::params::pulp_oauth_secret,
 
   String $post_sync_token = $::katello::params::post_sync_token,
   Integer[0, 1000] $qpid_wcache_page_size = $::katello::params::qpid_wcache_page_size,

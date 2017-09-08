@@ -48,9 +48,10 @@ class katello::params {
   $repo_export_dir = '/var/lib/pulp/katello-export'
 
   # OAUTH settings
-  $oauth_key = 'katello'
-  $oauth_token_file = 'katello_oauth_secret'
-  $oauth_secret = cache_data('foreman_cache_data', $oauth_token_file, random_password(32))
+  $candlepin_oauth_key = cache_data('foreman_cache_data', 'candlepin_oauth_key', random_password(32))
+  $candlepin_oauth_secret = cache_data('foreman_cache_data', 'candlepin_oauth_secret', random_password(32))
+  $pulp_oauth_key = cache_data('foreman_cache_data', 'pulp_oauth_key', random_password(32))
+  $pulp_oauth_secret = cache_data('foreman_cache_data', 'pulp_oauth_secret', random_password(32))
 
   $post_sync_token = cache_data('foreman_cache_data', 'post_sync_token', random_password(32))
 

@@ -11,8 +11,9 @@ describe 'katello::pulp' do
         let :pre_condition do
           <<-EOS
           class { '::katello':
-            oauth_secret     => 'secret',
-            num_pulp_workers => 1,
+            pulp_oauth_key    => 'key',
+            pulp_oauth_secret => 'secret',
+            num_pulp_workers  => 1,
           }
           EOS
         end
@@ -25,7 +26,7 @@ describe 'katello::pulp' do
         it do
           is_expected.to create_class('pulp')
             .with_oauth_enabled(true)
-            .with_oauth_key('katello')
+            .with_oauth_key('key')
             .with_oauth_secret('secret')
             .with_messaging_url('ssl://localhost:5671')
             .with_messaging_ca_cert('/etc/pki/katello/certs/katello-default-ca.crt')
