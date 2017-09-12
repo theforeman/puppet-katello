@@ -11,7 +11,6 @@ describe 'katello::candlepin' do
             :user_groups    => ['foreman'],
             :oauth_key      => 'katello',
             :oauth_secret   => 'secret',
-            :deployment_url => '/katello',
             :db_host        => 'localhost',
             :db_port        => 5432,
             :db_name        => 'candlepin',
