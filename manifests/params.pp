@@ -62,6 +62,7 @@ class katello::params {
   $reset_data = 'NONE'
 
   $qpid_hostname = 'localhost'
+  $qpid_interface = 'lo'
   $qpid_url = "amqp:ssl:${qpid_hostname}:5671"
   $candlepin_event_queue = 'katello_event_queue'
   $candlepin_qpid_exchange = 'event'

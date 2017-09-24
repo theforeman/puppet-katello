@@ -15,6 +15,7 @@ describe 'katello::qpid' do
             :candlepin_qpid_exchange => 'event',
             :wcache_page_size        => 8,
             :interface               => 'eth0',
+            :hostname                => 'localhost',
           }
         end
 
