@@ -41,6 +41,10 @@
 #
 # $qpid_wcache_page_size:: The size (in KB) of the pages in the write page cache
 #
+# $qpid_interface::     The interface qpidd listens to.
+#
+# $qpid_hostname::      Hostname used to connect to qpidd.
+#
 # $package_names::      Packages that this module ensures are present instead of the default
 #
 # $manage_repo::        Whether to manage the yum repository
@@ -79,6 +83,8 @@ class katello (
 
   String $post_sync_token = $::katello::params::post_sync_token,
   Integer[0, 1000] $qpid_wcache_page_size = $::katello::params::qpid_wcache_page_size,
+  String $qpid_interface = $::katello::params::qpid_interface,
+  String $qpid_hostname = $::katello::params::qpid_hostname,
   Integer[1] $num_pulp_workers = $::katello::params::num_pulp_workers,
   Optional[Integer] $max_tasks_per_pulp_worker = $::katello::params::max_tasks_per_pulp_worker,
   Optional[Stdlib::HTTPUrl] $proxy_url = $::katello::params::proxy_url,
