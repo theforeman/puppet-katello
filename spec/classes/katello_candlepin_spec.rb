@@ -24,9 +24,7 @@ describe 'katello::candlepin' do
         end
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_class('certs::qpid') }
         it { is_expected.to contain_class('certs::candlepin').that_notifies('Service[tomcat]') }
-        it { is_expected.to contain_class('katello::qpid_client') }
         it { is_expected.to contain_class('candlepin') }
       end
 
@@ -36,9 +34,7 @@ describe 'katello::candlepin' do
         end
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_class('certs::qpid') }
         it { is_expected.to contain_class('certs::candlepin').that_notifies('Service[tomcat]') }
-        it { is_expected.to contain_class('katello::qpid_client') }
         it { is_expected.to contain_class('candlepin') }
       end
     end

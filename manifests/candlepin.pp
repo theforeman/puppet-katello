@@ -14,9 +14,7 @@ class katello::candlepin (
   String $qpid_hostname = $::katello::qpid_hostname,
 ) {
   include ::certs
-  include ::certs::qpid
   include ::certs::candlepin
-  include ::katello::qpid_client
 
   class { '::candlepin':
     user_groups                  => $user_groups,
@@ -35,8 +33,8 @@ class katello::candlepin (
     amqp_keystore                => $::certs::candlepin::amqp_keystore,
     amqp_truststore              => $::certs::candlepin::amqp_truststore,
     qpid_hostname                => $qpid_hostname,
-    qpid_ssl_cert                => $::certs::qpid::client_cert,
-    qpid_ssl_key                 => $::certs::qpid::client_key,
+    qpid_ssl_cert                => $::certs::candlepin::client_cert,
+    qpid_ssl_key                 => $::certs::candlepin::client_key,
     db_host                      => $db_host,
     db_port                      => $db_port,
     db_name                      => $db_name,
@@ -45,7 +43,7 @@ class katello::candlepin (
     db_ssl                       => $db_ssl,
     db_ssl_verify                => $db_ssl_verify,
     manage_db                    => $manage_db,
-    subscribe                    => Class['certs', 'certs::qpid', 'certs::candlepin'],
+    subscribe                    => Class['certs', 'certs::candlepin'],
   }
 
   contain ::candlepin

@@ -34,6 +34,8 @@ describe 'katello::application' do
           it { is_expected.not_to contain_package('tfm-rubygem-katello_ostree') }
           it { is_expected.to create_package('tfm-rubygem-katello') }
           it { is_expected.to create_file('/usr/share/foreman/bundler.d/katello.rb') }
+          it { is_expected.to contain_class('certs::qpid') }
+          it { is_expected.to contain_class('katello::qpid_client') }
 
           it do
             is_expected.to create_foreman_config_entry('pulp_client_cert')
@@ -61,6 +63,11 @@ describe 'katello::application' do
             is_expected.to create_foreman__config__passenger__fragment('katello')
               .without_content()
               .with_ssl_content(%r{^<LocationMatch /rhsm\|/katello/api>$})
+          end
+
+          it do
+            is_expected.to contain_class('certs::qpid')
+              .that_notifies(['Class[Foreman::Plugin::Tasks]'])
           end
 
           it 'should generate correct katello.yaml' do

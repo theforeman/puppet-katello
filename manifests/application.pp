@@ -22,6 +22,8 @@ class katello::application (
   include ::certs::apache
   include ::certs::foreman
   include ::certs::pulp_client
+  include ::certs::qpid
+  include ::katello::qpid_client
 
   $post_sync_url = "${::foreman::foreman_url}${deployment_url}/api/v2/repositories/sync_complete?token=${post_sync_token}"
   $candlepin_ca_cert = $::certs::ca_cert
@@ -50,6 +52,7 @@ class katello::application (
   include ::foreman::plugin::tasks
 
   Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
+  Class['certs', 'certs::ca', 'certs::qpid'] ~> Class['foreman::plugin::tasks']
 
   # Katello database seeding needs candlepin
   package { $package_names:
