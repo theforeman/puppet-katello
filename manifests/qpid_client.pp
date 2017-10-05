@@ -1,4 +1,6 @@
-# Install and configure a qpid client
+# Install and configure a qpid client.
+# This is used by the Katello rails app to connect to the
+# qpid message broker.
 class katello::qpid_client {
   include ::certs
   include ::certs::qpid
