@@ -16,6 +16,10 @@ class katello::candlepin (
   include ::certs
   include ::certs::candlepin
 
+  if $manage_db {
+    include ::katello::postgresql
+  }
+
   class { '::candlepin':
     user_groups                  => $user_groups,
     oauth_key                    => $oauth_key,
