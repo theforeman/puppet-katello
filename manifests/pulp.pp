@@ -15,11 +15,24 @@ class katello::pulp (
   Stdlib::Absolutepath $repo_export_dir = $::katello::repo_export_dir,
   String $repo_export_dir_owner = $::katello::user,
   String $repo_export_dir_group = $::katello::group,
+  Boolean $manage_httpd = false,
 ) {
   include ::certs
   include ::certs::qpid_client
   # Because we re-use the CRL file
   include ::katello::candlepin
+
+  if $manage_httpd {
+    include ::certs::apache
+
+    $https_cert = $::certs::apache::apache_cert
+    $https_key  = $::certs::apache::apache_key
+    $ca_cert    = $::certs::katello_server_ca_cert
+  } else {
+    $https_cert = undef
+    $https_key  = undef
+    $ca_cert    = undef
+  }
 
   class { '::pulp':
     oauth_enabled          => true,
@@ -39,7 +52,7 @@ class katello::pulp (
     proxy_password         => $proxy_password,
     yum_max_speed          => $yum_max_speed,
     manage_broker          => false,
-    manage_httpd           => false,
+    manage_httpd           => $manage_httpd,
     manage_plugins_httpd   => true,
     manage_squid           => true,
     enable_rpm             => true,
@@ -52,14 +65,28 @@ class katello::pulp (
     repo_auth              => true,
     puppet_wsgi_processes  => 1,
     enable_katello         => true,
+    https_cert             => $https_cert,
+    https_key              => $https_key,
+    ca_cert                => $ca_cert,
     subscribe              => Class['certs', 'certs::qpid_client'],
   }
 
   contain ::pulp
 
-  foreman::config::passenger::fragment { 'pulp':
-    content     => file('katello/pulp-apache.conf'),
-    ssl_content => file('katello/pulp-apache-ssl.conf'),
+  if $manage_httpd {
+    pulp::apache::fragment { 'httpd_pub':
+      ssl_content => file('katello/pub-apache.conf'),
+    }
+  } else {
+    foreman::config::passenger::fragment { 'pulp':
+      content     => file('katello/pulp-apache.conf'),
+      ssl_content => file('katello/pulp-apache-ssl.conf'),
+    }
+
+    foreman::config::passenger::fragment { 'pub':
+      content     => file('katello/pub-apache.conf'),
+      ssl_content => file('katello/pub-apache.conf'),
+    }
   }
 
   # NB: we define this here to avoid a dependency cycle. It is not a problem if
