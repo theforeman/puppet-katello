@@ -185,6 +185,8 @@ class katello (
   Optional[Enum['majority', 'all']] $pulp_db_write_concern = $::katello::params::pulp_db_write_concern,
   Boolean $pulp_manage_db = $::katello::params::pulp_manage_db,
 ) inherits katello::params {
+  $pulp_manage_httpd = false
+
   include ::katello::repo
   include ::katello::candlepin
   include ::katello::qpid
