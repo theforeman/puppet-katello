@@ -18,8 +18,6 @@ class katello::pulp (
 ) {
   include ::certs
   include ::certs::qpid_client
-  # Because we re-use the CRL file
-  include ::katello::candlepin
 
   class { '::pulp':
     oauth_enabled          => true,
@@ -32,7 +30,6 @@ class katello::pulp (
     messaging_auth_enabled => false,
     broker_url             => $broker_url,
     broker_use_ssl         => true,
-    consumers_crl          => $::candlepin::crl_file,
     proxy_url              => $proxy_url,
     proxy_port             => $proxy_port,
     proxy_username         => $proxy_username,
