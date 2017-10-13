@@ -20,7 +20,6 @@ describe 'katello::pulp' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('certs') }
         it { is_expected.to contain_class('certs::qpid_client') }
-        it { is_expected.to contain_class('katello::candlepin') }
 
         it do
           is_expected.to create_class('pulp')
@@ -34,7 +33,6 @@ describe 'katello::pulp' do
             .with_messaging_auth_enabled(false)
             .with_broker_url('qpid://localhost:5671')
             .with_broker_use_ssl(true)
-            .with_consumers_crl('/var/lib/candlepin/candlepin-crl.crl')
             .with_proxy_url(nil)
             .with_proxy_port(nil)
             .with_proxy_username(nil)
