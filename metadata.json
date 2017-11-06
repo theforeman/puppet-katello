@@ -4,9 +4,9 @@
   "author": "Katello",
   "summary": "Handles deploying and managing a Katello + Foreman server",
   "license": "GPL-3.0+",
-  "source": "https://github.com/Katello/puppet-katello.git",
-  "project_page": "https://github.com/Katello/puppet-katello",
-  "issues_url": "http://projects.theforeman.org/projects/katello/issues",
+  "source": "https://github.com/theforeman/puppet-katello.git",
+  "project_page": "https://github.com/theforeman/puppet-katello",
+  "issues_url": "https://projects.theforeman.org/projects/katello/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
