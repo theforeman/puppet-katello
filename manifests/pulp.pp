@@ -35,6 +35,7 @@ class katello::pulp (
     manage_plugins_httpd   => true,
     manage_squid           => true,
     enable_rpm             => true,
+    enable_deb             => true,
     enable_puppet          => true,
     enable_docker          => true,
     enable_ostree          => $enable_ostree,
