@@ -23,6 +23,7 @@ describe 'katello::application' do
           :proxy_port             => 8080,
           :proxy_username         => nil,
           :proxy_password         => nil,
+          :rest_client_timeout    => 3600,
         }
       end
 
@@ -101,6 +102,33 @@ describe 'katello::application' do
             is_expected.to contain_package('tfm-rubygem-katello_ostree')
               .with_ensure('installed')
               .that_notifies(['Class[Foreman::Service]', 'Class[Foreman::Plugin::Tasks]', 'Exec[foreman-rake-apipie:cache:index]'])
+          end
+        end
+
+        context 'with rest client timeout' do
+          let :params do
+            base_params.merge(:rest_client_timeout => 4000)
+          end
+
+          it { is_expected.to compile.with_all_deps }
+
+          it 'should generate correct katello.yaml' do
+            verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
+              ':katello:',
+              '  :rest_client_timeout: 4000',
+              '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
+              '  :candlepin:',
+              '    :url: https://foo.example.com:8443/candlepin',
+              '    :oauth_key: candlepin',
+              '    :oauth_secret: candlepin-secret',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :pulp:',
+              '    :url: https://foo.example.com/pulp/api/v2/',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
+              '  :qpid:',
+              '    :url: amqp:ssl:localhost:5671',
+              '    :subscriptions_queue_address: katello_event_queue'
+            ])
           end
         end
 

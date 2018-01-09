@@ -35,6 +35,9 @@ class katello::params {
   # Pulp max speed setting
   $pulp_max_speed = undef
 
+  # Rest client timeout
+  $rest_client_timeout = 3600
+
   # Qpid perf settings
   $qpid_wcache_page_size = 4
 

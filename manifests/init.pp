@@ -73,6 +73,8 @@
 #
 # $candlepin_manage_db:: Boolean indicating whether a database should be installed, this includes db creation and user
 #
+# $rest_client_timeout:: Timeout for Katello rest API
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -82,6 +84,7 @@ class katello (
   String $candlepin_oauth_secret = $::katello::params::candlepin_oauth_secret,
 
   String $post_sync_token = $::katello::params::post_sync_token,
+  Integer[0] $rest_client_timeout = $::katello::params::rest_client_timeout,
   Integer[0, 1000] $qpid_wcache_page_size = $::katello::params::qpid_wcache_page_size,
   String $qpid_interface = $::katello::params::qpid_interface,
   String $qpid_hostname = $::katello::params::qpid_hostname,
