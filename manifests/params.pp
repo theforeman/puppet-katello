@@ -38,6 +38,9 @@ class katello::params {
   # Rest client timeout
   $rest_client_timeout = 3600
 
+  # Pulp worker timeout
+  $pulp_worker_timeout = 60
+
   # Qpid perf settings
   $qpid_wcache_page_size = 4
 
