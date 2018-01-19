@@ -13,6 +13,7 @@ class katello::pulp (
   Stdlib::Absolutepath $repo_export_dir = $::katello::repo_export_dir,
   String $repo_export_dir_owner = $::katello::user,
   String $repo_export_dir_group = $::katello::group,
+  Integer[0] $pulp_worker_timeout = $::katello::pulp_worker_timeout,
 ) {
   include ::certs
   include ::certs::qpid_client
@@ -46,6 +47,7 @@ class katello::pulp (
     puppet_wsgi_processes  => 1,
     enable_katello         => true,
     subscribe              => Class['certs', 'certs::qpid_client'],
+    worker_timeout         => $pulp_worker_timeout,
   }
 
   contain ::pulp

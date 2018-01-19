@@ -75,6 +75,10 @@
 #
 # $rest_client_timeout:: Timeout for Katello rest API
 #
+# $pulp_worker_timeout:: The amount of time (in seconds) before considering a worker as missing. If Pulp's
+#                        mongo database has slow I/O, then setting a higher number may resolve issues where workers are
+#                        going missing incorrectly.
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -89,6 +93,7 @@ class katello (
   String $qpid_interface = $::katello::params::qpid_interface,
   String $qpid_hostname = $::katello::params::qpid_hostname,
   Integer[1] $num_pulp_workers = $::katello::params::num_pulp_workers,
+  Integer[0] $pulp_worker_timeout = $::katello::params::pulp_worker_timeout,
   Optional[Integer] $max_tasks_per_pulp_worker = $::katello::params::max_tasks_per_pulp_worker,
   Optional[Stdlib::HTTPUrl] $proxy_url = $::katello::params::proxy_url,
   Optional[Integer[0, 65535]] $proxy_port = $::katello::params::proxy_port,
