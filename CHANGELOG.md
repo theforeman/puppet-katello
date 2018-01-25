@@ -1,5 +1,16 @@
 # Change Log
 
+## [7.2.0](https://github.com/theforeman/puppet-katello/tree/7.2.0) (2018-01-25)
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/7.1.1...7.2.0)
+
+**Implemented enhancements:**
+
+- Update metadata [\#234](https://github.com/theforeman/puppet-katello/pull/234) ([ekohl](https://github.com/ekohl))
+- Allow use of puppet-qpid 4.X [\#233](https://github.com/theforeman/puppet-katello/pull/233) ([ehelms](https://github.com/ehelms))
+- Refs \#22338 - add worker\_timeout param [\#231](https://github.com/theforeman/puppet-katello/pull/231) ([chris1984](https://github.com/chris1984))
+- Fixes \#22200 - add rest timeout param [\#230](https://github.com/theforeman/puppet-katello/pull/230) ([chris1984](https://github.com/chris1984))
+- Enable pulp\_deb for katello [\#229](https://github.com/theforeman/puppet-katello/pull/229) ([mdellweg](https://github.com/mdellweg))
+
 ## [7.1.0](https://github.com/theforeman/puppet-katello/tree/7.1.0)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/7.0.0...7.1.0)
