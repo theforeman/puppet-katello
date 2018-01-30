@@ -26,6 +26,10 @@ class katello::application (
   include ::certs::qpid
   include ::katello::qpid_client
 
+  if $::foreman::db_manage {
+    include ::katello::postgresql
+  }
+
   $post_sync_url = "${::foreman::foreman_url}${deployment_url}/api/v2/repositories/sync_complete?token=${post_sync_token}"
   $candlepin_ca_cert = $::certs::ca_cert
   $pulp_ca_cert = $::certs::katello_server_ca_cert
