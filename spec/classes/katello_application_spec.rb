@@ -9,7 +9,11 @@ describe 'katello::application' do
         {
           :package_names          => ['tfm-rubygem-katello'],
           :enable_ostree          => false,
-          :rubygem_katello_ostree => 'tfm-rubygem-katello_ostree',
+          :enable_yum             => true,
+          :enable_file            => true,
+          :enable_puppet          => true,
+          :enable_docker          => true,
+          :enable_deb             => true,
           :cdn_ssl_version        => '',
           :deployment_url         => '/katello',
           :post_sync_token        => 'test_token',
@@ -32,7 +36,6 @@ describe 'katello::application' do
           let (:params) { base_params }
 
           it { is_expected.to compile.with_all_deps }
-          it { is_expected.not_to contain_package('tfm-rubygem-katello_ostree') }
           it { is_expected.to create_package('tfm-rubygem-katello') }
           it { is_expected.to create_file('/usr/share/foreman/bundler.d/katello.rb') }
           it { is_expected.to contain_class('certs::qpid') }
@@ -57,7 +60,7 @@ describe 'katello::application' do
 
           it do
             is_expected.to contain_file('/etc/foreman/plugins/katello.yaml')
-              .that_notifies(['Class[Foreman::Plugin::Tasks]', 'Class[Foreman::Service]', 'Exec[foreman-rake-db:seed]', 'Exec[restart_foreman]'])
+              .that_notifies(['Class[Foreman::Service]', 'Exec[foreman-rake-db:seed]', 'Exec[restart_foreman]'])
           end
 
           it do
@@ -76,6 +79,13 @@ describe 'katello::application' do
               ':katello:',
               '  :rest_client_timeout: 3600',
               '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: true',
+              '    :docker: true',
+              '    :ostree: false',
               '  :candlepin:',
               '    :url: https://foo.example.com:8443/candlepin',
               '    :oauth_key: candlepin',
@@ -97,12 +107,6 @@ describe 'katello::application' do
           end
 
           it { is_expected.to compile.with_all_deps }
-
-          it do
-            is_expected.to contain_package('tfm-rubygem-katello_ostree')
-              .with_ensure('installed')
-              .that_notifies(['Class[Foreman::Service]', 'Class[Foreman::Plugin::Tasks]', 'Exec[foreman-rake-apipie:cache:index]'])
-          end
         end
 
         context 'with rest client timeout' do
@@ -117,6 +121,13 @@ describe 'katello::application' do
               ':katello:',
               '  :rest_client_timeout: 4000',
               '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: true',
+              '    :docker: true',
+              '    :ostree: false',
               '  :candlepin:',
               '    :url: https://foo.example.com:8443/candlepin',
               '    :oauth_key: candlepin',
@@ -145,6 +156,13 @@ describe 'katello::application' do
               '  :cdn_ssl_version: TLSv1',
               '  :rest_client_timeout: 3600',
               '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: true',
+              '    :docker: true',
+              '    :ostree: false',
               '  :candlepin:',
               '    :url: https://foo.example.com:8443/candlepin',
               '    :oauth_key: candlepin',
@@ -175,6 +193,13 @@ describe 'katello::application' do
               ':katello:',
               '  :rest_client_timeout: 3600',
               '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: true',
+              '    :docker: true',
+              '    :ostree: false',
               '  :candlepin:',
               '    :url: https://foo.example.com:8443/candlepin',
               '    :oauth_key: candlepin',
@@ -208,7 +233,6 @@ describe 'katello::application' do
         end
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.not_to contain_package('tfm-rubygem-katello_ostree') }
         it { is_expected.to create_package('tfm-rubygem-katello') }
         it { is_expected.to create_package('katello') }
         it do
@@ -221,6 +245,13 @@ describe 'katello::application' do
             ':katello:',
             '  :rest_client_timeout: 3600',
             '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
+            '  :content_types:',
+            '    :yum: true',
+            '    :file: true',
+            '    :deb: true',
+            '    :puppet: true',
+            '    :docker: true',
+            '    :ostree: false',
             '  :candlepin:',
             '    :url: https://foo.example.com:8443/candlepin',
             '    :oauth_key: candlepin',

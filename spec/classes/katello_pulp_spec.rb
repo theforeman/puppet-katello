@@ -39,6 +39,7 @@ describe 'katello::pulp' do
             .with_manage_plugins_httpd(true)
             .with_manage_squid(true)
             .with_enable_rpm(true)
+            .with_enable_iso(true)
             .with_enable_puppet(true)
             .with_enable_docker(true)
             .with_enable_ostree(false)

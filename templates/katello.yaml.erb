@@ -9,6 +9,14 @@
 
   :post_sync_url: <%= @post_sync_url %>
 
+  :content_types:
+    :file: <%= @enable_file %>
+    :yum: <%= @enable_yum %>
+    :deb: <%= @enable_deb %>
+    :puppet: <%= @enable_puppet %>
+    :docker: <%= @enable_docker %>
+    :ostree: <%= @enable_ostree %>
+
   :candlepin:
     :url: <%= @candlepin_url %>
     :oauth_key: <%= @candlepin_oauth_key %>
