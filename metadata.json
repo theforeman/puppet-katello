@@ -38,7 +38,7 @@
     },
     {
       "name": "theforeman-foreman",
-      "version_requirement": ">= 7.0.0 < 10.0.0"
+      "version_requirement": ">= 9.0.0 < 10.0.0"
     }
   ],
   "requirements": [

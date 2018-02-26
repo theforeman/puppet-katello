@@ -2,7 +2,12 @@
 class katello::application (
   Array[String] $package_names = $::katello::package_names,
   Boolean $enable_ostree = $::katello::enable_ostree,
-  String $rubygem_katello_ostree = $::katello::rubygem_katello_ostree,
+  Boolean $enable_yum = $::katello::enable_yum,
+  Boolean $enable_file = $::katello::enable_file,
+  Boolean $enable_puppet = $::katello::enable_puppet,
+  Boolean $enable_docker = $::katello::enable_docker,
+  Boolean $enable_deb = $::katello::enable_deb,
+
   Optional[Enum['SSLv23', 'TLSv1', '']] $cdn_ssl_version = $::katello::cdn_ssl_version,
   String $deployment_url = $::katello::deployment_url,
   String $post_sync_token = $::katello::post_sync_token,
@@ -65,14 +70,7 @@ class katello::application (
     group   => $::foreman::group,
     mode    => '0640',
     content => template('katello/katello.yaml.erb'),
-    notify  => [Class['foreman::service', 'foreman::plugin::tasks'], Foreman::Rake['db:seed']],
-  }
-
-  if $enable_ostree {
-    package { $rubygem_katello_ostree:
-      ensure => installed,
-      notify => [Class['foreman::service', 'foreman::plugin::tasks'], Foreman::Rake['apipie:cache:index']],
-    }
+    notify  => [Class['foreman::service'], Foreman::Rake['db:seed'], Foreman::Rake['apipie:cache:index']],
   }
 
   foreman::config::passenger::fragment{ 'katello':

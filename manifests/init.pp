@@ -4,7 +4,17 @@
 #
 # === Parameters:
 #
-# $enable_ostree::      Enable ostree plugin, this requires an ostree install
+# $enable_ostree::      Enable ostree content plugin, this requires an ostree install
+#
+# $enable_yum::         Enable rpm content plugin, including syncing of yum content
+#
+# $enable_file::        Enable generic file content management
+#
+# $enable_puppet::      Enable puppet content plugin
+#
+# $enable_docker::      Enable docker content plugin
+#
+# $enable_deb::         Enable debian content plugin
 #
 # $proxy_url::          URL of the proxy server
 #
@@ -104,6 +114,12 @@ class katello (
 
   Array[String] $package_names = $::katello::params::package_names,
   Boolean $enable_ostree = $::katello::params::enable_ostree,
+  Boolean $enable_yum = $::katello::params::enable_yum,
+  Boolean $enable_file = $::katello::params::enable_file,
+  Boolean $enable_puppet = $::katello::params::enable_puppet,
+  Boolean $enable_docker = $::katello::params::enable_docker,
+  Boolean $enable_deb = $::katello::params::enable_deb,
+
 
   Stdlib::Absolutepath $repo_export_dir = $::katello::params::repo_export_dir,
 

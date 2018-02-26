@@ -72,6 +72,11 @@ class katello::params {
   $candlepin_event_queue = 'katello_event_queue'
   $candlepin_qpid_exchange = 'event'
   $enable_ostree = false
+  $enable_yum = true
+  $enable_file = true
+  $enable_puppet = true
+  $enable_docker = true
+  $enable_deb = true
 
   $manage_repo = false
   $repo_version = 'latest'
