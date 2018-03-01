@@ -43,6 +43,8 @@ class katello::params {
 
   # Qpid perf settings
   $qpid_wcache_page_size = 4
+  $qpid_mgmt_pub_interval = 5
+  $qpid_open_file_limit = 100000
 
   # cdn ssl settings
   $cdn_ssl_version = undef

@@ -4,6 +4,8 @@ class katello::qpid (
   String $candlepin_event_queue = $::katello::candlepin_event_queue,
   String $candlepin_qpid_exchange = $::katello::candlepin_qpid_exchange,
   Integer[0, 5000] $wcache_page_size = $::katello::qpid_wcache_page_size,
+  Integer[0] $mgmt_pub_interval = $::katello::qpid_mgmt_pub_interval,
+  Integer[0] $open_file_limit = ::katello::qpid_open_file_limit,
   String $interface = $::katello::qpid_interface,
   String $hostname = $::katello::qpid_hostname,
 ) {
@@ -18,6 +20,8 @@ class katello::qpid (
     interface              => $interface,
     wcache_page_size       => $wcache_page_size,
     subscribe              => Class['certs', 'certs::qpid'],
+    mgmt_pub_interval      => $mgmt_pub_interval,
+    open_file_limit        => $open_file_limit,
   }
 
   contain ::qpid
