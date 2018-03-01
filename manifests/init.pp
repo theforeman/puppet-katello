@@ -89,6 +89,10 @@
 #                        mongo database has slow I/O, then setting a higher number may resolve issues where workers are
 #                        going missing incorrectly.
 #
+# $qpid_mgmt_pub_interval:: Controls the interval at which the broker sends
+#                           updated information (stats, etc.) to the management console
+# $qpid_open_file_limit:: Limit number of open files - systemd distros only
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -100,6 +104,8 @@ class katello (
   String $post_sync_token = $::katello::params::post_sync_token,
   Integer[0] $rest_client_timeout = $::katello::params::rest_client_timeout,
   Integer[0, 1000] $qpid_wcache_page_size = $::katello::params::qpid_wcache_page_size,
+  Integer[0] $qpid_mgmt_pub_interval = $::katello::params::qpid_mgmt_pub_interval,
+  Integer[0] $qpid_open_file_limit = ::katello::params::qpid_open_file_limit,
   String $qpid_interface = $::katello::params::qpid_interface,
   String $qpid_hostname = $::katello::params::qpid_hostname,
   Integer[1] $num_pulp_workers = $::katello::params::num_pulp_workers,

@@ -16,6 +16,8 @@ describe 'katello::qpid' do
             :wcache_page_size        => 8,
             :interface               => 'eth0',
             :hostname                => 'localhost',
+            :mgmt_pub_interval       => 9,
+            :open_file_limit         => 20,
           }
         end
 
