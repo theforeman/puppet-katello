@@ -49,6 +49,10 @@ describe 'katello::pulp' do
             .with_repo_auth(true)
             .with_puppet_wsgi_processes(1)
             .with_enable_katello(true)
+            .with_manage_db(true)
+            .with_db_name('pulp_database')
+            .with_db_seeds('localhost:27017')
+            .with_db_ssl(false)
             .that_subscribes_to('Class[Certs::Qpid_client]')
         end
 
@@ -66,6 +70,27 @@ describe 'katello::pulp' do
             .with_owner('foreman')
             .with_group('foreman')
             .with_mode('0755')
+        end
+      end
+
+      context 'with explicit parameters' do
+        let :pre_condition do
+          <<-EOS
+          class { '::katello':
+            pulp_db_name      => 'pulp_db',
+            pulp_db_username  => 'pulp_user',
+            pulp_db_password  => 'pulp_pw',
+            pulp_db_seeds     => '192.168.1.1:27017'
+          }
+          EOS
+        end
+
+        it do
+          is_expected.to create_class('pulp')
+            .with_db_name('pulp_db')
+            .with_db_username('pulp_user')
+            .with_db_password('pulp_pw')
+            .with_db_seeds('192.168.1.1:27017')
         end
       end
     end
