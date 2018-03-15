@@ -19,6 +19,19 @@ class katello::pulp (
   String $repo_export_dir_owner = $::katello::user,
   String $repo_export_dir_group = $::katello::group,
   Integer[0] $pulp_worker_timeout = $::katello::pulp_worker_timeout,
+  String $db_name = $::katello::pulp_db_name,
+  String $db_seeds = $::katello::pulp_db_seeds,
+  Optional[String] $db_username = $::katello::pulp_db_username,
+  Optional[String] $db_password = $::katello::pulp_db_password,
+  Optional[String] $db_replica_set = $::katello::pulp_db_replica_set,
+  Boolean $db_ssl = $::katello::pulp_db_ssl,
+  Optional[Stdlib::Absolutepath] $db_ssl_keyfile = $::katello::pulp_db_ssl_keyfile,
+  Optional[Stdlib::Absolutepath] $db_ssl_certfile = $::katello::pulp_db_ssl_certfile,
+  Boolean $db_verify_ssl = $::katello::pulp_db_verify_ssl,
+  Stdlib::Absolutepath $db_ca_path = $::katello::pulp_db_ca_path,
+  Boolean $db_unsafe_autoretry = $::katello::pulp_db_unsafe_autoretry,
+  Optional[Enum['majority', 'all']] $db_write_concern = $::katello::pulp_db_write_concern,
+  Boolean $manage_db = $::katello::pulp_manage_db,
 ) {
   include ::certs
   include ::certs::qpid_client
@@ -54,6 +67,19 @@ class katello::pulp (
     enable_katello         => true,
     subscribe              => Class['certs', 'certs::qpid_client'],
     worker_timeout         => $pulp_worker_timeout,
+    db_name                => $db_name,
+    db_seeds               => $db_seeds,
+    db_username            => $db_username,
+    db_password            => $db_password,
+    db_replica_set         => $db_replica_set,
+    db_ssl                 => $db_ssl,
+    db_ssl_keyfile         => $db_ssl_keyfile,
+    db_ssl_certfile        => $db_ssl_certfile,
+    db_verify_ssl          => $db_verify_ssl,
+    db_ca_path             => $db_ca_path,
+    db_unsafe_autoretry    => $db_unsafe_autoretry,
+    db_write_concern       => $db_write_concern,
+    manage_db              => $manage_db,
   }
 
   contain ::pulp
