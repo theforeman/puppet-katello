@@ -137,6 +137,8 @@
 #
 # $pulp_hostname::      The hostname of the Pulp server. Used to construct the Pulp URL.
 #
+# $certs_tar::          Path to a tar with certs for the node
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -205,11 +207,18 @@ class katello (
   Boolean $manage_qpid = $::katello::params::manage_qpid,
   Boolean $manage_pulp = $::katello::params::manage_pulp,
   Boolean $manage_foreman_application = $::katello::params::manage_foreman_application,
+  Optional[Stdlib::Absolutepath] $certs_tar = $::katello::params::certs_tar,
 ) inherits katello::params {
   $pulp_manage_httpd = ! $manage_foreman_application
   $candlepin_url = "https://${candlepin_hostname}:8443/candlepin"
   $qpid_url = "amqp:ssl:${qpid_hostname}:5671"
   $pulp_url = "https://${pulp_hostname}/pulp/api/v2/"
+
+  if $certs_tar {
+    certs::tar_extract { $certs_tar:
+      before => Class['certs'],
+    }
+  }
 
   if $manage_candlepin {
     include ::katello::candlepin

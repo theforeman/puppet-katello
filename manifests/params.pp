@@ -113,4 +113,5 @@ class katello::params {
   $manage_qpid = true
   $manage_pulp = true
   $manage_foreman_application = true
+  $certs_tar = undef
 }
