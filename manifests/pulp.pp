@@ -32,6 +32,7 @@ class katello::pulp (
   Boolean $db_unsafe_autoretry = $::katello::pulp_db_unsafe_autoretry,
   Optional[Enum['majority', 'all']] $db_write_concern = $::katello::pulp_db_write_concern,
   Boolean $manage_db = $::katello::pulp_manage_db,
+  String $pub_dir_options = '+FollowSymLinks +Indexes',
 ) {
   include ::certs
   include ::certs::qpid_client
@@ -85,8 +86,8 @@ class katello::pulp (
   contain ::pulp
 
   foreman::config::passenger::fragment { 'pulp':
-    content     => file('katello/pulp-apache.conf'),
-    ssl_content => file('katello/pulp-apache-ssl.conf'),
+    content     => template('katello/pulp-apache.conf.erb'),
+    ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
   }
 
   # NB: we define this here to avoid a dependency cycle. It is not a problem if
