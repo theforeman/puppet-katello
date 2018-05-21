@@ -62,6 +62,7 @@ class katello::params {
   # Subsystems settings
   $candlepin_url = "https://${::fqdn}:8443/candlepin"
   $pulp_url      = "https://${::fqdn}/pulp/api/v2/"
+  $crane_url  = "https://${::fqdn}:5000"
 
   # database reinitialization flag
   $reset_data = 'NONE'
