@@ -1,6 +1,14 @@
 # Change Log
 
-## [8.0.0](https://github.com/theforeman/puppet-katello/tree/8.0.0) (2018-05-09)
+## [8.0.1](https://github.com/theforeman/puppet-katello/tree/8.0.1) (2018-05-30)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.0.0...8.0.1)
+
+**Merged pull requests:**
+
+- Allow puppetlabs-apache 3.x [\#244](https://github.com/theforeman/puppet-katello/pull/244) ([ekohl](https://github.com/ekohl))
+
+## [8.0.0](https://github.com/theforeman/puppet-katello/tree/8.0.0) (2018-05-23)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/7.0.1...8.0.0)
 
