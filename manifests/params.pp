@@ -26,6 +26,11 @@ class katello::params {
   # Pulp worker timeout
   $pulp_worker_timeout = 60
 
+  $pulp_yum_gpg_sign_repo_metadata = true
+  $pulp_yum_gpg_key_id = undef
+  $pulp_yum_gpg_cmd = undef
+  $pulp_yum_regenerate_repomd_signatures = false
+
   # Qpid perf settings
   $qpid_wcache_page_size = 4
 

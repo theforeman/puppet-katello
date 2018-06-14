@@ -44,6 +44,14 @@
 #
 # $num_pulp_workers::   Number of pulp workers to use
 #
+# $pulp_yum_gpg_sign_repo_metadata:: Whether yum repo metadata GPG signing will be enabled
+#
+# $pulp_yum_gpg_key_id:: GPG Key ID to use for yum repo metadata signing
+#
+# $pulp_yum_gpg_cmd::   Custom GPG command/script to use for yum repo metadata signing
+#
+# $pulp_yum_regenerate_repomd_signatures:: Whether to regenerate existing yum repo metadata GPG signatures
+#
 # $qpid_wcache_page_size:: The size (in KB) of the pages in the write page cache
 #
 # $qpid_interface::     The interface qpidd listens to.
@@ -132,6 +140,10 @@ class katello (
   String $qpid_hostname = $katello::params::qpid_hostname,
   Integer[1] $num_pulp_workers = $katello::params::num_pulp_workers,
   Integer[0] $pulp_worker_timeout = $katello::params::pulp_worker_timeout,
+  Boolean $pulp_yum_gpg_sign_repo_metadata = $katello::params::pulp_yum_gpg_sign_repo_metadata,
+  Optional[String] $pulp_yum_gpg_key_id = $katello::params::pulp_yum_gpg_key_id,
+  Optional[String] $pulp_yum_gpg_cmd = $katello::params::pulp_yum_gpg_cmd,
+  Boolean $pulp_yum_regenerate_repomd_signatures = $katello::params::pulp_yum_regenerate_repomd_signatures,
   Optional[Stdlib::HTTPUrl] $proxy_url = $katello::params::proxy_url,
   Optional[Integer[0, 65535]] $proxy_port = $katello::params::proxy_port,
   Optional[String] $proxy_username = $katello::params::proxy_username,
