@@ -11,3 +11,13 @@
   ErrorDocument 500 '{"displayMessage": "Internal error, contact administrator", "errors": ["Internal error, contact administrator"], "status": "500" }'
   ErrorDocument 503 '{"displayMessage": "Service unavailable or restarting, try later", "errors": ["Service unavailable or restarting, try later"], "status": "503" }'
 </LocationMatch>
+
+<% unless [nil, :undefined, :undef, '', 0].include?(scope.lookupvar('katello::keep_alive')) %>
+KeepAlive <%= scope['katello::keep_alive'] %>
+<% end %>
+<% unless [nil, :undefined, :undef, '', 0].include?(scope.lookupvar('katello::max_keep_alive')) %>
+MaxKeepAliveRequests <%= scope['katello::max_keep_alive'] %>
+<% end %>
+<% unless [nil, :undefined, :undef, '', 0].include?(scope.lookupvar('katello::keep_alive_timeout')) %>
+KeepAliveTimeout <%= scope['katello::keep_alive_timeout'] %>
+<% end %>

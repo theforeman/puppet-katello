@@ -123,6 +123,12 @@
 #
 # $pulp_manage_db::      Boolean to install and configure the mongodb.
 #
+# $keep_alive::          Enables HTTPS persistent connections.
+#
+# $max_keep_alive::      Number of requests allowed on a persistent connection.
+#
+# $keep_alive_timeout::  Amount of time the server will wait for subsequent requests on a persistent connection.
+#
 class katello (
   String $user = $::katello::params::user,
   String $group = $::katello::params::group,
@@ -184,6 +190,10 @@ class katello (
   Boolean $pulp_db_unsafe_autoretry = $::katello::params::pulp_db_unsafe_autoretry,
   Optional[Enum['majority', 'all']] $pulp_db_write_concern = $::katello::params::pulp_db_write_concern,
   Boolean $pulp_manage_db = $::katello::params::pulp_manage_db,
+
+  Optional[Boolean] $keep_alive = $::katello::params::keep_alive,
+  Optional[Integer] $keep_alive_timeout = $::katello::params::keep_alive_timeout,
+  Optional[Integer] $max_keep_alive = $::katello::params::max_keep_alive,
 ) inherits katello::params {
   include ::katello::repo
   include ::katello::candlepin

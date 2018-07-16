@@ -108,4 +108,9 @@ class katello::params {
   $pulp_db_ca_path = '/etc/pki/tls/certs/ca-bundle.crt'
   $pulp_db_unsafe_autoretry = false
   $pulp_db_write_concern = undef
+
+  # Katello Apache tunings
+  $keep_alive = undef
+  $keep_alive_timeout = undef
+  $max_keep_alive = undef
 }
