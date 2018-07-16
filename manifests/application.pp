@@ -74,6 +74,6 @@ class katello::application (
   }
 
   foreman::config::passenger::fragment{ 'katello':
-    ssl_content => file('katello/katello-apache-ssl.conf'),
+    ssl_content => template('katello/katello-apache-ssl.erb'),
   }
 }
