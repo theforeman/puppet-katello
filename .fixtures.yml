@@ -13,5 +13,3 @@ fixtures:
     pulp:          "https://github.com/theforeman/puppet-pulp.git"
     squid3:        "https://github.com/thias/puppet-squid3.git"
     systemd:       "https://github.com/camptocamp/puppet-systemd.git"
-  symlinks:
-    katello: "#{source_dir}"
