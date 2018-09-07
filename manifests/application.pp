@@ -21,7 +21,7 @@ class katello::application (
   Optional[Integer[0, 65535]] $proxy_port = $::katello::proxy_port,
   Optional[String] $proxy_username = $::katello::proxy_username,
   Optional[String] $proxy_password = $::katello::proxy_password,
-  Integer[0] $rest_client_timeout = $::katello::params::rest_client_timeout,
+  Integer[0] $rest_client_timeout = $::katello::rest_client_timeout,
 ) {
   include ::foreman
   include ::certs
