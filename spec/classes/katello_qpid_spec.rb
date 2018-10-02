@@ -44,7 +44,7 @@ describe 'katello::qpid' do
             .with_ssl_key('/etc/pki/katello/private/foo.example.com-qpid-broker.key')
         end
 
-        ['entitlement.created', 'entitlement.deleted', 'pool.created', 'pool.deleted', 'compliance.created'].each do |binding|
+        ['entitlement.created', 'entitlement.deleted', 'pool.created', 'pool.deleted', 'compliance.created', 'system_purpose_compliance.created'].each do |binding|
           it do
             is_expected.to create_qpid__config__bind(binding)
               .with_queue('katello_event_queue')
@@ -83,7 +83,7 @@ describe 'katello::qpid' do
             .with_ssl_key('/etc/pki/katello/private/foo.example.com-qpid-broker.key')
         end
 
-        ['entitlement.created', 'entitlement.deleted', 'pool.created', 'pool.deleted', 'compliance.created'].each do |binding|
+        ['entitlement.created', 'entitlement.deleted', 'pool.created', 'pool.deleted', 'compliance.created', 'system_purpose_compliance.created'].each do |binding|
           it do
             is_expected.to create_qpid__config__bind(binding)
               .with_queue('katello_event_queue')
