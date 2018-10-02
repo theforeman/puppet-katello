@@ -37,7 +37,7 @@ class katello::qpid (
     hostname => $hostname,
   }
 
-  qpid::config::bind { ['entitlement.created', 'entitlement.deleted', 'pool.created', 'pool.deleted', 'compliance.created']:
+  qpid::config::bind { ['entitlement.created', 'entitlement.deleted', 'pool.created', 'pool.deleted', 'compliance.created', 'system_purpose_compliance.created']:
     queue    => $candlepin_event_queue,
     exchange => $candlepin_qpid_exchange,
     ssl_cert => $::certs::qpid::client_cert,
