@@ -1,4 +1,29 @@
-# Change Log
+# Changelog
+
+## [8.2.0](https://github.com/theforeman/puppet-katello/tree/8.2.0) (2018-10-18)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.1.0...8.2.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#25082](https://projects.theforeman.org/issues/25082) - Support syspurpose compliance event [\#258](https://github.com/theforeman/puppet-katello/pull/258) ([jturel](https://github.com/jturel))
+- Allow puppetlabs-stdlib 5.x [\#255](https://github.com/theforeman/puppet-katello/pull/255) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Fixes [\#24854](https://projects.theforeman.org/issues/24854) - Update rest\_client param reference in application.pp [\#253](https://github.com/theforeman/puppet-katello/pull/253) ([chris1984](https://github.com/chris1984))
+
+## [8.1.0](https://github.com/theforeman/puppet-katello/tree/8.1.0) (2018-08-07)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.0.1...8.1.0)
+
+**Implemented enhancements:**
+
+- fixes [\#24070](https://projects.theforeman.org/issues/24070) - add registry to katello.yaml [\#243](https://github.com/theforeman/puppet-katello/pull/243) ([thomasmckay](https://github.com/thomasmckay))
+
+**Fixed bugs:**
+
+- Refer to the correct $nss\_db\_ variable [\#242](https://github.com/theforeman/puppet-katello/pull/242) ([ekohl](https://github.com/ekohl))
 
 ## [8.0.1](https://github.com/theforeman/puppet-katello/tree/8.0.1) (2018-05-30)
 
