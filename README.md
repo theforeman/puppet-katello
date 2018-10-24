@@ -1,5 +1,5 @@
 [![Puppet Forge](https://img.shields.io/puppetforge/v/katello/katello.svg)](https://forge.puppetlabs.com/katello/katello)
-[![Build Status](https://travis.ci.org/theforeman/puppet-katello.svg?branch=master)](https://travis.ci.org/theforeman/puppet-katello)
+[![Build Status](https://travis-ci.org/theforeman/puppet-katello.svg?branch=master)](https://travis-ci.org/theforeman/puppet-katello)
 
 #### Table of Contents
 
