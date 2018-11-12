@@ -85,7 +85,7 @@ class katello::pulp (
 
   contain ::pulp
 
-  foreman::config::passenger::fragment { 'pulp':
+  foreman::config::apache::fragment { 'pulp':
     content     => template('katello/pulp-apache.conf.erb'),
     ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
   }
