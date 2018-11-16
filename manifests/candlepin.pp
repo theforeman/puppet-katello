@@ -20,8 +20,9 @@ class katello::candlepin (
     user_groups                  => $user_groups,
     oauth_key                    => $oauth_key,
     oauth_secret                 => $oauth_secret,
-    ca_key                       => $::certs::ca_key,
-    ca_cert                      => $::certs::ca_cert_stripped,
+    ca_key                       => $::certs::candlepin::ca_key,
+    ca_cert                      => $::certs::candlepin::ca_cert,
+    keystore_file                => $certs::candlepin::keystore,
     keystore_password            => $::certs::candlepin::keystore_password,
     truststore_password          => $::certs::candlepin::keystore_password,
     enable_basic_auth            => false,
@@ -47,13 +48,4 @@ class katello::candlepin (
   }
 
   contain ::candlepin
-
-  file { '/etc/tomcat/keystore':
-    ensure  => link,
-    target  => $::certs::candlepin::keystore,
-    owner   => 'tomcat',
-    group   => $::certs::group,
-    require => Class['candlepin::install', 'certs::candlepin'],
-    notify  => Class['candlepin::service'],
-  }
 }
