@@ -44,7 +44,7 @@ describe 'katello::pulp' do
             .with_enable_docker(true)
             .with_enable_ostree(false)
             .with_num_workers(1)
-            .with_max_tasks_per_child(2)
+            .with_max_tasks_per_child(nil)
             .with_enable_parent_node(false)
             .with_repo_auth(true)
             .with_puppet_wsgi_processes(1)
@@ -80,7 +80,8 @@ describe 'katello::pulp' do
             pulp_db_name      => 'pulp_db',
             pulp_db_username  => 'pulp_user',
             pulp_db_password  => 'pulp_pw',
-            pulp_db_seeds     => '192.168.1.1:27017'
+            pulp_db_seeds     => '192.168.1.1:27017',
+            max_tasks_per_pulp_worker => 2
           }
           EOS
         end
@@ -91,6 +92,7 @@ describe 'katello::pulp' do
             .with_db_username('pulp_user')
             .with_db_password('pulp_pw')
             .with_db_seeds('192.168.1.1:27017')
+            .with_max_tasks_per_child(2)
         end
       end
     end
