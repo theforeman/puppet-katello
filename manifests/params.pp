@@ -29,8 +29,9 @@ class katello::params {
   $proxy_username = undef
   $proxy_password = undef
 
+  # Pulp worker settings
   $num_pulp_workers = min($::processorcount, 8)
-  $max_tasks_per_pulp_worker = 2
+  $max_tasks_per_pulp_worker = undef
 
   # Pulp max speed setting
   $pulp_max_speed = undef
