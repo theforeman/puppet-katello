@@ -1,7 +1,7 @@
 # Katello Default Params
 class katello::params {
 
-  if $::operatingsystem == 'Fedora' {
+  if $facts['operatingsystem'] == 'Fedora' {
     $rubygem_katello = 'rubygem-katello'
   } else {
     $rubygem_katello = 'tfm-rubygem-katello'
@@ -17,7 +17,7 @@ class katello::params {
   $proxy_password = undef
 
   # Pulp worker settings
-  $num_pulp_workers = min($::processorcount, 8)
+  $num_pulp_workers = min($facts['processorcount'], 8)
   $max_tasks_per_pulp_worker = undef
 
   # Pulp max speed setting
@@ -48,9 +48,9 @@ class katello::params {
   $post_sync_token = cache_data('foreman_cache_data', 'post_sync_token', random_password(32))
 
   # Subsystems settings
-  $candlepin_url = "https://${::fqdn}:8443/candlepin"
-  $pulp_url      = "https://${::fqdn}/pulp/api/v2/"
-  $crane_url  = "https://${::fqdn}:5000"
+  $candlepin_url = "https://${facts['fqdn']}:8443/candlepin"
+  $pulp_url      = "https://${facts['fqdn']}/pulp/api/v2/"
+  $crane_url  = "https://${facts['fqdn']}:5000"
 
   # database reinitialization flag
   $reset_data = 'NONE'
@@ -69,7 +69,7 @@ class katello::params {
 
   $manage_repo = false
   $repo_version = 'latest'
-  $repo_yumcode = "el${::operatingsystemmajrelease}"
+  $repo_yumcode = "el${facts['operatingsystemmajrelease']}"
   $repo_gpgcheck = false
   $repo_gpgkey = undef
 

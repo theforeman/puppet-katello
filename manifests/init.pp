@@ -124,74 +124,74 @@
 # $pulp_manage_db::      Boolean to install and configure the mongodb.
 #
 class katello (
-  String $user = $::katello::params::user,
-  String $group = $::katello::params::group,
-  Variant[Array[String], String] $user_groups = $::katello::params::user_groups,
+  String $user = $katello::params::user,
+  String $group = $katello::params::group,
+  Variant[Array[String], String] $user_groups = $katello::params::user_groups,
 
-  String $candlepin_oauth_key = $::katello::params::candlepin_oauth_key,
-  String $candlepin_oauth_secret = $::katello::params::candlepin_oauth_secret,
+  String $candlepin_oauth_key = $katello::params::candlepin_oauth_key,
+  String $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret,
 
-  String $post_sync_token = $::katello::params::post_sync_token,
-  Integer[0] $rest_client_timeout = $::katello::params::rest_client_timeout,
-  Integer[0, 1000] $qpid_wcache_page_size = $::katello::params::qpid_wcache_page_size,
-  String $qpid_interface = $::katello::params::qpid_interface,
-  String $qpid_hostname = $::katello::params::qpid_hostname,
-  Integer[1] $num_pulp_workers = $::katello::params::num_pulp_workers,
-  Integer[0] $pulp_worker_timeout = $::katello::params::pulp_worker_timeout,
-  Optional[Integer] $max_tasks_per_pulp_worker = $::katello::params::max_tasks_per_pulp_worker,
-  Optional[Stdlib::HTTPUrl] $proxy_url = $::katello::params::proxy_url,
-  Optional[Integer[0, 65535]] $proxy_port = $::katello::params::proxy_port,
-  Optional[String] $proxy_username = $::katello::params::proxy_username,
-  Optional[String] $proxy_password = $::katello::params::proxy_password,
-  Optional[String] $pulp_max_speed = $::katello::params::pulp_max_speed,
-  Optional[Enum['SSLv23', 'TLSv1']] $cdn_ssl_version = $::katello::params::cdn_ssl_version,
+  String $post_sync_token = $katello::params::post_sync_token,
+  Integer[0] $rest_client_timeout = $katello::params::rest_client_timeout,
+  Integer[0, 1000] $qpid_wcache_page_size = $katello::params::qpid_wcache_page_size,
+  String $qpid_interface = $katello::params::qpid_interface,
+  String $qpid_hostname = $katello::params::qpid_hostname,
+  Integer[1] $num_pulp_workers = $katello::params::num_pulp_workers,
+  Integer[0] $pulp_worker_timeout = $katello::params::pulp_worker_timeout,
+  Optional[Integer] $max_tasks_per_pulp_worker = $katello::params::max_tasks_per_pulp_worker,
+  Optional[Stdlib::HTTPUrl] $proxy_url = $katello::params::proxy_url,
+  Optional[Integer[0, 65535]] $proxy_port = $katello::params::proxy_port,
+  Optional[String] $proxy_username = $katello::params::proxy_username,
+  Optional[String] $proxy_password = $katello::params::proxy_password,
+  Optional[String] $pulp_max_speed = $katello::params::pulp_max_speed,
+  Optional[Enum['SSLv23', 'TLSv1']] $cdn_ssl_version = $katello::params::cdn_ssl_version,
 
-  Array[String] $package_names = $::katello::params::package_names,
-  Boolean $enable_ostree = $::katello::params::enable_ostree,
-  Boolean $enable_yum = $::katello::params::enable_yum,
-  Boolean $enable_file = $::katello::params::enable_file,
-  Boolean $enable_puppet = $::katello::params::enable_puppet,
-  Boolean $enable_docker = $::katello::params::enable_docker,
-  Boolean $enable_deb = $::katello::params::enable_deb,
+  Array[String] $package_names = $katello::params::package_names,
+  Boolean $enable_ostree = $katello::params::enable_ostree,
+  Boolean $enable_yum = $katello::params::enable_yum,
+  Boolean $enable_file = $katello::params::enable_file,
+  Boolean $enable_puppet = $katello::params::enable_puppet,
+  Boolean $enable_docker = $katello::params::enable_docker,
+  Boolean $enable_deb = $katello::params::enable_deb,
 
 
-  Stdlib::Absolutepath $repo_export_dir = $::katello::params::repo_export_dir,
+  Stdlib::Absolutepath $repo_export_dir = $katello::params::repo_export_dir,
 
-  Boolean $manage_repo = $::katello::params::manage_repo,
-  String $repo_version = $::katello::params::repo_version,
-  Boolean $repo_gpgcheck = $::katello::params::repo_gpgcheck,
-  Optional[String] $repo_gpgkey = $::katello::params::repo_gpgkey,
+  Boolean $manage_repo = $katello::params::manage_repo,
+  String $repo_version = $katello::params::repo_version,
+  Boolean $repo_gpgcheck = $katello::params::repo_gpgcheck,
+  Optional[String] $repo_gpgkey = $katello::params::repo_gpgkey,
 
-  String $candlepin_db_host = $::katello::params::candlepin_db_host,
-  Optional[Integer[0, 65535]] $candlepin_db_port = $::katello::params::candlepin_db_port,
-  String $candlepin_db_name = $::katello::params::candlepin_db_name,
-  String $candlepin_db_user = $::katello::params::candlepin_db_user,
-  String $candlepin_db_password = $::katello::params::candlepin_db_password,
-  Boolean $candlepin_db_ssl = $::katello::params::candlepin_db_ssl,
-  Boolean $candlepin_db_ssl_verify = $::katello::params::candlepin_db_ssl_verify,
-  Boolean $candlepin_manage_db = $::katello::params::candlepin_manage_db,
+  String $candlepin_db_host = $katello::params::candlepin_db_host,
+  Optional[Integer[0, 65535]] $candlepin_db_port = $katello::params::candlepin_db_port,
+  String $candlepin_db_name = $katello::params::candlepin_db_name,
+  String $candlepin_db_user = $katello::params::candlepin_db_user,
+  String $candlepin_db_password = $katello::params::candlepin_db_password,
+  Boolean $candlepin_db_ssl = $katello::params::candlepin_db_ssl,
+  Boolean $candlepin_db_ssl_verify = $katello::params::candlepin_db_ssl_verify,
+  Boolean $candlepin_manage_db = $katello::params::candlepin_manage_db,
 
-  String $pulp_db_name = $::katello::params::pulp_db_name,
-  String $pulp_db_seeds = $::katello::params::pulp_db_seeds,
-  Optional[String] $pulp_db_username = $::katello::params::pulp_db_username,
-  Optional[String] $pulp_db_password = $::katello::params::pulp_db_password,
-  Optional[String] $pulp_db_replica_set = $::katello::params::pulp_db_replica_set,
-  Boolean $pulp_db_ssl = $::katello::params::pulp_db_ssl,
-  Optional[Stdlib::Absolutepath] $pulp_db_ssl_keyfile = $::katello::params::pulp_db_ssl_keyfile,
-  Optional[Stdlib::Absolutepath] $pulp_db_ssl_certfile = $::katello::params::pulp_db_ssl_certfile,
-  Boolean $pulp_db_verify_ssl = $::katello::params::pulp_db_verify_ssl,
-  Stdlib::Absolutepath $pulp_db_ca_path = $::katello::params::pulp_db_ca_path,
-  Boolean $pulp_db_unsafe_autoretry = $::katello::params::pulp_db_unsafe_autoretry,
-  Optional[Enum['majority', 'all']] $pulp_db_write_concern = $::katello::params::pulp_db_write_concern,
-  Boolean $pulp_manage_db = $::katello::params::pulp_manage_db,
+  String $pulp_db_name = $katello::params::pulp_db_name,
+  String $pulp_db_seeds = $katello::params::pulp_db_seeds,
+  Optional[String] $pulp_db_username = $katello::params::pulp_db_username,
+  Optional[String] $pulp_db_password = $katello::params::pulp_db_password,
+  Optional[String] $pulp_db_replica_set = $katello::params::pulp_db_replica_set,
+  Boolean $pulp_db_ssl = $katello::params::pulp_db_ssl,
+  Optional[Stdlib::Absolutepath] $pulp_db_ssl_keyfile = $katello::params::pulp_db_ssl_keyfile,
+  Optional[Stdlib::Absolutepath] $pulp_db_ssl_certfile = $katello::params::pulp_db_ssl_certfile,
+  Boolean $pulp_db_verify_ssl = $katello::params::pulp_db_verify_ssl,
+  Stdlib::Absolutepath $pulp_db_ca_path = $katello::params::pulp_db_ca_path,
+  Boolean $pulp_db_unsafe_autoretry = $katello::params::pulp_db_unsafe_autoretry,
+  Optional[Enum['majority', 'all']] $pulp_db_write_concern = $katello::params::pulp_db_write_concern,
+  Boolean $pulp_manage_db = $katello::params::pulp_manage_db,
 ) inherits katello::params {
 
-  include ::katello::repo
-  include ::katello::candlepin
-  include ::katello::qpid
-  include ::katello::pulp
+  include katello::repo
+  include katello::candlepin
+  include katello::qpid
+  include katello::pulp
   Class['katello::repo'] -> Class['katello::pulp']
-  include ::katello::application
+  include katello::application
   Class['katello::repo'] -> Class['katello::application']
   Class['katello::candlepin'] -> Class['katello::application']
 

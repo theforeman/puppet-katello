@@ -1,46 +1,46 @@
 # Katello configuration for pulp
 class katello::pulp (
-  Optional[String] $proxy_url = $::katello::proxy_url,
-  Optional[Integer[0, 65535]] $proxy_port = $::katello::proxy_port,
-  Optional[String] $proxy_username = $::katello::proxy_username,
-  Optional[String] $proxy_password = $::katello::proxy_password,
-  Optional[String] $yum_max_speed = $::katello::pulp_max_speed,
-  Boolean $enable_ostree = $::katello::enable_ostree,
-  Boolean $enable_yum = $::katello::enable_yum,
-  Boolean $enable_file = $::katello::enable_file,
-  Boolean $enable_puppet = $::katello::enable_puppet,
-  Boolean $enable_docker = $::katello::enable_docker,
-  Boolean $enable_deb = $::katello::enable_deb,
-  Integer[1] $num_workers = $::katello::num_pulp_workers,
-  Optional[Integer] $max_tasks_per_child = $::katello::max_tasks_per_pulp_worker,
-  String $messaging_url = "ssl://${::katello::qpid_hostname}:5671",
-  String $broker_url = "qpid://${::katello::qpid_hostname}:5671",
-  Stdlib::Absolutepath $repo_export_dir = $::katello::repo_export_dir,
-  String $repo_export_dir_owner = $::katello::user,
-  String $repo_export_dir_group = $::katello::group,
-  Integer[0] $pulp_worker_timeout = $::katello::pulp_worker_timeout,
-  String $db_name = $::katello::pulp_db_name,
-  String $db_seeds = $::katello::pulp_db_seeds,
-  Optional[String] $db_username = $::katello::pulp_db_username,
-  Optional[String] $db_password = $::katello::pulp_db_password,
-  Optional[String] $db_replica_set = $::katello::pulp_db_replica_set,
-  Boolean $db_ssl = $::katello::pulp_db_ssl,
-  Optional[Stdlib::Absolutepath] $db_ssl_keyfile = $::katello::pulp_db_ssl_keyfile,
-  Optional[Stdlib::Absolutepath] $db_ssl_certfile = $::katello::pulp_db_ssl_certfile,
-  Boolean $db_verify_ssl = $::katello::pulp_db_verify_ssl,
-  Stdlib::Absolutepath $db_ca_path = $::katello::pulp_db_ca_path,
-  Boolean $db_unsafe_autoretry = $::katello::pulp_db_unsafe_autoretry,
-  Optional[Enum['majority', 'all']] $db_write_concern = $::katello::pulp_db_write_concern,
-  Boolean $manage_db = $::katello::pulp_manage_db,
+  Optional[String] $proxy_url = $katello::proxy_url,
+  Optional[Integer[0, 65535]] $proxy_port = $katello::proxy_port,
+  Optional[String] $proxy_username = $katello::proxy_username,
+  Optional[String] $proxy_password = $katello::proxy_password,
+  Optional[String] $yum_max_speed = $katello::pulp_max_speed,
+  Boolean $enable_ostree = $katello::enable_ostree,
+  Boolean $enable_yum = $katello::enable_yum,
+  Boolean $enable_file = $katello::enable_file,
+  Boolean $enable_puppet = $katello::enable_puppet,
+  Boolean $enable_docker = $katello::enable_docker,
+  Boolean $enable_deb = $katello::enable_deb,
+  Integer[1] $num_workers = $katello::num_pulp_workers,
+  Optional[Integer] $max_tasks_per_child = $katello::max_tasks_per_pulp_worker,
+  String $messaging_url = "ssl://${katello::qpid_hostname}:5671",
+  String $broker_url = "qpid://${katello::qpid_hostname}:5671",
+  Stdlib::Absolutepath $repo_export_dir = $katello::repo_export_dir,
+  String $repo_export_dir_owner = $katello::user,
+  String $repo_export_dir_group = $katello::group,
+  Integer[0] $pulp_worker_timeout = $katello::pulp_worker_timeout,
+  String $db_name = $katello::pulp_db_name,
+  String $db_seeds = $katello::pulp_db_seeds,
+  Optional[String] $db_username = $katello::pulp_db_username,
+  Optional[String] $db_password = $katello::pulp_db_password,
+  Optional[String] $db_replica_set = $katello::pulp_db_replica_set,
+  Boolean $db_ssl = $katello::pulp_db_ssl,
+  Optional[Stdlib::Absolutepath] $db_ssl_keyfile = $katello::pulp_db_ssl_keyfile,
+  Optional[Stdlib::Absolutepath] $db_ssl_certfile = $katello::pulp_db_ssl_certfile,
+  Boolean $db_verify_ssl = $katello::pulp_db_verify_ssl,
+  Stdlib::Absolutepath $db_ca_path = $katello::pulp_db_ca_path,
+  Boolean $db_unsafe_autoretry = $katello::pulp_db_unsafe_autoretry,
+  Optional[Enum['majority', 'all']] $db_write_concern = $katello::pulp_db_write_concern,
+  Boolean $manage_db = $katello::pulp_manage_db,
   String $pub_dir_options = '+FollowSymLinks +Indexes',
 ) {
-  include ::certs
-  include ::certs::qpid_client
+  include certs
+  include certs::qpid_client
 
-  class { '::pulp':
+  class { 'pulp':
     messaging_url          => $messaging_url,
-    messaging_ca_cert      => $::certs::ca_cert,
-    messaging_client_cert  => $::certs::qpid_client::messaging_client_cert,
+    messaging_ca_cert      => $certs::ca_cert,
+    messaging_client_cert  => $certs::qpid_client::messaging_client_cert,
     messaging_transport    => 'qpid',
     messaging_auth_enabled => false,
     broker_url             => $broker_url,
@@ -83,7 +83,7 @@ class katello::pulp (
     manage_db              => $manage_db,
   }
 
-  contain ::pulp
+  contain pulp
 
   foreman::config::passenger::fragment { 'pulp':
     content     => template('katello/pulp-apache.conf.erb'),

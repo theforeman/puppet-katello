@@ -57,7 +57,7 @@ describe 'katello::qpid' do
 
       context 'with inherited parameters' do
         let :pre_condition do
-          'include ::katello'
+          'include katello'
         end
 
         it { is_expected.to compile.with_all_deps }
