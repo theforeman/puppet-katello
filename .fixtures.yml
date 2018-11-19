@@ -1,15 +1,21 @@
 fixtures:
   repositories:
-    stdlib:        "https://github.com/puppetlabs/puppetlabs-stdlib.git"
-    extlib:        "https://github.com/puppet-community/puppet-extlib"
     apache:        "https://github.com/puppetlabs/puppetlabs-apache.git"
-    postgresql:    "https://github.com/puppetlabs/puppetlabs-postgresql.git"
-    mongodb:       "https://github.com/puppetlabs/puppetlabs-mongodb.git"
-    foreman:       "https://github.com/theforeman/puppet-foreman.git"
-    concat:        "https://github.com/puppetlabs/puppetlabs-concat.git"
-    certs:         "https://github.com/theforeman/puppet-certs.git"
-    qpid:          "https://github.com/theforeman/puppet-qpid.git"
     candlepin:     "https://github.com/theforeman/puppet-candlepin.git"
+    certs:         "https://github.com/theforeman/puppet-certs.git"
+    concat:        "https://github.com/puppetlabs/puppetlabs-concat.git"
+    cron_core:
+      repo: 'https://github.com/puppetlabs/puppetlabs-cron_core'
+      puppet_version: '>= 6.0.0'
+    extlib:        "https://github.com/voxpupuli/puppet-extlib"
+    foreman:       "https://github.com/theforeman/puppet-foreman.git"
+    mongodb:       "https://github.com/voxpupuli/puppet-mongodb.git"
+    postgresql:    "https://github.com/puppetlabs/puppetlabs-postgresql.git"
     pulp:          "https://github.com/theforeman/puppet-pulp.git"
-    squid3:        "https://github.com/thias/puppet-squid3.git"
+    qpid:          "https://github.com/theforeman/puppet-qpid.git"
+    squid3:        "https://github.com/theforeman/puppet-squid3.git"
+    stdlib:        "https://github.com/puppetlabs/puppetlabs-stdlib.git"
     systemd:       "https://github.com/camptocamp/puppet-systemd.git"
+    yumrepo_core:
+      repo: 'https://github.com/puppetlabs/puppetlabs-yumrepo_core'
+      puppet_version: '>= 6.0.0'
