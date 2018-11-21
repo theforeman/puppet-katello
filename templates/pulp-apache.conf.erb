@@ -10,7 +10,7 @@ Alias /pub /var/www/html/pub
   Require all granted
 </Location>
 
-Include /etc/pulp/vhosts80/*.conf
+Include <%= scope['apache::confd_dir'] %>/pulp-vhosts80/*.conf
 
 <Location /pulp>
   <IfModule mod_passenger.c>

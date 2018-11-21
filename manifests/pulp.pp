@@ -36,6 +36,7 @@ class katello::pulp (
 ) {
   include certs
   include certs::qpid_client
+  include apache
 
   class { 'pulp':
     messaging_url          => $messaging_url,
