@@ -13,7 +13,8 @@ fixtures:
     postgresql:    "https://github.com/puppetlabs/puppetlabs-postgresql.git"
     pulp:          "https://github.com/theforeman/puppet-pulp.git"
     qpid:          "https://github.com/theforeman/puppet-qpid.git"
-    squid3:        "https://github.com/theforeman/puppet-squid3.git"
+    squid:         "https://github.com/voxpupuli/puppet-squid.git"
+    selinux:       "https://github.com/voxpupuli/puppet-selinux.git"
     stdlib:        "https://github.com/puppetlabs/puppetlabs-stdlib.git"
     systemd:       "https://github.com/camptocamp/puppet-systemd.git"
     yumrepo_core:

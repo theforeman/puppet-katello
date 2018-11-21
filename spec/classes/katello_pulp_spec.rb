@@ -23,8 +23,8 @@ describe 'katello::pulp' do
         it do
           is_expected.to create_class('pulp')
             .with_messaging_url('ssl://localhost:5671')
-            .with_messaging_ca_cert('/etc/pki/katello/certs/katello-default-ca.crt')
-            .with_messaging_client_cert('/etc/pki/katello/qpid_client_striped.crt')
+            .with_messaging_ca_cert('/etc/pki/pulp/qpid/ca.crt')
+            .with_messaging_client_cert('/etc/pki/pulp/qpid/client.crt')
             .with_messaging_transport('qpid')
             .with_messaging_auth_enabled(false)
             .with_broker_url('qpid://localhost:5671')

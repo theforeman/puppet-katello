@@ -40,8 +40,8 @@ class katello::pulp (
 
   class { 'pulp':
     messaging_url          => $messaging_url,
-    messaging_ca_cert      => $certs::ca_cert,
-    messaging_client_cert  => $certs::qpid_client::messaging_client_cert,
+    messaging_ca_cert      => $certs::qpid_client::qpid_client_ca_cert,
+    messaging_client_cert  => $certs::qpid_client::qpid_client_cert,
     messaging_transport    => 'qpid',
     messaging_auth_enabled => false,
     broker_url             => $broker_url,
