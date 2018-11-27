@@ -185,6 +185,7 @@ class katello (
   Optional[Enum['majority', 'all']] $pulp_db_write_concern = $::katello::params::pulp_db_write_concern,
   Boolean $pulp_manage_db = $::katello::params::pulp_manage_db,
 ) inherits katello::params {
+
   include ::katello::repo
   include ::katello::candlepin
   include ::katello::qpid
@@ -194,5 +195,4 @@ class katello (
   Class['katello::repo'] -> Class['katello::application']
   Class['katello::candlepin'] -> Class['katello::application']
 
-  User<|title == apache|>{groups +> $user_groups}
 }
