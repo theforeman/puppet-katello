@@ -49,30 +49,15 @@ class katello::application (
     require        => [Class['certs::pulp_client'], Foreman::Rake['db:seed']],
   }
 
-  # We used to override permissions here so this matches it back to the packaging
-  file { '/usr/share/foreman/bundler.d/katello.rb':
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-  }
-
   include foreman::plugin::tasks
 
   Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
   Class['certs', 'certs::ca', 'certs::qpid'] ~> Class['foreman::plugin::tasks']
 
-  # Katello database seeding needs candlepin
-  package { $package_names:
-    ensure => installed,
-  } ->
-  file { "${foreman::plugin_config_dir}/katello.yaml":
-    ensure  => file,
-    owner   => 'root',
-    group   => $foreman::group,
-    mode    => '0640',
-    content => template('katello/katello.yaml.erb'),
-    notify  => [Class['foreman::service'], Foreman::Rake['db:seed'], Foreman::Rake['apipie:cache:index']],
+  foreman::plugin { 'katello':
+    package     => $package_names,
+    config_file => "${foreman::plugin_config_dir}/katello.yaml",
+    config      => template('katello/katello.yaml.erb'),
   }
 
   foreman::config::passenger::fragment{ 'katello':

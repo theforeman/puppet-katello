@@ -38,7 +38,6 @@ describe 'katello::application' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to create_package('tfm-rubygem-katello') }
-          it { is_expected.to create_file('/usr/share/foreman/bundler.d/katello.rb') }
           it { is_expected.to contain_class('certs::qpid') }
           it { is_expected.to contain_class('katello::qpid_client') }
 
@@ -60,8 +59,9 @@ describe 'katello::application' do
           end
 
           it do
-            is_expected.to contain_file('/etc/foreman/plugins/katello.yaml')
-              .that_notifies(['Class[Foreman::Service]', 'Exec[foreman-rake-db:seed]', 'Exec[restart_foreman]'])
+            is_expected.to contain_foreman__plugin('katello')
+              .with_package(['tfm-rubygem-katello'])
+              .with_config_file('/etc/foreman/plugins/katello.yaml')
           end
 
           it do
