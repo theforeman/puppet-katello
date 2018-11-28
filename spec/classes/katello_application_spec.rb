@@ -250,7 +250,7 @@ describe 'katello::application' do
         it { is_expected.to create_package('katello') }
         it do
           is_expected.to contain_package('tfm-rubygem-katello')
-            .that_requires('Exec[cpinit]')
+            .that_requires('Class[candlepin]')
         end
 
         it 'should generate correct katello.yaml' do
