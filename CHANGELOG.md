@@ -1,5 +1,17 @@
 # Changelog
 
+## [8.2.1](https://github.com/theforeman/puppet-katello/tree/8.2.1) (2018-11-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.2.0...8.2.1)
+
+**Fixed bugs:**
+
+- Fixes [\#25511](https://projects.theforeman.org/issues/25511) - Disable max tasks by default to prevent memory issues. [\#265](https://github.com/theforeman/puppet-katello/pull/265) ([chris1984](https://github.com/chris1984))
+
+**Merged pull requests:**
+
+- Set minimum version of puppetlabs/stdlib to 4.25.1 [\#260](https://github.com/theforeman/puppet-katello/pull/260) ([SeanHood](https://github.com/SeanHood))
+
 ## [8.2.0](https://github.com/theforeman/puppet-katello/tree/8.2.0) (2018-10-18)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.1.0...8.2.0)
