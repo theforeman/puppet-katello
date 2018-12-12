@@ -1,25 +1,12 @@
 # Katello Default Params
 class katello::params {
 
-  case $::osfamily {
-    'RedHat': {
-      case $::operatingsystem {
-        'Fedora': {
-          $rubygem_katello = 'rubygem-katello'
-          $rubygem_katello_ostree ='rubygem-katello_ostree'
-        }
-        default: {
-          $rubygem_katello = 'tfm-rubygem-katello'
-          $rubygem_katello_ostree ='tfm-rubygem-katello_ostree'
-        }
-      }
-
-      $package_names = ['katello', $rubygem_katello]
-    }
-    default: {
-      fail("${::hostname}: This module does not support osfamily ${::osfamily}")
-    }
+  if $::operatingsystem == 'Fedora' {
+    $rubygem_katello = 'rubygem-katello'
+  } else {
+    $rubygem_katello = 'tfm-rubygem-katello'
   }
+  $package_names = ['katello', $rubygem_katello]
 
   $deployment_url = '/katello'
 

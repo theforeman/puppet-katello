@@ -16,20 +16,4 @@ describe 'katello' do
       it { is_expected.to contain_package('katello').that_requires('Class[candlepin]') }
     end
   end
-
-  context 'on unsupported osfamily' do
-    let :facts do
-      {
-        :concat_basedir            => '/tmp',
-        :hostname                  => 'localhost',
-        :operatingsystem           => 'UNSUPPORTED OPERATINGSYSTEM',
-        :operatingsystemmajrelease => '1',
-        :operatingsystemrelease    => '1',
-        :osfamily                  => 'UNSUPPORTED OSFAMILY',
-        :root_home                 => '/root'
-      }
-    end
-
-    it { expect { should contain_class('katello') }.to raise_error(Puppet::Error, /#{facts[:hostname]}: This module does not support osfamily #{facts[:osfamily]}/) }
-  end
 end
