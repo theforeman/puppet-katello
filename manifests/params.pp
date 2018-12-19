@@ -43,9 +43,9 @@ class katello::params {
 
   # OAUTH settings
   $candlepin_oauth_key = 'katello'
-  $candlepin_oauth_secret = cache_data('foreman_cache_data', 'candlepin_oauth_secret', random_password(32))
+  $candlepin_oauth_secret = extlib::cache_data('foreman_cache_data', 'candlepin_oauth_secret', extlib::random_password(32))
 
-  $post_sync_token = cache_data('foreman_cache_data', 'post_sync_token', random_password(32))
+  $post_sync_token = extlib::cache_data('foreman_cache_data', 'post_sync_token', extlib::random_password(32))
 
   # Subsystems settings
   $candlepin_url = "https://${facts['fqdn']}:8443/candlepin"
@@ -78,7 +78,7 @@ class katello::params {
   $candlepin_db_port = undef
   $candlepin_db_name = 'candlepin'
   $candlepin_db_user = 'candlepin'
-  $candlepin_db_password = cache_data('foreman_cache_data', 'candlepin_db_password', random_password(32))
+  $candlepin_db_password = extlib::cache_data('foreman_cache_data', 'candlepin_db_password', extlib::random_password(32))
   $candlepin_db_ssl = false
   $candlepin_db_ssl_verify = true
   $candlepin_manage_db = true
