@@ -11,4 +11,8 @@ matrix:
     - rvm: 2.5.1
       env: PUPPET_VERSION=6.0
 bundler_args: --without system_tests development
+before_install:
+  - if [ $TRAVIS_RUBY_VERSION = 2.1.9 ] ; then
+      gem install -v 1.17.3 bundler --no-rdoc --no-ri;
+    fi
 sudo: false
