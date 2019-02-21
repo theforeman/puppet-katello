@@ -38,7 +38,16 @@ class katello::pulp (
   include certs::qpid_client
   include apache
 
+  # Deploy as a part of the foreman vhost
+  include foreman
+  $server_name = $foreman::servername
+  foreman::config::passenger::fragment { 'pulp':
+    content     => template('katello/pulp-apache.conf.erb'),
+    ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
+  }
+
   class { 'pulp':
+    server_name            => $server_name,
     messaging_url          => $messaging_url,
     messaging_ca_cert      => $certs::qpid_client::qpid_client_ca_cert,
     messaging_client_cert  => $certs::qpid_client::qpid_client_cert,
@@ -85,11 +94,6 @@ class katello::pulp (
   }
 
   contain pulp
-
-  foreman::config::passenger::fragment { 'pulp':
-    content     => template('katello/pulp-apache.conf.erb'),
-    ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
-  }
 
   # NB: we define this here to avoid a dependency cycle. It is not a problem if
   # this dir exists before the pulp RPMs are installed.
