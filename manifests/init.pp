@@ -193,6 +193,6 @@ class katello (
   Class['katello::repo'] -> Class['katello::pulp']
   include katello::application
   Class['katello::repo'] -> Class['katello::application']
-  Class['katello::candlepin'] -> Class['katello::application']
+  Class['katello::qpid'] -> Class['katello::candlepin'] -> Class['katello::application']
 
 }
