@@ -1,5 +1,13 @@
 # Changelog
 
+## [8.2.2](https://github.com/theforeman/puppet-katello/tree/8.2.2) (2019-03-06)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.2.1...8.2.2)
+
+**Fixed bugs:**
+
+- Fixes [\#25966](https://projects.theforeman.org/issues/25966) - order all candlepin actions after qpid [\#281](https://github.com/theforeman/puppet-katello/pull/281) ([evgeni](https://github.com/evgeni))
+
 ## [8.2.1](https://github.com/theforeman/puppet-katello/tree/8.2.1) (2018-11-29)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.2.0...8.2.1)
