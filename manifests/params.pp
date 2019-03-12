@@ -18,7 +18,6 @@ class katello::params {
 
   # Pulp worker settings
   $num_pulp_workers = min($facts['processorcount'], 8)
-  $max_tasks_per_pulp_worker = undef
 
   # Pulp max speed setting
   $pulp_max_speed = undef

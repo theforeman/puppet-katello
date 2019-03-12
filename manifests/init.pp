@@ -47,8 +47,6 @@
 #
 # $num_pulp_workers::   Number of pulp workers to use
 #
-# $max_tasks_per_pulp_worker:: Number of tasks after which the worker gets restarted
-#
 # $qpid_wcache_page_size:: The size (in KB) of the pages in the write page cache
 #
 # $qpid_interface::     The interface qpidd listens to.
@@ -138,7 +136,6 @@ class katello (
   String $qpid_hostname = $katello::params::qpid_hostname,
   Integer[1] $num_pulp_workers = $katello::params::num_pulp_workers,
   Integer[0] $pulp_worker_timeout = $katello::params::pulp_worker_timeout,
-  Optional[Integer] $max_tasks_per_pulp_worker = $katello::params::max_tasks_per_pulp_worker,
   Optional[Stdlib::HTTPUrl] $proxy_url = $katello::params::proxy_url,
   Optional[Integer[0, 65535]] $proxy_port = $katello::params::proxy_port,
   Optional[String] $proxy_username = $katello::params::proxy_username,
