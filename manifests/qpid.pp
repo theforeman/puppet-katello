@@ -15,6 +15,7 @@ class katello::qpid (
     ssl_cert_db            => $::certs::qpid::nss_db_dir,
     ssl_cert_password_file => $::certs::qpid::nss_db_password_file,
     ssl_cert_name          => 'broker',
+    acl_content            => file('katello/qpid_acls.acl'),
     interface              => $interface,
     wcache_page_size       => $wcache_page_size,
     subscribe              => Class['certs', 'certs::qpid'],
