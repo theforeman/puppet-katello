@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.0.1](https://github.com/theforeman/puppet-katello/tree/9.0.1) (2019-04-02)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/9.0.0...9.0.1)
+
+**Fixed bugs:**
+
+- Fixes [\#25966](https://projects.theforeman.org/issues/25966) - order all candlepin actions after qpid [\#281](https://github.com/theforeman/puppet-katello/pull/281) ([evgeni](https://github.com/evgeni))
+
 ## [9.0.0](https://github.com/theforeman/puppet-katello/tree/9.0.0) (2019-01-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.2.1...9.0.0)
