@@ -75,7 +75,7 @@ class katello::application (
     notify  => [Class['foreman::service'], Foreman::Rake['db:seed'], Foreman::Rake['apipie:cache:index']],
   }
 
-  foreman::config::passenger::fragment{ 'katello':
+  foreman::config::apache::fragment { 'katello':
     ssl_content => file('katello/katello-apache-ssl.conf'),
   }
 }

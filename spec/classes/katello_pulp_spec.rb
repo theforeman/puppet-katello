@@ -56,7 +56,7 @@ describe 'katello::pulp' do
         end
 
         it do
-          is_expected.to create_foreman__config__passenger__fragment('pulp')
+          is_expected.to create_foreman__config__apache__fragment('pulp')
             .with_content(%r{^<Location /pulp>$})
             .with_ssl_content(%r{^<Location /pulp/api>$})
         end

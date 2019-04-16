@@ -65,7 +65,7 @@ describe 'katello::application' do
           end
 
           it do
-            is_expected.to create_foreman__config__passenger__fragment('katello')
+            is_expected.to create_foreman__config__apache__fragment('katello')
               .without_content()
               .with_ssl_content(%r{^<LocationMatch /rhsm\|/katello/api>$})
           end
