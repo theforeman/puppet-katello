@@ -22,19 +22,19 @@
     },
     {
       "name": "katello/candlepin",
-      "version_requirement": ">= 4.0.0 < 7.0.0"
+      "version_requirement": ">= 4.0.0 < 8.0.0"
     },
     {
       "name": "katello/certs",
-      "version_requirement": ">= 2.0.0 < 6.0.0"
+      "version_requirement": ">= 6.0.0 < 7.0.0"
     },
     {
       "name": "katello/pulp",
-      "version_requirement": ">= 5.3.0 < 6.0.0"
+      "version_requirement": ">= 6.0.0 < 7.0.0"
     },
     {
       "name": "katello/qpid",
-      "version_requirement": ">= 3.0.0 < 5.0.0"
+      "version_requirement": ">= 4.5.0 < 6.0.0"
     },
     {
       "name": "theforeman/foreman",
