@@ -1,5 +1,40 @@
 # Changelog
 
+## [10.0.0](https://github.com/theforeman/puppet-katello/tree/10.0.0) (2019-04-18)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/9.0.2...10.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 4 [\#284](https://github.com/theforeman/puppet-katello/pull/284) ([ekohl](https://github.com/ekohl))
+- Refs [\#26323](https://projects.theforeman.org/issues/26323) - Remove max\_tasks\_per\_child setting [\#282](https://github.com/theforeman/puppet-katello/pull/282) ([chris1984](https://github.com/chris1984))
+- Update qpid client certificate [\#267](https://github.com/theforeman/puppet-katello/pull/267) ([ehelms](https://github.com/ehelms))
+- Pulp vhosts80 moved to conf.d [\#266](https://github.com/theforeman/puppet-katello/pull/266) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Refs [\#26103](https://projects.theforeman.org/issues/26103) - Set the pulp server\_name [\#280](https://github.com/theforeman/puppet-katello/pull/280) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Update all modules to their latest versions [\#286](https://github.com/theforeman/puppet-katello/pull/286) ([ekohl](https://github.com/ekohl))
+
+## [9.0.2](https://github.com/theforeman/puppet-katello/tree/9.0.2) (2019-04-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/9.0.1...9.0.2)
+
+**Fixed bugs:**
+
+- Refs [\#26571](https://projects.theforeman.org/issues/26571) - Add Qpid ACL file [\#283](https://github.com/theforeman/puppet-katello/pull/283) ([jturel](https://github.com/jturel))
+
+## [9.0.1](https://github.com/theforeman/puppet-katello/tree/9.0.1) (2019-04-02)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/9.0.0...9.0.1)
+
+**Fixed bugs:**
+
+- Fixes [\#25966](https://projects.theforeman.org/issues/25966) - order all candlepin actions after qpid [\#281](https://github.com/theforeman/puppet-katello/pull/281) ([evgeni](https://github.com/evgeni))
+
 ## [9.0.0](https://github.com/theforeman/puppet-katello/tree/9.0.0) (2019-01-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.2.1...9.0.0)

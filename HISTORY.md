@@ -1,3 +1,48 @@
+## [9.0.2](https://github.com/theforeman/puppet-katello/tree/9.0.2) (2019-04-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/9.0.1...9.0.2)
+
+**Fixed bugs:**
+
+- Refs [\#26571](https://projects.theforeman.org/issues/26571) - Add Qpid ACL file [\#283](https://github.com/theforeman/puppet-katello/pull/283) ([jturel](https://github.com/jturel))
+
+## [9.0.1](https://github.com/theforeman/puppet-katello/tree/9.0.1) (2019-04-02)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/9.0.0...9.0.1)
+
+**Fixed bugs:**
+
+- Fixes [\#25966](https://projects.theforeman.org/issues/25966) - order all candlepin actions after qpid [\#281](https://github.com/theforeman/puppet-katello/pull/281) ([evgeni](https://github.com/evgeni))
+
+## [9.0.0](https://github.com/theforeman/puppet-katello/tree/9.0.0) (2019-01-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.2.1...9.0.0)
+
+**Breaking changes:**
+
+- Drop apache user group config [\#269](https://github.com/theforeman/puppet-katello/pull/269) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Allow apache 4.x, candlepin 7.x and foreman 11.x [\#277](https://github.com/theforeman/puppet-katello/pull/277) ([ekohl](https://github.com/ekohl))
+- Use namespaced extlib functions [\#273](https://github.com/theforeman/puppet-katello/pull/273) ([ekohl](https://github.com/ekohl))
+- Simplify package name handling [\#272](https://github.com/theforeman/puppet-katello/pull/272) ([ekohl](https://github.com/ekohl))
+- Allow katello-certs 5.Y+ [\#271](https://github.com/theforeman/puppet-katello/pull/271) ([ehelms](https://github.com/ehelms))
+- Add Puppet 6 support [\#264](https://github.com/theforeman/puppet-katello/pull/264) ([ekohl](https://github.com/ekohl))
+- Drop keystore link in favor of standard Candlepin config [\#263](https://github.com/theforeman/puppet-katello/pull/263) ([ehelms](https://github.com/ehelms))
+
+## [8.2.1](https://github.com/theforeman/puppet-katello/tree/8.2.1) (2018-11-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.2.0...8.2.1)
+
+**Fixed bugs:**
+
+- Fixes [\#25511](https://projects.theforeman.org/issues/25511) - Disable max tasks by default to prevent memory issues. [\#265](https://github.com/theforeman/puppet-katello/pull/265) ([chris1984](https://github.com/chris1984))
+
+**Merged pull requests:**
+
+- Set minimum version of puppetlabs/stdlib to 4.25.1 [\#260](https://github.com/theforeman/puppet-katello/pull/260) ([SeanHood](https://github.com/SeanHood))
+
 ## [8.2.0](https://github.com/theforeman/puppet-katello/tree/8.2.0) (2018-10-18)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.1.0...8.2.0)
