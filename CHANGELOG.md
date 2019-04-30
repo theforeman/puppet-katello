@@ -1,5 +1,13 @@
 # Changelog
 
+## [8.2.3](https://github.com/theforeman/puppet-katello/tree/8.2.3) (2019-03-06)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.2.2...8.2.3)
+
+**Fixed bugs:**
+
+- Refs [\#26571](https://projects.theforeman.org/issues/26571) - Add Qpid ACL file [\#283](https://github.com/theforeman/puppet-katello/pull/285) ([jturel](https://github.com/jturel))
+
 ## [8.2.2](https://github.com/theforeman/puppet-katello/tree/8.2.2) (2019-03-06)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/8.2.1...8.2.2)
