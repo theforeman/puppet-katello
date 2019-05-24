@@ -1,7 +1,7 @@
 # Katello Default Params
 class katello::params {
 
-  if $facts['operatingsystem'] == 'Fedora' {
+  if versioncmp($facts['operatingsystemmajrelease'], '8') >= 0 {
     $rubygem_katello = 'rubygem-katello'
   } else {
     $rubygem_katello = 'tfm-rubygem-katello'
