@@ -1,3 +1,35 @@
+## [10.1.0](https://github.com/theforeman/puppet-katello/tree/10.1.0) (2019-06-13)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/10.0.0...10.1.0)
+
+**Implemented enhancements:**
+
+- Set rubygem-katello package name based on operating system release [\#288](https://github.com/theforeman/puppet-katello/pull/288) ([ehelms](https://github.com/ehelms))
+
+**Merged pull requests:**
+
+- Allow katello/qpid 6.x [\#290](https://github.com/theforeman/puppet-katello/pull/290) ([ekohl](https://github.com/ekohl))
+- allow newer versions of dependencies [\#289](https://github.com/theforeman/puppet-katello/pull/289) ([mmoll](https://github.com/mmoll))
+
+## [10.0.0](https://github.com/theforeman/puppet-katello/tree/10.0.0) (2019-04-18)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/9.0.2...10.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 4 [\#284](https://github.com/theforeman/puppet-katello/pull/284) ([ekohl](https://github.com/ekohl))
+- Refs [\#26323](https://projects.theforeman.org/issues/26323) - Remove max\_tasks\_per\_child setting [\#282](https://github.com/theforeman/puppet-katello/pull/282) ([chris1984](https://github.com/chris1984))
+- Update qpid client certificate [\#267](https://github.com/theforeman/puppet-katello/pull/267) ([ehelms](https://github.com/ehelms))
+- Pulp vhosts80 moved to conf.d [\#266](https://github.com/theforeman/puppet-katello/pull/266) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Refs [\#26103](https://projects.theforeman.org/issues/26103) - Set the pulp server\_name [\#280](https://github.com/theforeman/puppet-katello/pull/280) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Update all modules to their latest versions [\#286](https://github.com/theforeman/puppet-katello/pull/286) ([ekohl](https://github.com/ekohl))
+
 ## [9.0.2](https://github.com/theforeman/puppet-katello/tree/9.0.2) (2019-04-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/9.0.1...9.0.2)
