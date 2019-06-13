@@ -1,5 +1,18 @@
 # Changelog
 
+## [10.1.0](https://github.com/theforeman/puppet-katello/tree/10.1.0) (2019-06-13)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/10.0.0...10.1.0)
+
+**Implemented enhancements:**
+
+- Set rubygem-katello package name based on operating system release [\#288](https://github.com/theforeman/puppet-katello/pull/288) ([ehelms](https://github.com/ehelms))
+
+**Merged pull requests:**
+
+- Allow katello/qpid 6.x [\#290](https://github.com/theforeman/puppet-katello/pull/290) ([ekohl](https://github.com/ekohl))
+- allow newer versions of dependencies [\#289](https://github.com/theforeman/puppet-katello/pull/289) ([mmoll](https://github.com/mmoll))
+
 ## [10.0.0](https://github.com/theforeman/puppet-katello/tree/10.0.0) (2019-04-18)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/9.0.2...10.0.0)
