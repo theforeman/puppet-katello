@@ -15,6 +15,9 @@ fixtures:
     qpid:          "https://github.com/theforeman/puppet-qpid.git"
     squid:         "https://github.com/voxpupuli/puppet-squid.git"
     selinux:       "https://github.com/voxpupuli/puppet-selinux.git"
+    selinux_core:
+      repo: 'https://github.com/puppetlabs/puppetlabs-selinux_core'
+      puppet_version: '>= 6.0.0'
     stdlib:        "https://github.com/puppetlabs/puppetlabs-stdlib.git"
     systemd:       "https://github.com/camptocamp/puppet-systemd.git"
     yumrepo_core:
