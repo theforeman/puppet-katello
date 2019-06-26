@@ -40,9 +40,6 @@
 #
 # $candlepin_oauth_secret:: The OAuth secret for talking to the candlepin API
 #
-# $post_sync_token::    The shared secret for pulp notifying katello about
-#                       completed syncs
-#
 # $cdn_ssl_version::    SSL version used to communicate with the CDN
 #
 # $num_pulp_workers::   Number of pulp workers to use
@@ -129,7 +126,6 @@ class katello (
   String $candlepin_oauth_key = $katello::params::candlepin_oauth_key,
   String $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret,
 
-  String $post_sync_token = $katello::params::post_sync_token,
   Integer[0] $rest_client_timeout = $katello::params::rest_client_timeout,
   Integer[0, 1000] $qpid_wcache_page_size = $katello::params::qpid_wcache_page_size,
   String $qpid_interface = $katello::params::qpid_interface,

@@ -15,8 +15,6 @@ describe 'katello::application' do
           :enable_docker          => true,
           :enable_deb             => true,
           :cdn_ssl_version        => '',
-          :deployment_url         => '/katello',
-          :post_sync_token        => 'test_token',
           :candlepin_url          => 'https://foo.example.com:8443/candlepin',
           :candlepin_oauth_key    => 'candlepin',
           :candlepin_oauth_secret => 'candlepin-secret',
@@ -79,7 +77,6 @@ describe 'katello::application' do
             verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
               ':katello:',
               '  :rest_client_timeout: 3600',
-              '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
               '  :content_types:',
               '    :yum: true',
               '    :file: true',
@@ -124,7 +121,6 @@ describe 'katello::application' do
             verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
               ':katello:',
               '  :rest_client_timeout: 4000',
-              '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
               '  :content_types:',
               '    :yum: true',
               '    :file: true',
@@ -162,7 +158,6 @@ describe 'katello::application' do
               ':katello:',
               '  :cdn_ssl_version: TLSv1',
               '  :rest_client_timeout: 3600',
-              '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
               '  :content_types:',
               '    :yum: true',
               '    :file: true',
@@ -202,7 +197,6 @@ describe 'katello::application' do
             verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
               ':katello:',
               '  :rest_client_timeout: 3600',
-              '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
               '  :content_types:',
               '    :yum: true',
               '    :file: true',
@@ -240,7 +234,6 @@ describe 'katello::application' do
           class {'::katello':
             candlepin_oauth_key    => 'candlepin',
             candlepin_oauth_secret => 'candlepin-secret',
-            post_sync_token        => 'test_token',
           }
           EOS
         end
@@ -257,7 +250,6 @@ describe 'katello::application' do
           verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
             ':katello:',
             '  :rest_client_timeout: 3600',
-            '  :post_sync_url: https://foo.example.com/katello/api/v2/repositories/sync_complete?token=test_token',
             '  :content_types:',
             '    :yum: true',
             '    :file: true',

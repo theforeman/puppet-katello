@@ -9,8 +9,6 @@ class katello::application (
   Boolean $enable_deb = $katello::enable_deb,
 
   Optional[Enum['SSLv23', 'TLSv1', '']] $cdn_ssl_version = $katello::cdn_ssl_version,
-  String $deployment_url = $katello::deployment_url,
-  String $post_sync_token = $katello::post_sync_token,
   Stdlib::Httpsurl $candlepin_url = $katello::candlepin_url,
   String $candlepin_oauth_key = $katello::candlepin_oauth_key,
   String $candlepin_oauth_secret = $katello::candlepin_oauth_secret,
@@ -32,7 +30,6 @@ class katello::application (
   include certs::qpid
   include katello::qpid_client
 
-  $post_sync_url = "${foreman::foreman_url}${deployment_url}/api/v2/repositories/sync_complete?token=${post_sync_token}"
   $candlepin_ca_cert = $certs::ca_cert
   $pulp_ca_cert = $certs::katello_server_ca_cert
   $crane_ca_cert = $certs::katello_server_ca_cert
