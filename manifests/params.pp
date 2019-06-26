@@ -8,8 +8,6 @@ class katello::params {
   }
   $package_names = ['katello', $rubygem_katello]
 
-  $deployment_url = '/katello'
-
   # HTTP Proxy settings (currently used by pulp)
   $proxy_url = undef
   $proxy_port = undef
@@ -43,8 +41,6 @@ class katello::params {
   # OAUTH settings
   $candlepin_oauth_key = 'katello'
   $candlepin_oauth_secret = extlib::cache_data('foreman_cache_data', 'candlepin_oauth_secret', extlib::random_password(32))
-
-  $post_sync_token = extlib::cache_data('foreman_cache_data', 'post_sync_token', extlib::random_password(32))
 
   # Subsystems settings
   $candlepin_url = "https://${facts['fqdn']}:8443/candlepin"
