@@ -49,6 +49,10 @@ class katello::application (
     require        => [Class['certs::pulp_client'], Foreman::Rake['db:seed']],
   }
 
+  foreman::rake { "katello:update_default_http_proxy -- --name 'Global Content Proxy' --url '${proxy_host}' --port '${proxy_port}' --user '${proxy_username}' --password '${proxy_password}'":
+    require => Foreman::Rake['db:migrate'],
+  }
+
   # We used to override permissions here so this matches it back to the packaging
   file { '/usr/share/foreman/bundler.d/katello.rb':
     ensure => file,
