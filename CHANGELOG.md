@@ -1,5 +1,13 @@
 # Changelog
 
+## [11.0.0](https://github.com/theforeman/puppet-katello/tree/11.0.0) (2019-07-31)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/10.1.0...11.0.0)
+
+**Breaking changes:**
+
+- Remove post\_sync\_url from config [\#293](https://github.com/theforeman/puppet-katello/pull/293) ([jlsherrill](https://github.com/jlsherrill))
+
 ## [10.1.0](https://github.com/theforeman/puppet-katello/tree/10.1.0) (2019-06-13)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/10.0.0...10.1.0)
