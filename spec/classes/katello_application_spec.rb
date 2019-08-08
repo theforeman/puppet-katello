@@ -20,6 +20,7 @@ describe 'katello::application' do
           :candlepin_oauth_secret => 'candlepin-secret',
           :pulp_url               => 'https://foo.example.com/pulp/api/v2/',
           :crane_url              => 'https://foo.example.com:5000',
+          :pulp_registry_url      => 'http://localhost:24816',
           :qpid_url               => 'amqp:ssl:localhost:5671',
           :candlepin_event_queue  => 'katello_event_queue',
           :proxy_host             => '',
@@ -97,7 +98,8 @@ describe 'katello::application' do
               '    :subscriptions_queue_address: katello_event_queue',
               '  :container_image_registry:',
               '    :crane_url: https://foo.example.com:5000',
-              '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
+              '    :pulp_registry_url: http://localhost:24816',
+              '    :registry_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
             ])
           end
         end
@@ -141,7 +143,8 @@ describe 'katello::application' do
               '    :subscriptions_queue_address: katello_event_queue',
               '  :container_image_registry:',
               '    :crane_url: https://foo.example.com:5000',
-              '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
+              '    :pulp_registry_url: http://localhost:24816',
+              '    :registry_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
             ])
           end
         end
@@ -178,7 +181,8 @@ describe 'katello::application' do
               '    :subscriptions_queue_address: katello_event_queue',
               '  :container_image_registry:',
               '    :crane_url: https://foo.example.com:5000',
-              '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
+              '    :pulp_registry_url: http://localhost:24816',
+              '    :registry_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
             ])
           end
         end
@@ -217,7 +221,8 @@ describe 'katello::application' do
               '    :subscriptions_queue_address: katello_event_queue',
               '  :container_image_registry:',
               '    :crane_url: https://foo.example.com:5000',
-              '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
+              '    :pulp_registry_url: http://localhost:24816',
+              '    :registry_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
               '  :cdn_proxy:',
               '    :host: http://myproxy.org',
               '    :port: 8888',
@@ -270,7 +275,8 @@ describe 'katello::application' do
             '    :subscriptions_queue_address: katello_event_queue',
             '  :container_image_registry:',
             '    :crane_url: https://foo.example.com:5000',
-            '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
+            '    :pulp_registry_url: http://localhost:24816',
+            '    :registry_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
           ])
         end
       end

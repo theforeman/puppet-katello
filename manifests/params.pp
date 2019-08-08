@@ -46,6 +46,7 @@ class katello::params {
   $candlepin_url = "https://${facts['fqdn']}:8443/candlepin"
   $pulp_url      = "https://${facts['fqdn']}/pulp/api/v2/"
   $crane_url  = "https://${facts['fqdn']}:5000"
+  $pulp_registry_url = 'http://localhost:24816'
 
   # database reinitialization flag
   $reset_data = 'NONE'

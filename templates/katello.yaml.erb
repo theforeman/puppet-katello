@@ -29,10 +29,10 @@
     :url: <%= @qpid_url %>
     :subscriptions_queue_address: <%= @candlepin_event_queue %>
 
-  # Internal configuration for communication from server to pulp crane service.
   :container_image_registry:
     :crane_url: <%= @crane_url %>
-    :crane_ca_cert_file: <%= @crane_ca_cert %>
+    :pulp_registry_url: <%= @pulp_registry_url %>
+    :registry_ca_cert_file: <%= @registry_ca_cert_file %>
 
 <%- unless [nil, :undefined, :undef, ''].include?(@proxy_host) -%>
   :cdn_proxy:

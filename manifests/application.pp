@@ -14,6 +14,7 @@ class katello::application (
   String $candlepin_oauth_secret = $katello::candlepin_oauth_secret,
   Stdlib::Httpsurl $pulp_url = $katello::pulp_url,
   Stdlib::Httpsurl $crane_url = $katello::crane_url,
+  Stdlib::HTTPUrl $pulp_registry_url = $katello::pulp_registry_url,
   String $qpid_url = $katello::qpid_url,
   String $candlepin_event_queue = $katello::candlepin_event_queue,
   Optional[String] $proxy_host = $katello::proxy_url,
@@ -32,7 +33,7 @@ class katello::application (
 
   $candlepin_ca_cert = $certs::ca_cert
   $pulp_ca_cert = $certs::katello_server_ca_cert
-  $crane_ca_cert = $certs::katello_server_ca_cert
+  $registry_ca_cert_file = $certs::katello_server_ca_cert
 
   foreman_config_entry { 'pulp_client_cert':
     value          => $certs::pulp_client::client_cert,
