@@ -1,9 +1,5 @@
 # Katello configuration for pulp
 class katello::pulp (
-  Optional[String] $proxy_url = $katello::proxy_url,
-  Optional[Integer[0, 65535]] $proxy_port = $katello::proxy_port,
-  Optional[String] $proxy_username = $katello::proxy_username,
-  Optional[String] $proxy_password = $katello::proxy_password,
   Optional[String] $yum_max_speed = $katello::pulp_max_speed,
   Boolean $enable_ostree = $katello::enable_ostree,
   Boolean $enable_yum = $katello::enable_yum,
@@ -54,10 +50,6 @@ class katello::pulp (
     messaging_auth_enabled => false,
     broker_url             => $broker_url,
     broker_use_ssl         => true,
-    proxy_url              => $proxy_url,
-    proxy_port             => $proxy_port,
-    proxy_username         => $proxy_username,
-    proxy_password         => $proxy_password,
     yum_max_speed          => $yum_max_speed,
     manage_broker          => false,
     manage_httpd           => false,
