@@ -1,5 +1,13 @@
 # Changelog
 
+## [10.1.1](https://github.com/theforeman/puppet-katello/tree/10.1.1) (2019-09-11)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/10.1.0...10.1.1)
+
+**Fixed bugs:**
+
+- Fixes [\#27656](https://projects.theforeman.org/issues/27656) - Set SSLVerifyDepth to 3 [\#298](https://github.com/theforeman/puppet-katello/pull/298) ([ekohl](https://github.com/ekohl))
+
 ## [10.1.0](https://github.com/theforeman/puppet-katello/tree/10.1.0) (2019-06-13)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/10.0.0...10.1.0)
