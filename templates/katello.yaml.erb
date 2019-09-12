@@ -17,8 +17,8 @@
 
   :candlepin:
     :url: <%= @candlepin_url %>
-    :oauth_key: <%= @candlepin_oauth_key %>
-    :oauth_secret: <%= @candlepin_oauth_secret %>
+    :oauth_key: "<%= @candlepin_oauth_key %>"
+    :oauth_secret: "<%= @candlepin_oauth_secret %>"
     :ca_cert_file: <%= @candlepin_ca_cert %>
 
   :pulp:
@@ -38,6 +38,6 @@
   :cdn_proxy:
     :host: <%= @proxy_host %>
     :port: <%= @proxy_port %>
-    :user: <%= @proxy_username %>
-    :password: <%= @proxy_password %>
+    :user: "<%= @proxy_username %>"
+    :password: "<%= @proxy_password %>"
 <%- end -%>
