@@ -1,5 +1,22 @@
 # Changelog
 
+## [12.0.0](https://github.com/theforeman/puppet-katello/tree/12.0.0) (2019-10-24)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/10.1.1...12.0.0)
+
+**Breaking changes:**
+
+- No longer configure pulp2 global proxy [\#297](https://github.com/theforeman/puppet-katello/pull/297) ([jlsherrill](https://github.com/jlsherrill))
+
+**Fixed bugs:**
+
+- Fixes [\#27845](https://projects.theforeman.org/issues/27845) - quote values in katello.yaml [\#299](https://github.com/theforeman/puppet-katello/pull/299) ([ekohl](https://github.com/ekohl))
+- Fixes [\#27656](https://projects.theforeman.org/issues/27656) - Set SSLVerifyDepth to 3 [\#298](https://github.com/theforeman/puppet-katello/pull/298) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Allow theforeman/foreman 13.x [\#301](https://github.com/theforeman/puppet-katello/pull/301) ([ekohl](https://github.com/ekohl))
+
 ## [11.0.0](https://github.com/theforeman/puppet-katello/tree/11.0.0) (2019-07-31)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/10.1.0...11.0.0)
