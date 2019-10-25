@@ -1,7 +1,7 @@
 {
   "name": "katello-katello",
   "version": "11.0.0",
-  "author": "Katello",
+  "author": "katello",
   "summary": "Handles deploying and managing a Katello + Foreman server",
   "license": "GPL-3.0+",
   "source": "https://github.com/theforeman/puppet-katello.git",
