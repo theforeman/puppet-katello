@@ -87,6 +87,27 @@ describe 'katello::pulp' do
             .with_db_password('pulp_pw')
             .with_db_seeds('192.168.1.1:27017')
         end
+
+        context 'with manage_httpd => true' do
+          let :pre_condition do
+            <<-EOS
+            class { '::katello':
+              manage_application => false,
+              manage_qpid => false,
+              manage_candlepin => false,
+              manage_pulp => false,
+            }
+            class { '::katello::pulp':
+              manage_httpd => true,
+            }
+            EOS
+          end
+
+          it do
+            is_expected.to create_class('pulp')
+              .with_manage_httpd(true)
+          end
+        end
       end
     end
   end

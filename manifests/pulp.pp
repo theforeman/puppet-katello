@@ -28,6 +28,7 @@ class katello::pulp (
   Optional[Enum['majority', 'all']] $db_write_concern = $katello::pulp_db_write_concern,
   Boolean $manage_db = $katello::pulp_manage_db,
   String $pub_dir_options = '+FollowSymLinks +Indexes',
+  Boolean $manage_httpd = false,
 ) {
   include certs
   include certs::qpid_client
@@ -36,6 +37,19 @@ class katello::pulp (
   # Deploy as a part of the foreman vhost
   include foreman
   $server_name = $foreman::servername
+
+  if $manage_httpd {
+    include certs::apache
+
+    $https_cert = $::certs::apache::apache_cert
+    $https_key = $::certs::apache::apache_key
+    $ca_cert = $::certs::katello_server_ca_cert
+  } else {
+    $https_cert = undef
+    $https_key = undef
+    $ca_cert = undef
+  }
+
   foreman::config::apache::fragment { 'pulp':
     content     => template('katello/pulp-apache.conf.erb'),
     ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
@@ -52,7 +66,10 @@ class katello::pulp (
     broker_use_ssl         => true,
     yum_max_speed          => $yum_max_speed,
     manage_broker          => false,
-    manage_httpd           => false,
+    manage_httpd           => $manage_httpd,
+    https_cert             => $https_cert,
+    https_key              => $https_key,
+    ca_cert                => $ca_cert,
     manage_plugins_httpd   => true,
     manage_squid           => true,
     enable_rpm             => $enable_yum,

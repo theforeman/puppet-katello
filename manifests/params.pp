@@ -62,6 +62,11 @@ class katello::params {
   $enable_docker = true
   $enable_deb = true
 
+  $manage_application = true
+  $manage_qpid = true
+  $manage_pulp = true
+  $manage_candlepin = true
+
   $manage_repo = false
   $repo_version = 'latest'
   $repo_yumcode = "el${facts['operatingsystemmajrelease']}"

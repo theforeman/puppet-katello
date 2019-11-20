@@ -52,6 +52,14 @@
 #
 # $package_names::      Packages that this module ensures are present instead of the default
 #
+# $manage_application:: Whether to manage the katello application part (for distributed setups).
+#
+# $manage_qpid::        Whether to manage the QPID part (for distributed setups).
+#
+# $manage_pulp::        Whether to manage the Pulp part (for distributed setups).
+#
+# $manage_candlepin::   Whether to manage the Candlepin part (for distributed setups).
+#
 # $manage_repo::        Whether to manage the yum repository
 #
 # $repo_version::       Which yum repository to install. For example
@@ -147,6 +155,10 @@ class katello (
   Boolean $enable_docker = $katello::params::enable_docker,
   Boolean $enable_deb = $katello::params::enable_deb,
 
+  Boolean $manage_application = $katello::params::manage_application,
+  Boolean $manage_qpid = $katello::params::manage_qpid,
+  Boolean $manage_pulp = $katello::params::manage_pulp,
+  Boolean $manage_candlepin = $katello::params::manage_candlepin,
 
   Stdlib::Absolutepath $repo_export_dir = $katello::params::repo_export_dir,
 
@@ -180,12 +192,21 @@ class katello (
 ) inherits katello::params {
 
   include katello::repo
-  include katello::candlepin
-  include katello::qpid
-  include katello::pulp
-  Class['katello::repo'] -> Class['katello::pulp']
-  include katello::application
-  Class['katello::repo'] -> Class['katello::application']
-  Class['katello::qpid'] -> Class['katello::candlepin'] -> Class['katello::application']
-
+  if $manage_candlepin {
+    include katello::candlepin
+  }
+  if $manage_qpid {
+    include katello::qpid
+  }
+  if $manage_pulp {
+    include katello::pulp
+    Class['katello::repo'] -> Class['katello::pulp']
+  }
+  if $manage_application {
+    include katello::application
+    Class['katello::repo'] -> Class['katello::application']
+    if $manage_qpid and $manage_candlepin {
+      Class['katello::qpid'] -> Class['katello::candlepin'] -> Class['katello::application']
+    }
+  }
 }
