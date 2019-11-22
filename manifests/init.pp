@@ -24,8 +24,6 @@
 #
 # $proxy_password::     Proxy password for authentication
 #
-# $pulp_max_speed::     The maximum download speed per second for a Pulp task, such as a sync. (e.g. "4 Kb" (Uses SI KB), 4MB, or 1GB" )
-#
 # $repo_export_dir::    Directory to create for repository exports
 #
 # === Advanced parameters:
@@ -41,8 +39,6 @@
 # $candlepin_oauth_secret:: The OAuth secret for talking to the candlepin API
 #
 # $cdn_ssl_version::    SSL version used to communicate with the CDN
-#
-# $num_pulp_workers::   Number of pulp workers to use
 #
 # $qpid_wcache_page_size:: The size (in KB) of the pages in the write page cache
 #
@@ -79,44 +75,6 @@
 # $candlepin_manage_db:: Boolean indicating whether a database should be installed, this includes db creation and user
 #
 # $rest_client_timeout:: Timeout for Katello rest API
-#
-# $pulp_worker_timeout:: The amount of time (in seconds) before considering a worker as missing. If Pulp's
-#                        mongo database has slow I/O, then setting a higher number may resolve issues where workers are
-#                        going missing incorrectly.
-#
-# $pulp_db_name::        Name of the database to use
-#
-# $pulp_db_seeds::       Comma-separated list of hostname:port of database replica seed hosts
-#
-# $pulp_db_username::    The user name to use for authenticating to the MongoDB server
-#
-# $pulp_db_password::    The password to use for authenticating to the MongoDB server
-#
-# $pulp_db_replica_set:: The name of replica set configured in MongoDB, if one is in use
-#
-# $pulp_db_ssl::         Whether to connect to the database server using SSL.
-#
-# $pulp_db_ssl_keyfile:: A path to the private keyfile used to identify the local connection against mongod. If
-#                        included with the certfile then only the ssl_certfile is needed.
-#
-# $pulp_db_ssl_certfile:: The certificate file used to identify the local connection against mongod.
-#
-# $pulp_db_verify_ssl::  Specifies whether a certificate is required from the other side of the connection, and
-#                        whether it will be validated if provided. If it is true, then the ca_certs parameter
-#                        must point to a file of CA certificates used to validate the connection.
-#
-# $pulp_db_ca_path::     The ca_certs file contains a set of concatenated "certification authority" certificates,
-#                        which are used to validate certificates passed from the other end of the connection.
-#
-# $pulp_db_unsafe_autoretry:: If true, retry commands to the database if there is a connection error.
-#                             Warning: if set to true, this setting can result in duplicate records.
-#
-# $pulp_db_write_concern:: Write concern of 'majority' or 'all'. When 'all' is specified, 'w' is set to number of
-#                          seeds specified. For version of MongoDB < 2.6, replica_set must also be specified.
-#                          Please note that 'all' will cause Pulp to halt if any of the replica set members is not
-#                          available. 'majority' is used by default
-#
-# $pulp_manage_db::      Boolean to install and configure the mongodb.
 #
 class katello (
   String $user = $katello::params::user,
@@ -163,20 +121,6 @@ class katello (
   Boolean $candlepin_db_ssl = $katello::params::candlepin_db_ssl,
   Boolean $candlepin_db_ssl_verify = $katello::params::candlepin_db_ssl_verify,
   Boolean $candlepin_manage_db = $katello::params::candlepin_manage_db,
-
-  String $pulp_db_name = $katello::params::pulp_db_name,
-  String $pulp_db_seeds = $katello::params::pulp_db_seeds,
-  Optional[String] $pulp_db_username = $katello::params::pulp_db_username,
-  Optional[String] $pulp_db_password = $katello::params::pulp_db_password,
-  Optional[String] $pulp_db_replica_set = $katello::params::pulp_db_replica_set,
-  Boolean $pulp_db_ssl = $katello::params::pulp_db_ssl,
-  Optional[Stdlib::Absolutepath] $pulp_db_ssl_keyfile = $katello::params::pulp_db_ssl_keyfile,
-  Optional[Stdlib::Absolutepath] $pulp_db_ssl_certfile = $katello::params::pulp_db_ssl_certfile,
-  Boolean $pulp_db_verify_ssl = $katello::params::pulp_db_verify_ssl,
-  Stdlib::Absolutepath $pulp_db_ca_path = $katello::params::pulp_db_ca_path,
-  Boolean $pulp_db_unsafe_autoretry = $katello::params::pulp_db_unsafe_autoretry,
-  Optional[Enum['majority', 'all']] $pulp_db_write_concern = $katello::params::pulp_db_write_concern,
-  Boolean $pulp_manage_db = $katello::params::pulp_manage_db,
 ) inherits katello::params {
 
   include katello::repo
