@@ -8,14 +8,23 @@ class katello::params {
   }
   $package_names = ['katello', $rubygem_katello]
 
-  # HTTP Proxy settings
+  # HTTP Proxy settings (currently used by pulp)
   $proxy_url = undef
   $proxy_port = undef
   $proxy_username = undef
   $proxy_password = undef
 
+  # Pulp worker settings
+  $num_pulp_workers = min($facts['processorcount'], 8)
+
+  # Pulp max speed setting
+  $pulp_max_speed = undef
+
   # Rest client timeout
   $rest_client_timeout = 3600
+
+  # Pulp worker timeout
+  $pulp_worker_timeout = 60
 
   # Qpid perf settings
   $qpid_wcache_page_size = 4
@@ -37,6 +46,9 @@ class katello::params {
   $candlepin_url = "https://${facts['fqdn']}:8443/candlepin"
   $pulp_url      = "https://${facts['fqdn']}/pulp/api/v2/"
   $crane_url  = "https://${facts['fqdn']}:5000"
+
+  # database reinitialization flag
+  $reset_data = 'NONE'
 
   $qpid_hostname = 'localhost'
   $qpid_interface = 'lo'
@@ -65,4 +77,19 @@ class katello::params {
   $candlepin_db_ssl = false
   $candlepin_db_ssl_verify = true
   $candlepin_manage_db = true
+
+  # pulp database settings
+  $pulp_manage_db = true
+  $pulp_db_name = 'pulp_database'
+  $pulp_db_seeds = 'localhost:27017'
+  $pulp_db_username = undef
+  $pulp_db_password = undef
+  $pulp_db_replica_set = undef
+  $pulp_db_ssl = false
+  $pulp_db_ssl_keyfile = undef
+  $pulp_db_ssl_certfile = undef
+  $pulp_db_verify_ssl = true
+  $pulp_db_ca_path = '/etc/pki/tls/certs/ca-bundle.crt'
+  $pulp_db_unsafe_autoretry = false
+  $pulp_db_write_concern = undef
 }
