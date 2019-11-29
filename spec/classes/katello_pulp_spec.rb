@@ -67,6 +67,13 @@ describe 'katello::pulp' do
               .with_group('foreman')
               .with_mode('0755')
           end
+
+          context 'with repo present' do
+            let(:pre_condition) { super() + 'include katello::repo' }
+
+            it { is_expected.to compile.with_all_deps }
+            it { is_expected.to create_class('pulp').that_requires(['Anchor[katello::repo]', 'Yumrepo[katello]']) }
+          end
         end
 
         context 'database parameters' do

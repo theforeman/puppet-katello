@@ -59,12 +59,6 @@ class katello::params {
   $enable_docker = true
   $enable_deb = true
 
-  $manage_repo = false
-  $repo_version = 'latest'
-  $repo_yumcode = "el${facts['operatingsystemmajrelease']}"
-  $repo_gpgcheck = false
-  $repo_gpgkey = undef
-
   # candlepin database settings
   $candlepin_db_host = 'localhost'
   $candlepin_db_port = undef

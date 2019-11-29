@@ -6,7 +6,6 @@ describe 'katello' do
       let(:facts) { facts }
 
       it { is_expected.to compile.with_all_deps }
-      it { is_expected.to contain_class('katello::repo') }
       it { is_expected.to contain_class('katello::candlepin') }
       it { is_expected.to contain_class('katello::application') }
       it { is_expected.to contain_class('katello::pulp') }

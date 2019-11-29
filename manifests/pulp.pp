@@ -1,12 +1,12 @@
 # Katello configuration for pulp
 class katello::pulp (
   Optional[String] $yum_max_speed = $katello::pulp_max_speed,
-  Boolean $enable_ostree = $katello::enable_ostree,
-  Boolean $enable_yum = $katello::enable_yum,
-  Boolean $enable_file = $katello::enable_file,
-  Boolean $enable_puppet = $katello::enable_puppet,
-  Boolean $enable_docker = $katello::enable_docker,
-  Boolean $enable_deb = $katello::enable_deb,
+  Optional[Boolean] $enable_ostree = $katello::enable_ostree,
+  Optional[Boolean] $enable_yum = $katello::enable_yum,
+  Optional[Boolean] $enable_file = $katello::enable_file,
+  Optional[Boolean] $enable_puppet = $katello::enable_puppet,
+  Optional[Boolean] $enable_docker = $katello::enable_docker,
+  Optional[Boolean] $enable_deb = $katello::enable_deb,
   Integer[1] $num_workers = $katello::num_pulp_workers,
   String $messaging_url = "ssl://${katello::qpid_hostname}:5671",
   String $broker_url = "qpid://${katello::qpid_hostname}:5671",
@@ -41,6 +41,7 @@ class katello::pulp (
     ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
   }
 
+  Anchor <| title == 'katello::repo' |> ->
   class { 'pulp':
     server_name            => $server_name,
     messaging_url          => $messaging_url,
