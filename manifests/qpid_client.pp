@@ -9,7 +9,7 @@ class katello::qpid_client {
 
   class { 'qpid::client':
     ssl                    => true,
-    ssl_cert_name          => 'broker',
+    ssl_cert_name          => $certs::qpid::nss_cert_name,
     ssl_cert_db            => $certs::qpid::nss_db_dir,
     ssl_cert_password_file => $certs::qpid::nss_db_password_file,
     require                => Class['certs', 'certs::qpid'],
