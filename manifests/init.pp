@@ -52,15 +52,6 @@
 #
 # $package_names::      Packages that this module ensures are present instead of the default
 #
-# $manage_repo::        Whether to manage the yum repository
-#
-# $repo_version::       Which yum repository to install. For example
-#                       latest or 3.3.
-#
-# $repo_gpgcheck::      Whether to check the GPG signatures
-#
-# $repo_gpgkey::        The GPG key to use
-#
 # $candlepin_db_host::  Host with Candlepin DB
 #
 # $candlepin_db_port::  Port accepting connections to Candlepin DB
@@ -150,11 +141,6 @@ class katello (
 
   Stdlib::Absolutepath $repo_export_dir = $katello::params::repo_export_dir,
 
-  Boolean $manage_repo = $katello::params::manage_repo,
-  String $repo_version = $katello::params::repo_version,
-  Boolean $repo_gpgcheck = $katello::params::repo_gpgcheck,
-  Optional[String] $repo_gpgkey = $katello::params::repo_gpgkey,
-
   String $candlepin_db_host = $katello::params::candlepin_db_host,
   Optional[Integer[0, 65535]] $candlepin_db_port = $katello::params::candlepin_db_port,
   String $candlepin_db_name = $katello::params::candlepin_db_name,
@@ -179,13 +165,10 @@ class katello (
   Boolean $pulp_manage_db = $katello::params::pulp_manage_db,
 ) inherits katello::params {
 
-  include katello::repo
   include katello::candlepin
   include katello::qpid
   include katello::pulp
-  Class['katello::repo'] -> Class['katello::pulp']
   include katello::application
-  Class['katello::repo'] -> Class['katello::application']
   Class['katello::qpid'] -> Class['katello::candlepin'] -> Class['katello::application']
 
 }

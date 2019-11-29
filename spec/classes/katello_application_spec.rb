@@ -99,6 +99,13 @@ describe 'katello::application' do
               '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
             ])
           end
+
+          context 'with repo present' do
+            let(:pre_condition) { 'include katello::repo' }
+
+            it { is_expected.to compile.with_all_deps }
+            it { is_expected.to create_package('tfm-rubygem-katello').that_requires(['Anchor[katello::repo]', 'Yumrepo[katello]']) }
+          end
         end
 
         context 'with enable_ostree => true' do

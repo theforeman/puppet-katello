@@ -52,6 +52,7 @@ class katello::application (
   Class['certs', 'certs::ca', 'certs::qpid'] ~> Class['foreman::plugin::tasks']
 
   # Katello database seeding needs candlepin
+  Anchor <| title == 'katello::repo' |> ->
   package { $package_names:
     ensure => installed,
   } ->
