@@ -192,11 +192,14 @@ class katello (
 ) inherits katello::params {
 
   include katello::repo
-  if $manage_candlepin {
-    include katello::candlepin
-  }
   if $manage_qpid {
     include katello::qpid
+  }
+  if $manage_candlepin {
+    include katello::candlepin
+    if $manage_qpid {
+      Class['katello::qpid'] -> Class['katello::candlepin']
+    }
   }
   if $manage_pulp {
     include katello::pulp
@@ -205,8 +208,8 @@ class katello (
   if $manage_application {
     include katello::application
     Class['katello::repo'] -> Class['katello::application']
-    if $manage_qpid and $manage_candlepin {
-      Class['katello::qpid'] -> Class['katello::candlepin'] -> Class['katello::application']
+    if $manage_candlepin {
+      Class['katello::candlepin'] -> Class['katello::application']
     }
   }
 }
