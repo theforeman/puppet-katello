@@ -36,6 +36,7 @@ describe 'katello::application' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to create_package('tfm-rubygem-katello') }
+          it { is_expected.not_to create_package('tfm-rubygem-katello').that_requires('Anchor[katello::candlepin]') }
           it { is_expected.to contain_class('certs::qpid') }
           it { is_expected.to contain_class('katello::qpid_client') }
 
@@ -245,7 +246,7 @@ describe 'katello::application' do
         end
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to create_package('tfm-rubygem-katello') }
+        it { is_expected.to create_package('tfm-rubygem-katello').that_requires('Anchor[katello::candlepin]') }
         it { is_expected.to create_package('katello') }
         it do
           is_expected.to contain_package('tfm-rubygem-katello')

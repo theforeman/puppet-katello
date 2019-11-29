@@ -169,6 +169,5 @@ class katello (
   include katello::qpid
   include katello::pulp
   include katello::application
-  Class['katello::candlepin'] -> Class['katello::application']
 
 }

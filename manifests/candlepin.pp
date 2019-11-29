@@ -46,7 +46,8 @@ class katello::candlepin (
     db_ssl_verify                => $db_ssl_verify,
     manage_db                    => $manage_db,
     subscribe                    => Class['certs', 'certs::candlepin'],
-  }
+  } ->
+  anchor { 'katello::candlepin': }
 
   contain candlepin
 }
