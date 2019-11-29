@@ -37,5 +37,7 @@ class katello::qpid (
     ssl_cert => $certs::qpid::client_cert,
     ssl_key  => $certs::qpid::client_key,
     hostname => $hostname,
-  }
+  } ->
+  # This anchor indicates the event queue is all set up.
+  anchor { 'katello::qpid::event_queue': }
 }
