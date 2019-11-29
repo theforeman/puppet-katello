@@ -16,6 +16,7 @@ class katello::candlepin (
   include certs
   include certs::candlepin
 
+  Anchor <| title == 'katello::qpid::event_queue' |> ->
   class { 'candlepin':
     user_groups                  => $user_groups,
     oauth_key                    => $oauth_key,

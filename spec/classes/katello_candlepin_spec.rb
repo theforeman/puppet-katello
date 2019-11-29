@@ -26,6 +26,7 @@ describe 'katello::candlepin' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('certs::candlepin').that_notifies('Service[tomcat]') }
         it { is_expected.to contain_class('candlepin') }
+        it { is_expected.not_to contain_class('candlepin').that_requires('Anchor[katello::qpid::event_queue]') }
       end
 
       context 'with inherited parameters' do
@@ -35,7 +36,7 @@ describe 'katello::candlepin' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('certs::candlepin').that_notifies('Service[tomcat]') }
-        it { is_expected.to contain_class('candlepin') }
+        it { is_expected.to contain_class('candlepin').that_requires('Anchor[katello::qpid::event_queue]') }
       end
     end
   end
