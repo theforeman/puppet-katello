@@ -84,18 +84,45 @@ class katello::pulp (
   Boolean $manage_mongodb = true,
   String $pub_dir_options = '+FollowSymLinks +Indexes',
   Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
+  Boolean $manage_httpd = false,
+  Optional[Stdlib::Absolutepath] $https_cert = undef,
+  Optional[Stdlib::Absolutepath] $https_key = undef,
+  Optional[Stdlib::Absolutepath] $https_ca_cert = undef,
 ) {
   include katello::params
   include certs
   include certs::qpid_client
   include apache
 
-  # Deploy as a part of the foreman vhost
-  include foreman
-  $server_name = $foreman::servername
-  foreman::config::apache::fragment { 'pulp':
-    content     => template('katello/pulp-apache.conf.erb'),
-    ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
+  if $manage_httpd {
+    $server_name = undef
+
+    concat::fragment { 'httpd_pub':
+      target  => '05-pulp-http.conf',
+      content => template('katello/pulp-apache.conf.erb'),
+    }
+
+    pulp::apache::fragment { 'httpd_ssl_pub':
+      ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
+    }
+  } else {
+    # Deploy as a part of the foreman vhost
+    include foreman
+
+    $server_name = $foreman::servername
+
+    foreman::config::apache::fragment { 'pulp':
+      content     => template('katello/pulp-apache.conf.erb'),
+      ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
+    }
+
+    file { $repo_export_dir:
+      ensure  => directory,
+      owner   => $foreman::user,
+      group   => $foreman::group,
+      mode    => '0755',
+      require => Class['pulp'],
+    }
   }
 
   Anchor <| title == 'katello::repo' |> ->
@@ -110,7 +137,10 @@ class katello::pulp (
     broker_use_ssl         => true,
     yum_max_speed          => $yum_max_speed,
     manage_broker          => false,
-    manage_httpd           => false,
+    manage_httpd           => $manage_httpd,
+    https_cert             => $https_cert,
+    https_key              => $https_key,
+    https_ca_cert          => $https_ca_cert,
     manage_plugins_httpd   => true,
     manage_squid           => true,
     enable_rpm             => $katello::params::enable_yum,
@@ -143,11 +173,4 @@ class katello::pulp (
 
   contain pulp
 
-  file { $repo_export_dir:
-    ensure  => directory,
-    owner   => $foreman::user,
-    group   => $foreman::group,
-    mode    => '0755',
-    require => Class['pulp'],
-  }
 }
