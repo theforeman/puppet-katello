@@ -47,9 +47,6 @@ class katello::params {
   $pulp_url      = "https://${facts['fqdn']}/pulp/api/v2/"
   $crane_url  = "https://${facts['fqdn']}:5000"
 
-  # database reinitialization flag
-  $reset_data = 'NONE'
-
   $qpid_hostname = 'localhost'
   $qpid_interface = 'lo'
   $qpid_url = "amqp:ssl:${qpid_hostname}:5671"
