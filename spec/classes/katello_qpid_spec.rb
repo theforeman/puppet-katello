@@ -31,14 +31,6 @@ describe 'katello::qpid' do
         end
 
         it do
-          is_expected.to create_qpid__config_cmd('delete katello entitlements queue if bound to *.*')
-            .with_command('del queue katello_event_queue --force')
-            .with_onlyif("list binding | grep katello_event_queue | grep '*.*'")
-            .with_ssl_cert('/etc/pki/katello/certs/foo.example.com-qpid-broker.crt')
-            .with_ssl_key('/etc/pki/katello/private/foo.example.com-qpid-broker.key')
-        end
-
-        it do
           is_expected.to create_qpid__config__queue('katello_event_queue')
             .with_ssl_cert('/etc/pki/katello/certs/foo.example.com-qpid-broker.crt')
             .with_ssl_key('/etc/pki/katello/private/foo.example.com-qpid-broker.key')
@@ -67,14 +59,6 @@ describe 'katello::qpid' do
         it do
           is_expected.to create_class('qpid')
             .with_wcache_page_size(4)
-        end
-
-        it do
-          is_expected.to create_qpid__config_cmd('delete katello entitlements queue if bound to *.*')
-            .with_command('del queue katello_event_queue --force')
-            .with_onlyif("list binding | grep katello_event_queue | grep '*.*'")
-            .with_ssl_cert('/etc/pki/katello/certs/foo.example.com-qpid-broker.crt')
-            .with_ssl_key('/etc/pki/katello/private/foo.example.com-qpid-broker.key')
         end
 
         it do

@@ -25,13 +25,6 @@ class katello::qpid (
 
   User<|title == $katello_user|>{groups +> 'qpidd'}
 
-  qpid::config_cmd { 'delete katello entitlements queue if bound to *.*':
-    command  => "del queue ${candlepin_event_queue} --force",
-    onlyif   => "list binding | grep ${candlepin_event_queue} | grep '*.*'",
-    ssl_cert => $certs::qpid::client_cert,
-    ssl_key  => $certs::qpid::client_key,
-    hostname => $hostname,
-  } ->
   qpid::config::queue { $candlepin_event_queue:
     ssl_cert => $certs::qpid::client_cert,
     ssl_key  => $certs::qpid::client_key,
