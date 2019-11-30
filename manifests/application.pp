@@ -1,26 +1,30 @@
-# Install and configure the katello application itself
+# @summary Install and configure the katello application itself
+#
+# @param rest_client_timeout
+#   Timeout for Katello rest API
+#
+# @param cdn_ssl_version
+#  SSL version used to communicate with the CDN
+#
+# @param proxy_host
+#  URL of the proxy server
+#
+# @param proxy_port
+#  Port the proxy is running on
+#
+# @param proxy_username
+#  Proxy username for authentication
+#
+# @param proxy_password
+#  Proxy password for authentication
+#
 class katello::application (
-  Array[String] $package_names = $katello::package_names,
-  Boolean $enable_ostree = $katello::enable_ostree,
-  Boolean $enable_yum = $katello::enable_yum,
-  Boolean $enable_file = $katello::enable_file,
-  Boolean $enable_puppet = $katello::enable_puppet,
-  Boolean $enable_docker = $katello::enable_docker,
-  Boolean $enable_deb = $katello::enable_deb,
-
-  Optional[Enum['SSLv23', 'TLSv1', '']] $cdn_ssl_version = $katello::cdn_ssl_version,
-  Stdlib::Httpsurl $candlepin_url = $katello::candlepin_url,
-  String $candlepin_oauth_key = $katello::candlepin_oauth_key,
-  String $candlepin_oauth_secret = $katello::candlepin_oauth_secret,
-  Stdlib::Httpsurl $pulp_url = $katello::pulp_url,
-  Stdlib::Httpsurl $crane_url = $katello::crane_url,
-  String $qpid_url = $katello::qpid_url,
-  String $candlepin_event_queue = $katello::candlepin_event_queue,
-  Optional[String] $proxy_host = $katello::proxy_url,
-  Optional[Integer[0, 65535]] $proxy_port = $katello::proxy_port,
-  Optional[String] $proxy_username = $katello::proxy_username,
-  Optional[String] $proxy_password = $katello::proxy_password,
-  Integer[0] $rest_client_timeout = $katello::rest_client_timeout,
+  Integer[0] $rest_client_timeout = 3600,
+  Optional[Enum['SSLv23', 'TLSv1', '']] $cdn_ssl_version = undef,
+  Optional[Stdlib::Host] $proxy_host = undef,
+  Optional[Stdlib::Port] $proxy_port = undef,
+  Optional[String] $proxy_username = undef,
+  Optional[String] $proxy_password = undef,
 ) {
   include foreman
   include certs
@@ -28,11 +32,10 @@ class katello::application (
   include certs::foreman
   include certs::pulp_client
   include certs::qpid
-  include katello::qpid_client
+  include katello::params
 
-  $candlepin_ca_cert = $certs::ca_cert
-  $pulp_ca_cert = $certs::katello_server_ca_cert
-  $crane_ca_cert = $certs::katello_server_ca_cert
+  include katello::qpid_client
+  User<|title == $foreman::user|>{groups +> 'qpidd'}
 
   foreman_config_entry { 'pulp_client_cert':
     value          => $certs::pulp_client::client_cert,
@@ -51,9 +54,27 @@ class katello::application (
   Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
   Class['certs', 'certs::ca', 'certs::qpid'] ~> Class['foreman::plugin::tasks']
 
+  # Used in katello.yaml.erb
+  $enable_ostree = $katello::params::enable_ostree
+  $enable_yum = $katello::params::enable_yum
+  $enable_file = $katello::params::enable_file
+  $enable_puppet = $katello::params::enable_puppet
+  $enable_docker = $katello::params::enable_docker
+  $enable_deb = $katello::params::enable_deb
+  $pulp_url = $katello::params::pulp_url
+  $pulp_ca_cert = $certs::katello_server_ca_cert # TODO: certs::apache::...
+  $candlepin_url = $katello::params::candlepin_url
+  $candlepin_oauth_key = $katello::params::candlepin_oauth_key
+  $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret
+  $candlepin_ca_cert = $certs::ca_cert
+  $qpid_url = "amqp:ssl:${katello::params::qpid_hostname}:5671"
+  $candlepin_event_queue = $katello::params::candlepin_event_queue
+  $crane_url = $katello::params::crane_url
+  $crane_ca_cert = $certs::katello_server_ca_cert
+
   # Katello database seeding needs candlepin
   Anchor <| title == 'katello::repo' or title ==  'katello::candlepin' |> ->
-  package { $package_names:
+  package { $katello::params::rubygem_katello:
     ensure => installed,
   } ->
   file { "${foreman::plugin_config_dir}/katello.yaml":

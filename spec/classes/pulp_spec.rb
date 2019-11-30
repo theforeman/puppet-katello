@@ -3,20 +3,10 @@ require 'spec_helper'
 describe 'katello::pulp' do
   on_os_under_test.each do |os, facts|
     context "on #{os}" do
-      let :facts do
-        facts
-      end
+      let(:facts) { facts.merge(processorcount: 1) }
 
-      context 'with inherited parameters' do
+      context 'with default parameters' do
         context 'minimal set' do
-          let :pre_condition do
-            <<-EOS
-            class { '::katello':
-              num_pulp_workers  => 1,
-            }
-            EOS
-          end
-
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_class('certs') }
           it { is_expected.to contain_class('certs::qpid_client') }
@@ -67,26 +57,28 @@ describe 'katello::pulp' do
           end
 
           context 'with repo present' do
-            let(:pre_condition) { super() + 'include katello::repo' }
+            let(:pre_condition) { 'include katello::repo' }
 
-            it { is_expected.to compile.with_all_deps }
-            it { is_expected.to create_class('pulp').that_requires(['Anchor[katello::repo]', 'Yumrepo[katello]']) }
+            it 'is expected to set up requirements' do
+              is_expected.to compile.with_all_deps
+              is_expected.to contain_anchor('katello::repo')
+              is_expected.to create_class('pulp').that_requires(['Anchor[katello::repo]', 'Yumrepo[katello]'])
+            end
           end
         end
 
-        context 'database parameters' do
-          let :pre_condition do
-            <<-EOS
-            class { '::katello':
-              pulp_db_name      => 'pulp_db',
-              pulp_db_username  => 'pulp_user',
-              pulp_db_password  => 'pulp_pw',
-              pulp_db_seeds     => '192.168.1.1:27017'
+        context 'with database parameters' do
+          let :params do
+            {
+              mongodb_name: 'pulp_db',
+              mongodb_username: 'pulp_user',
+              mongodb_password: 'pulp_pw',
+              mongodb_seeds: '192.168.1.1:27017',
             }
-            EOS
           end
 
           it do
+            is_expected.to compile.with_all_deps
             is_expected.to create_class('pulp')
               .with_db_name('pulp_db')
               .with_db_username('pulp_user')

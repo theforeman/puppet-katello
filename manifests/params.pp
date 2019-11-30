@@ -1,86 +1,31 @@
-# Katello Default Params
-class katello::params {
-
-  if versioncmp($facts['operatingsystemmajrelease'], '8') >= 0 {
-    $rubygem_katello = 'rubygem-katello'
-  } else {
-    $rubygem_katello = 'tfm-rubygem-katello'
-  }
-  $package_names = ['katello', $rubygem_katello]
-
-  # HTTP Proxy settings (currently used by pulp)
-  $proxy_url = undef
-  $proxy_port = undef
-  $proxy_username = undef
-  $proxy_password = undef
-
-  # Pulp worker settings
-  $num_pulp_workers = min($facts['processorcount'], 8)
-
-  # Pulp max speed setting
-  $pulp_max_speed = undef
-
-  # Rest client timeout
-  $rest_client_timeout = 3600
-
-  # Pulp worker timeout
-  $pulp_worker_timeout = 60
-
-  # Qpid perf settings
-  $qpid_wcache_page_size = 4
-
-  # cdn ssl settings
-  $cdn_ssl_version = undef
-
-  # system settings
-  $user = 'foreman'
-  $group = 'foreman'
-  $user_groups = ['foreman']
-  $repo_export_dir = '/var/lib/pulp/katello-export'
-
-  # OAUTH settings
-  $candlepin_oauth_key = 'katello'
-  $candlepin_oauth_secret = extlib::cache_data('foreman_cache_data', 'candlepin_oauth_secret', extlib::random_password(32))
-
-  # Subsystems settings
-  $candlepin_url = "https://${facts['fqdn']}:8443/candlepin"
-  $pulp_url      = "https://${facts['fqdn']}/pulp/api/v2/"
-  $crane_url  = "https://${facts['fqdn']}:5000"
-
-  $qpid_hostname = 'localhost'
-  $qpid_interface = 'lo'
-  $qpid_url = "amqp:ssl:${qpid_hostname}:5671"
-  $candlepin_event_queue = 'katello_event_queue'
-  $candlepin_qpid_exchange = 'event'
-  $enable_ostree = false
-  $enable_yum = true
-  $enable_file = true
-  $enable_puppet = true
-  $enable_docker = true
-  $enable_deb = true
-
-  # candlepin database settings
-  $candlepin_db_host = 'localhost'
-  $candlepin_db_port = undef
-  $candlepin_db_name = 'candlepin'
-  $candlepin_db_user = 'candlepin'
-  $candlepin_db_password = extlib::cache_data('foreman_cache_data', 'candlepin_db_password', extlib::random_password(32))
-  $candlepin_db_ssl = false
-  $candlepin_db_ssl_verify = true
-  $candlepin_manage_db = true
-
-  # pulp database settings
-  $pulp_manage_db = true
-  $pulp_db_name = 'pulp_database'
-  $pulp_db_seeds = 'localhost:27017'
-  $pulp_db_username = undef
-  $pulp_db_password = undef
-  $pulp_db_replica_set = undef
-  $pulp_db_ssl = false
-  $pulp_db_ssl_keyfile = undef
-  $pulp_db_ssl_certfile = undef
-  $pulp_db_verify_ssl = true
-  $pulp_db_ca_path = '/etc/pki/tls/certs/ca-bundle.crt'
-  $pulp_db_unsafe_autoretry = false
-  $pulp_db_write_concern = undef
+# @summary An indirection layer for parameters
+# @api private
+#
+# The goal of this class is to add all variables defined in katello::globals as
+# class parameters. This will allow users of a distributed setup to override
+# variables.
+#
+# This is a reversed model compared to the "regular" globals, but the
+# parameters on globals are reserved for the foreman-installer
+#
+# @param candlepin_url
+#   The URL to connect to Candlepin
+# @param pulp_url
+#   The URL to connect to Pulp
+# @param crane_url
+#   The URL to connect to Crane
+# @param qpid_hostname
+#   QPID's hostname to connect
+# @param candlepin_oauth_key
+#   The oauth key for Candlepin
+# @param candlepin_oauth_secret
+#   The oauth secret for Candlepin
+class katello::params (
+  Stdlib::Httpsurl $candlepin_url = "https://${facts['fqdn']}:8443/candlepin",
+  Stdlib::Httpsurl $pulp_url = "https://${facts['fqdn']}/pulp/api/v2/",
+  Stdlib::Httpsurl $crane_url = "https://${facts['fqdn']}:5000",
+  Stdlib::Host $qpid_hostname = 'localhost',
+  String[1] $candlepin_oauth_key = $katello::globals::candlepin_oauth_key,
+  String[1] $candlepin_oauth_secret = $katello::globals::candlepin_oauth_secret,
+) inherits katello::globals {
 }

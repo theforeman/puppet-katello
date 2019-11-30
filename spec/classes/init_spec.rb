@@ -12,7 +12,7 @@ describe 'katello' do
       it { is_expected.to contain_class('katello::qpid_client') }
       it { is_expected.to contain_class('katello::qpid') }
 
-      it { is_expected.to contain_package('katello').that_requires('Class[candlepin]') }
+      it { is_expected.to contain_package('tfm-rubygem-katello').that_requires('Class[candlepin]') }
 
       it { is_expected.to contain_service('tomcat').that_requires('Qpid::Config::Bind[entitlement.created]') }
     end

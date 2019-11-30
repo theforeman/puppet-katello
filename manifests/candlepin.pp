@@ -1,26 +1,41 @@
-# Katello configuration for candlepin
+# @summary Install and configure candlepin
+#
+# @param db_host
+#   The database host
+# @param db_port
+#   The database port
+# @param db_name
+#   The database name
+# @param db_user
+#   The database username
+# @param db_password
+#   The database password. A random password will be generated when
+#   unspecified.
+# @param db_ssl
+#   Whether to connect using SSL
+# @param db_ssl_verify
+#   Whether to verify the certificate of the database host
+# @param manage_db
+#   Whether to manage the database. Set this to false when using a remote database
 class katello::candlepin (
-  Variant[Array[String], String] $user_groups = $katello::user_groups,
-  String $oauth_key = $katello::candlepin_oauth_key,
-  String $oauth_secret = $katello::candlepin_oauth_secret,
-  String $db_host = $katello::candlepin_db_host,
-  Optional[Integer[0, 65535]] $db_port = $katello::candlepin_db_port,
-  String $db_name = $katello::candlepin_db_name,
-  String $db_user = $katello::candlepin_db_user,
-  String $db_password = $katello::candlepin_db_password,
-  Boolean $db_ssl = $katello::candlepin_db_ssl,
-  Boolean $db_ssl_verify = $katello::candlepin_db_ssl_verify,
-  Boolean $manage_db = $katello::candlepin_manage_db,
-  String $qpid_hostname = $katello::qpid_hostname,
+  Stdlib::Host $db_host = 'localhost',
+  Optional[Stdlib::Port] $db_port = undef,
+  String $db_name = 'candlepin',
+  String $db_user = 'candlepin',
+  Optional[String] $db_password = undef,
+  Boolean $db_ssl = false,
+  Boolean $db_ssl_verify = true,
+  Boolean $manage_db = true,
 ) {
   include certs
   include certs::candlepin
+  include katello::params
 
   Anchor <| title == 'katello::qpid::event_queue' |> ->
   class { 'candlepin':
-    user_groups                  => $user_groups,
-    oauth_key                    => $oauth_key,
-    oauth_secret                 => $oauth_secret,
+    user_groups                  => $certs::candlepin::group,
+    oauth_key                    => $katello::params::candlepin_oauth_key,
+    oauth_secret                 => $katello::params::candlepin_oauth_secret,
     ca_key                       => $certs::candlepin::ca_key,
     ca_cert                      => $certs::candlepin::ca_cert,
     keystore_file                => $certs::candlepin::keystore,
@@ -34,7 +49,7 @@ class katello::candlepin (
     amqp_truststore_password     => $certs::candlepin::keystore_password,
     amqp_keystore                => $certs::candlepin::amqp_keystore,
     amqp_truststore              => $certs::candlepin::amqp_truststore,
-    qpid_hostname                => $qpid_hostname,
+    qpid_hostname                => $katello::params::qpid_hostname,
     qpid_ssl_cert                => $certs::candlepin::client_cert,
     qpid_ssl_key                 => $certs::candlepin::client_key,
     db_host                      => $db_host,

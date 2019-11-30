@@ -1,34 +1,91 @@
 # Katello configuration for pulp
+#
+# @param mongodb_name
+#   Name of the database to use
+#
+# @param mongodb_seeds
+#   Comma-separated list of hostname:port of database replica seed hosts
+#
+# @param mongodb_username
+#   The user name to use for authenticating to the MongoDB server
+#
+# @param mongodb_password
+#   The password to use for authenticating to the MongoDB server
+#
+# @param mongodb_replica_set
+#   The name of replica set configured in MongoDB, if one is in use
+#
+# @param mongodb_ssl
+#   Whether to connect to the database server using SSL.
+#
+# @param mongodb_ssl_keyfile
+#   A path to the private keyfile used to identify the local connection against
+#   mongod. If included with the certfile then only the ssl_certfile is needed.
+#
+# @param mongodb_ssl_certfile
+#   The certificate file used to identify the local connection against mongod.
+#
+# @param mongodb_verify_ssl
+#   Specifies whether a certificate is required from the other side of the
+#   connection, and whether it will be validated if provided. If it is true,
+#   then the ca_certs parameter must point to a file of CA certificates used to
+#   validate the connection.
+#
+# @param mongodb_ca_path
+#   The ca_certs file contains a set of concatenated "certification authority"
+#   certificates, which are used to validate certificates passed from the other
+#   end of the connection.
+#
+# @param mongodb_unsafe_autoretry
+#  If true, retry commands to the database if there is a connection error.
+#  Warning: if set to true, this setting can result in duplicate records.
+#
+# @param mongodb_write_concern
+#   Write concern of 'majority' or 'all'. When 'all' is specified, 'w' is set
+#   to number of seeds specified.  Please note that 'all' will cause Pulp to
+#   halt if any of the replica set members is not available. 'majority' is used
+#   by default
+#
+# @param manage_mongodb
+#   Boolean to install and configure the mongodb.
+#
+# @param num_workers
+#   The number of Pulp workers to use
+#
+# @param worker_timeout
+#   The amount of time (in seconds) before considering a worker as missing. If
+#   Pulp's mongo database has slow I/O, then setting a higher number may
+#   resolve issues where workers are going missing incorrectly.
+#
+# @param yum_max_speed
+#   The maximum download speed per second for a Pulp task, such as a sync. (e.g. "4 Kb" (Uses SI KB), 4MB, or 1GB" )
+#
+# @param pub_dir_options
+#   The Apache options to use on the `/pub` resource
+#
+# @param repo_export_dir
+#   Create a repository export directory for Katello to use
 class katello::pulp (
-  Optional[String] $yum_max_speed = $katello::pulp_max_speed,
-  Optional[Boolean] $enable_ostree = $katello::enable_ostree,
-  Optional[Boolean] $enable_yum = $katello::enable_yum,
-  Optional[Boolean] $enable_file = $katello::enable_file,
-  Optional[Boolean] $enable_puppet = $katello::enable_puppet,
-  Optional[Boolean] $enable_docker = $katello::enable_docker,
-  Optional[Boolean] $enable_deb = $katello::enable_deb,
-  Integer[1] $num_workers = $katello::num_pulp_workers,
-  String $messaging_url = "ssl://${katello::qpid_hostname}:5671",
-  String $broker_url = "qpid://${katello::qpid_hostname}:5671",
-  Stdlib::Absolutepath $repo_export_dir = $katello::repo_export_dir,
-  String $repo_export_dir_owner = $katello::user,
-  String $repo_export_dir_group = $katello::group,
-  Integer[0] $pulp_worker_timeout = $katello::pulp_worker_timeout,
-  String $db_name = $katello::pulp_db_name,
-  String $db_seeds = $katello::pulp_db_seeds,
-  Optional[String] $db_username = $katello::pulp_db_username,
-  Optional[String] $db_password = $katello::pulp_db_password,
-  Optional[String] $db_replica_set = $katello::pulp_db_replica_set,
-  Boolean $db_ssl = $katello::pulp_db_ssl,
-  Optional[Stdlib::Absolutepath] $db_ssl_keyfile = $katello::pulp_db_ssl_keyfile,
-  Optional[Stdlib::Absolutepath] $db_ssl_certfile = $katello::pulp_db_ssl_certfile,
-  Boolean $db_verify_ssl = $katello::pulp_db_verify_ssl,
-  Stdlib::Absolutepath $db_ca_path = $katello::pulp_db_ca_path,
-  Boolean $db_unsafe_autoretry = $katello::pulp_db_unsafe_autoretry,
-  Optional[Enum['majority', 'all']] $db_write_concern = $katello::pulp_db_write_concern,
-  Boolean $manage_db = $katello::pulp_manage_db,
+  Optional[String] $yum_max_speed = undef,
+  Optional[Integer[1]] $num_workers = undef,
+  Integer[0] $worker_timeout = 60,
+  String $mongodb_name = 'pulp_database',
+  String $mongodb_seeds = 'localhost:27017',
+  Optional[String] $mongodb_username = undef,
+  Optional[String] $mongodb_password = undef,
+  Optional[String] $mongodb_replica_set = undef,
+  Boolean $mongodb_ssl = false,
+  Optional[Stdlib::Absolutepath] $mongodb_ssl_keyfile = undef,
+  Optional[Stdlib::Absolutepath] $mongodb_ssl_certfile = undef,
+  Boolean $mongodb_verify_ssl = true,
+  Stdlib::Absolutepath $mongodb_ca_path = '/etc/pki/tls/certs/ca-bundle.crt',
+  Boolean $mongodb_unsafe_autoretry = false,
+  Optional[Enum['majority', 'all']] $mongodb_write_concern = undef,
+  Boolean $manage_mongodb = true,
   String $pub_dir_options = '+FollowSymLinks +Indexes',
+  Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 ) {
+  include katello::params
   include certs
   include certs::qpid_client
   include apache
@@ -44,52 +101,52 @@ class katello::pulp (
   Anchor <| title == 'katello::repo' |> ->
   class { 'pulp':
     server_name            => $server_name,
-    messaging_url          => $messaging_url,
+    messaging_url          => "ssl://${katello::params::qpid_hostname}:5671",
     messaging_ca_cert      => $certs::qpid_client::qpid_client_ca_cert,
     messaging_client_cert  => $certs::qpid_client::qpid_client_cert,
     messaging_transport    => 'qpid',
     messaging_auth_enabled => false,
-    broker_url             => $broker_url,
+    broker_url             => "qpid://${katello::params::qpid_hostname}:5671",
     broker_use_ssl         => true,
     yum_max_speed          => $yum_max_speed,
     manage_broker          => false,
     manage_httpd           => false,
     manage_plugins_httpd   => true,
     manage_squid           => true,
-    enable_rpm             => $enable_yum,
-    enable_iso             => $enable_file,
-    enable_deb             => $enable_deb,
-    enable_puppet          => $enable_puppet,
-    enable_docker          => $enable_docker,
-    enable_ostree          => $enable_ostree,
+    enable_rpm             => $katello::params::enable_yum,
+    enable_iso             => $katello::params::enable_file,
+    enable_deb             => $katello::params::enable_deb,
+    enable_puppet          => $katello::params::enable_puppet,
+    enable_docker          => $katello::params::enable_docker,
+    enable_ostree          => $katello::params::enable_ostree,
     num_workers            => $num_workers,
     enable_parent_node     => false,
     repo_auth              => true,
     puppet_wsgi_processes  => 1,
     enable_katello         => true,
     subscribe              => Class['certs', 'certs::qpid_client'],
-    worker_timeout         => $pulp_worker_timeout,
-    db_name                => $db_name,
-    db_seeds               => $db_seeds,
-    db_username            => $db_username,
-    db_password            => $db_password,
-    db_replica_set         => $db_replica_set,
-    db_ssl                 => $db_ssl,
-    db_ssl_keyfile         => $db_ssl_keyfile,
-    db_ssl_certfile        => $db_ssl_certfile,
-    db_verify_ssl          => $db_verify_ssl,
-    db_ca_path             => $db_ca_path,
-    db_unsafe_autoretry    => $db_unsafe_autoretry,
-    db_write_concern       => $db_write_concern,
-    manage_db              => $manage_db,
+    worker_timeout         => $worker_timeout,
+    db_name                => $mongodb_name,
+    db_seeds               => $mongodb_seeds,
+    db_username            => $mongodb_username,
+    db_password            => $mongodb_password,
+    db_replica_set         => $mongodb_replica_set,
+    db_ssl                 => $mongodb_ssl,
+    db_ssl_keyfile         => $mongodb_ssl_keyfile,
+    db_ssl_certfile        => $mongodb_ssl_certfile,
+    db_verify_ssl          => $mongodb_verify_ssl,
+    db_ca_path             => $mongodb_ca_path,
+    db_unsafe_autoretry    => $mongodb_unsafe_autoretry,
+    db_write_concern       => $mongodb_write_concern,
+    manage_db              => $manage_mongodb,
   }
 
   contain pulp
 
   file { $repo_export_dir:
     ensure  => directory,
-    owner   => $repo_export_dir_owner,
-    group   => $repo_export_dir_group,
+    owner   => $foreman::user,
+    group   => $foreman::group,
     mode    => '0755',
     require => Class['pulp'],
   }

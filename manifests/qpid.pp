@@ -1,14 +1,18 @@
-# Katello qpid Config
+# @summary Katello qpid Config
+#
+# @param interface
+#   The interface to listen on
+#
+# @param wcache_page_size
+#   The size (in KB) of the pages in the write page cache
+#
 class katello::qpid (
-  String $katello_user = $katello::user,
-  String $candlepin_event_queue = $katello::candlepin_event_queue,
-  String $candlepin_qpid_exchange = $katello::candlepin_qpid_exchange,
-  Integer[0, 5000] $wcache_page_size = $katello::qpid_wcache_page_size,
-  String $interface = $katello::qpid_interface,
-  String $hostname = $katello::qpid_hostname,
+  String $interface = 'lo',
+  Integer[0, 5000] $wcache_page_size = 4,
 ) {
   include certs
   include certs::qpid
+  include katello::params
 
   class { 'qpid':
     ssl                    => true,
@@ -23,20 +27,18 @@ class katello::qpid (
 
   contain qpid
 
-  User<|title == $katello_user|>{groups +> 'qpidd'}
-
-  qpid::config::queue { $candlepin_event_queue:
+  qpid::config::queue { $katello::params::candlepin_event_queue:
     ssl_cert => $certs::qpid::client_cert,
     ssl_key  => $certs::qpid::client_key,
-    hostname => $hostname,
+    hostname => $katello::params::qpid_hostname,
   }
 
   qpid::config::bind { ['entitlement.created', 'entitlement.deleted', 'pool.created', 'pool.deleted', 'compliance.created', 'system_purpose_compliance.created']:
-    queue    => $candlepin_event_queue,
-    exchange => $candlepin_qpid_exchange,
+    queue    => $katello::params::candlepin_event_queue,
+    exchange => $katello::params::candlepin_qpid_exchange,
     ssl_cert => $certs::qpid::client_cert,
     ssl_key  => $certs::qpid::client_key,
-    hostname => $hostname,
+    hostname => $katello::params::qpid_hostname,
   } ->
   # This anchor indicates the event queue is all set up.
   anchor { 'katello::qpid::event_queue': }

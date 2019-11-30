@@ -30,12 +30,6 @@
 #
 # === Advanced parameters:
 #
-# $user::               The Katello system user name
-#
-# $group::              The Katello system user group
-#
-# $user_groups::        Extra user groups the Katello user is a part of
-#
 # $candlepin_oauth_key:: The OAuth key for talking to the candlepin API
 #
 # $candlepin_oauth_secret:: The OAuth secret for talking to the candlepin API
@@ -49,8 +43,6 @@
 # $qpid_interface::     The interface qpidd listens to.
 #
 # $qpid_hostname::      Hostname used to connect to qpidd.
-#
-# $package_names::      Packages that this module ensures are present instead of the default
 #
 # $candlepin_db_host::  Host with Candlepin DB
 #
@@ -110,64 +102,117 @@
 # $pulp_manage_db::      Boolean to install and configure the mongodb.
 #
 class katello (
-  String $user = $katello::params::user,
-  String $group = $katello::params::group,
-  Variant[Array[String], String] $user_groups = $katello::params::user_groups,
+  Optional[String] $candlepin_oauth_key = undef,
+  Optional[String] $candlepin_oauth_secret = undef,
 
-  String $candlepin_oauth_key = $katello::params::candlepin_oauth_key,
-  String $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret,
+  Integer[0] $rest_client_timeout = 3600,
+  Integer[0, 1000] $qpid_wcache_page_size = 4,
+  String $qpid_interface = 'lo',
+  Stdlib::Host $qpid_hostname = 'localhost',
+  Optional[Integer[1]] $num_pulp_workers = undef,
+  Integer[0] $pulp_worker_timeout = 60,
+  Optional[Stdlib::Host] $proxy_url = undef,
+  Optional[Stdlib::Port] $proxy_port = undef,
+  Optional[String] $proxy_username = undef,
+  Optional[String] $proxy_password = undef,
+  Optional[String] $pulp_max_speed = undef,
+  Optional[Enum['SSLv23', 'TLSv1']] $cdn_ssl_version = undef,
 
-  Integer[0] $rest_client_timeout = $katello::params::rest_client_timeout,
-  Integer[0, 1000] $qpid_wcache_page_size = $katello::params::qpid_wcache_page_size,
-  String $qpid_interface = $katello::params::qpid_interface,
-  String $qpid_hostname = $katello::params::qpid_hostname,
-  Integer[1] $num_pulp_workers = $katello::params::num_pulp_workers,
-  Integer[0] $pulp_worker_timeout = $katello::params::pulp_worker_timeout,
-  Optional[Stdlib::HTTPUrl] $proxy_url = $katello::params::proxy_url,
-  Optional[Integer[0, 65535]] $proxy_port = $katello::params::proxy_port,
-  Optional[String] $proxy_username = $katello::params::proxy_username,
-  Optional[String] $proxy_password = $katello::params::proxy_password,
-  Optional[String] $pulp_max_speed = $katello::params::pulp_max_speed,
-  Optional[Enum['SSLv23', 'TLSv1']] $cdn_ssl_version = $katello::params::cdn_ssl_version,
+  Boolean $enable_ostree = false,
+  Boolean $enable_yum = true,
+  Boolean $enable_file = true,
+  Boolean $enable_puppet = true,
+  Boolean $enable_docker = true,
+  Boolean $enable_deb = true,
 
-  Array[String] $package_names = $katello::params::package_names,
-  Boolean $enable_ostree = $katello::params::enable_ostree,
-  Boolean $enable_yum = $katello::params::enable_yum,
-  Boolean $enable_file = $katello::params::enable_file,
-  Boolean $enable_puppet = $katello::params::enable_puppet,
-  Boolean $enable_docker = $katello::params::enable_docker,
-  Boolean $enable_deb = $katello::params::enable_deb,
+  Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 
+  String $candlepin_db_host = 'localhost',
+  Optional[Stdlib::Port] $candlepin_db_port = undef,
+  String $candlepin_db_name = 'candlepin',
+  String $candlepin_db_user = 'candlepin',
+  Optional[String] $candlepin_db_password = undef,
+  Boolean $candlepin_db_ssl = false,
+  Boolean $candlepin_db_ssl_verify = true,
+  Boolean $candlepin_manage_db = true,
 
-  Stdlib::Absolutepath $repo_export_dir = $katello::params::repo_export_dir,
+  String $pulp_db_name = 'pulp_database',
+  String $pulp_db_seeds = 'localhost:27017',
+  Optional[String] $pulp_db_username = undef,
+  Optional[String] $pulp_db_password = undef,
+  Optional[String] $pulp_db_replica_set = undef,
+  Boolean $pulp_db_ssl = false,
+  Optional[Stdlib::Absolutepath] $pulp_db_ssl_keyfile = undef,
+  Optional[Stdlib::Absolutepath] $pulp_db_ssl_certfile = undef,
+  Boolean $pulp_db_verify_ssl = true,
+  Stdlib::Absolutepath $pulp_db_ca_path = '/etc/pki/tls/certs/ca-bundle.crt',
+  Boolean $pulp_db_unsafe_autoretry = false,
+  Optional[Enum['majority', 'all']] $pulp_db_write_concern = undef,
+  Boolean $pulp_manage_db = true,
+) {
 
-  String $candlepin_db_host = $katello::params::candlepin_db_host,
-  Optional[Integer[0, 65535]] $candlepin_db_port = $katello::params::candlepin_db_port,
-  String $candlepin_db_name = $katello::params::candlepin_db_name,
-  String $candlepin_db_user = $katello::params::candlepin_db_user,
-  String $candlepin_db_password = $katello::params::candlepin_db_password,
-  Boolean $candlepin_db_ssl = $katello::params::candlepin_db_ssl,
-  Boolean $candlepin_db_ssl_verify = $katello::params::candlepin_db_ssl_verify,
-  Boolean $candlepin_manage_db = $katello::params::candlepin_manage_db,
+  package { 'katello':
+    ensure => installed,
+  }
 
-  String $pulp_db_name = $katello::params::pulp_db_name,
-  String $pulp_db_seeds = $katello::params::pulp_db_seeds,
-  Optional[String] $pulp_db_username = $katello::params::pulp_db_username,
-  Optional[String] $pulp_db_password = $katello::params::pulp_db_password,
-  Optional[String] $pulp_db_replica_set = $katello::params::pulp_db_replica_set,
-  Boolean $pulp_db_ssl = $katello::params::pulp_db_ssl,
-  Optional[Stdlib::Absolutepath] $pulp_db_ssl_keyfile = $katello::params::pulp_db_ssl_keyfile,
-  Optional[Stdlib::Absolutepath] $pulp_db_ssl_certfile = $katello::params::pulp_db_ssl_certfile,
-  Boolean $pulp_db_verify_ssl = $katello::params::pulp_db_verify_ssl,
-  Stdlib::Absolutepath $pulp_db_ca_path = $katello::params::pulp_db_ca_path,
-  Boolean $pulp_db_unsafe_autoretry = $katello::params::pulp_db_unsafe_autoretry,
-  Optional[Enum['majority', 'all']] $pulp_db_write_concern = $katello::params::pulp_db_write_concern,
-  Boolean $pulp_manage_db = $katello::params::pulp_manage_db,
-) inherits katello::params {
+  class { 'katello::globals':
+    enable_ostree => $enable_ostree,
+    enable_yum    => $enable_yum,
+    enable_file   => $enable_file,
+    enable_puppet => $enable_puppet,
+    enable_docker => $enable_docker,
+    enable_deb    => $enable_deb,
+  }
 
-  include katello::candlepin
-  include katello::qpid
-  include katello::pulp
-  include katello::application
+  class { 'katello::params':
+    candlepin_oauth_key    => $candlepin_oauth_key,
+    candlepin_oauth_secret => $candlepin_oauth_secret,
+    qpid_hostname          => $qpid_hostname,
+  }
+
+  class { 'katello::candlepin':
+    db_host       => $candlepin_db_host,
+    db_port       => $candlepin_db_port,
+    db_name       => $candlepin_db_name,
+    db_user       => $candlepin_db_user,
+    db_password   => $candlepin_db_password,
+    db_ssl        => $candlepin_db_ssl,
+    db_ssl_verify => $candlepin_db_ssl_verify,
+    manage_db     => $candlepin_manage_db,
+  }
+
+  class { 'katello::qpid':
+    interface        => $qpid_interface,
+    wcache_page_size => $qpid_wcache_page_size,
+  }
+
+  class { 'katello::pulp':
+    yum_max_speed            => $pulp_max_speed,
+    num_workers              => $num_pulp_workers,
+    worker_timeout           => $pulp_worker_timeout,
+    mongodb_name             => $pulp_db_name,
+    mongodb_seeds            => $pulp_db_seeds,
+    mongodb_username         => $pulp_db_username,
+    mongodb_password         => $pulp_db_password,
+    mongodb_replica_set      => $pulp_db_replica_set,
+    mongodb_ssl              => $pulp_db_ssl,
+    mongodb_ssl_keyfile      => $pulp_db_ssl_keyfile,
+    mongodb_ssl_certfile     => $pulp_db_ssl_certfile,
+    mongodb_verify_ssl       => $pulp_db_verify_ssl,
+    mongodb_ca_path          => $pulp_db_ca_path,
+    mongodb_unsafe_autoretry => $pulp_db_unsafe_autoretry,
+    mongodb_write_concern    => $pulp_db_write_concern,
+    manage_mongodb           => $pulp_manage_db,
+    repo_export_dir          => $repo_export_dir,
+  }
+
+  class { 'katello::application':
+    rest_client_timeout => $rest_client_timeout,
+    cdn_ssl_version     => $cdn_ssl_version,
+    proxy_host          => $proxy_url,
+    proxy_port          => $proxy_port,
+    proxy_username      => $proxy_username,
+    proxy_password      => $proxy_password,
+  }
 
 }
