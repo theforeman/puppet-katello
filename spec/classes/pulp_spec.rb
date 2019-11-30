@@ -79,6 +79,17 @@ describe 'katello::pulp' do
               .with_db_password('pulp_pw')
               .with_db_seeds('192.168.1.1:27017')
           end
+
+          context 'with manage_httpd => true' do
+            let :params do
+              super().merge({ 'manage_httpd' => true, })
+            end
+
+            it do
+              is_expected.to create_class('pulp')
+                .with_manage_httpd(true)
+            end
+          end
         end
       end
     end
