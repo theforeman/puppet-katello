@@ -46,14 +46,6 @@ class katello::application (
     require        => [Class['certs::pulp_client'], Foreman::Rake['db:seed']],
   }
 
-  # We used to override permissions here so this matches it back to the packaging
-  file { '/usr/share/foreman/bundler.d/katello.rb':
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-  }
-
   include foreman::plugin::tasks
 
   Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
