@@ -86,19 +86,11 @@ class katello::pulp (
 
   contain pulp
 
-  # NB: we define this here to avoid a dependency cycle. It is not a problem if
-  # this dir exists before the pulp RPMs are installed.
-  file { '/var/lib/pulp':
-    ensure => directory,
-    owner  => 'apache',
-    group  => 'apache',
-    mode   => '0755',
-  }
-
   file { $repo_export_dir:
-    ensure => directory,
-    owner  => $repo_export_dir_owner,
-    group  => $repo_export_dir_group,
-    mode   => '0755',
+    ensure  => directory,
+    owner   => $repo_export_dir_owner,
+    group   => $repo_export_dir_group,
+    mode    => '0755',
+    require => Class['pulp'],
   }
 }

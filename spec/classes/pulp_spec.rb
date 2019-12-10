@@ -58,8 +58,6 @@ describe 'katello::pulp' do
               .with_ssl_content(%r{^<Location /pulp/api>$})
           end
 
-          it { is_expected.to create_file('/var/lib/pulp') }
-
           it do
             is_expected.to create_file('/var/lib/pulp/katello-export')
               .with_ensure('directory')
