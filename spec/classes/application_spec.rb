@@ -95,7 +95,7 @@ describe 'katello::application' do
           {
             rest_client_timeout: 4000,
             cdn_ssl_version: 'TLSv1',
-            proxy_host: 'myproxy.example.org',
+            proxy_host: 'http://myproxy.example.org',
             proxy_port: 8888,
             proxy_username: 'admin',
             proxy_password: 'secret_password',
@@ -131,7 +131,7 @@ describe 'katello::application' do
             '    :crane_url: https://foo.example.com:5000',
             '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
             '  :cdn_proxy:',
-            '    :host: myproxy.example.org',
+            '    :host: http://myproxy.example.org',
             '    :port: 8888',
             '    :user: "admin"',
             '    :password: "secret_password"',

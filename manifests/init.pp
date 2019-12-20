@@ -111,7 +111,7 @@ class katello (
   Stdlib::Host $qpid_hostname = 'localhost',
   Optional[Integer[1]] $num_pulp_workers = undef,
   Integer[0] $pulp_worker_timeout = 60,
-  Optional[Stdlib::Host] $proxy_url = undef,
+  Optional[Stdlib::HTTPUrl] $proxy_url = undef,
   Optional[Stdlib::Port] $proxy_port = undef,
   Optional[String] $proxy_username = undef,
   Optional[String] $proxy_password = undef,

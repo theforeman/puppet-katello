@@ -21,7 +21,7 @@
 class katello::application (
   Integer[0] $rest_client_timeout = 3600,
   Optional[Enum['SSLv23', 'TLSv1', '']] $cdn_ssl_version = undef,
-  Optional[Stdlib::Host] $proxy_host = undef,
+  Optional[Stdlib::HTTPUrl] $proxy_host = undef,
   Optional[Stdlib::Port] $proxy_port = undef,
   Optional[String] $proxy_username = undef,
   Optional[String] $proxy_password = undef,
