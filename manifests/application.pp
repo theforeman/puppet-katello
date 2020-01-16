@@ -18,6 +18,12 @@
 # @param proxy_password
 #  Proxy password for authentication
 #
+# @param use_pulp_2_for_file
+#  Configure Katello to use Pulp 2 for file content
+#
+# @param use_pulp_2_for_docker
+#  Configure Katello to use Pulp 2 for docker content
+#
 class katello::application (
   Integer[0] $rest_client_timeout = 3600,
   Optional[Enum['SSLv23', 'TLSv1', '']] $cdn_ssl_version = undef,
@@ -25,6 +31,8 @@ class katello::application (
   Optional[Stdlib::Port] $proxy_port = undef,
   Optional[String] $proxy_username = undef,
   Optional[String] $proxy_password = undef,
+  Boolean $use_pulp_2_for_file = false,
+  Boolean $use_pulp_2_for_docker = false,
 ) {
   include foreman
   include certs

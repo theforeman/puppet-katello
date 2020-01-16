@@ -101,6 +101,10 @@
 #
 # $pulp_manage_db::      Boolean to install and configure the mongodb.
 #
+# $use_pulp_2_for_file::   Configures Katello to use Pulp 2 for file content
+#
+# $use_pulp_2_for_docker:: Configures Katello to use Pulp 2 for docker content
+#
 class katello (
   Optional[String] $candlepin_oauth_key = undef,
   Optional[String] $candlepin_oauth_secret = undef,
@@ -124,6 +128,9 @@ class katello (
   Boolean $enable_puppet = true,
   Boolean $enable_docker = true,
   Boolean $enable_deb = true,
+
+  Boolean $use_pulp_2_for_file = false,
+  Boolean $use_pulp_2_for_docker = false,
 
   Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 
@@ -207,12 +214,14 @@ class katello (
   }
 
   class { 'katello::application':
-    rest_client_timeout => $rest_client_timeout,
-    cdn_ssl_version     => $cdn_ssl_version,
-    proxy_host          => $proxy_url,
-    proxy_port          => $proxy_port,
-    proxy_username      => $proxy_username,
-    proxy_password      => $proxy_password,
+    rest_client_timeout   => $rest_client_timeout,
+    cdn_ssl_version       => $cdn_ssl_version,
+    proxy_host            => $proxy_url,
+    proxy_port            => $proxy_port,
+    proxy_username        => $proxy_username,
+    proxy_password        => $proxy_password,
+    use_pulp_2_for_file   => $use_pulp_2_for_file,
+    use_pulp_2_for_docker => $use_pulp_2_for_docker,
   }
 
 }
