@@ -25,6 +25,10 @@
     :url: <%= @pulp_url %>
     :ca_cert_file: <%= @pulp_ca_cert %>
 
+  :use_pulp_2_for_content_type:
+    :docker: <%= @use_pulp_2_for_docker %>
+    :file: <%= @use_pulp_2_for_file %>
+
   :qpid:
     :url: <%= @qpid_url %>
     :subscriptions_queue_address: <%= @candlepin_event_queue %>
