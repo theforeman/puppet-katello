@@ -26,7 +26,7 @@
     },
     {
       "name": "katello/certs",
-      "version_requirement": ">= 6.1.1 < 7.0.0"
+      "version_requirement": ">= 6.1.1 < 8.0.0"
     },
     {
       "name": "katello/pulp",
