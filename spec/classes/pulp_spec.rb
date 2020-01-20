@@ -9,7 +9,8 @@ describe 'katello::pulp' do
         context 'minimal set' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_class('certs') }
-          it { is_expected.to contain_class('certs::qpid_client') }
+          # pulp-server creates the pulp group which qpid_client uses
+          it { is_expected.to contain_class('certs::qpid_client').that_requires('Package[pulp-server]').that_notifies('Service[pulp_workers]') }
 
           it do
             is_expected.to create_class('pulp')
@@ -39,7 +40,6 @@ describe 'katello::pulp' do
               .with_db_name('pulp_database')
               .with_db_seeds('localhost:27017')
               .with_db_ssl(false)
-              .that_subscribes_to('Class[Certs::Qpid_client]')
           end
 
           it do

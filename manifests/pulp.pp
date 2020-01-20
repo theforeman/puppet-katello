@@ -87,7 +87,12 @@ class katello::pulp (
 ) {
   include katello::params
   include certs
-  include certs::qpid_client
+
+  class { 'certs::qpid_client':
+    require => Class['pulp::install'],
+    notify  => Class['pulp::service'],
+  }
+
   include apache
 
   # Deploy as a part of the foreman vhost
@@ -124,7 +129,7 @@ class katello::pulp (
     repo_auth              => true,
     puppet_wsgi_processes  => 1,
     enable_katello         => true,
-    subscribe              => Class['certs', 'certs::qpid_client'],
+    subscribe              => Class['certs'],
     worker_timeout         => $worker_timeout,
     db_name                => $mongodb_name,
     db_seeds               => $mongodb_seeds,
