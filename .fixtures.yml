@@ -14,6 +14,7 @@ fixtures:
     pulp:          "https://github.com/theforeman/puppet-pulp.git"
     qpid:          "https://github.com/theforeman/puppet-qpid.git"
     squid:         "https://github.com/voxpupuli/puppet-squid.git"
+    redis:         "https://github.com/voxpupuli/puppet-redis"
     selinux:       "https://github.com/voxpupuli/puppet-selinux.git"
     selinux_core:
       repo: 'https://github.com/puppetlabs/puppetlabs-selinux_core'
