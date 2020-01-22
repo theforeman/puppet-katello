@@ -16,14 +16,6 @@
 #
 # $enable_deb::         Enable debian content plugin
 #
-# $proxy_url::          URL of the proxy server
-#
-# $proxy_port::         Port the proxy is running on
-#
-# $proxy_username::     Proxy username for authentication
-#
-# $proxy_password::     Proxy password for authentication
-#
 # $pulp_max_speed::     The maximum download speed per second for a Pulp task, such as a sync. (e.g. "4 Kb" (Uses SI KB), 4MB, or 1GB" )
 #
 # $repo_export_dir::    Directory to create for repository exports
@@ -115,10 +107,6 @@ class katello (
   Stdlib::Host $qpid_hostname = 'localhost',
   Optional[Integer[1]] $num_pulp_workers = undef,
   Integer[0] $pulp_worker_timeout = 60,
-  Optional[Stdlib::HTTPUrl] $proxy_url = undef,
-  Optional[Stdlib::Port] $proxy_port = undef,
-  Optional[String] $proxy_username = undef,
-  Optional[String] $proxy_password = undef,
   Optional[String] $pulp_max_speed = undef,
   Optional[Enum['SSLv23', 'TLSv1']] $cdn_ssl_version = undef,
 
@@ -216,10 +204,6 @@ class katello (
   class { 'katello::application':
     rest_client_timeout   => $rest_client_timeout,
     cdn_ssl_version       => $cdn_ssl_version,
-    proxy_host            => $proxy_url,
-    proxy_port            => $proxy_port,
-    proxy_username        => $proxy_username,
-    proxy_password        => $proxy_password,
     use_pulp_2_for_file   => $use_pulp_2_for_file,
     use_pulp_2_for_docker => $use_pulp_2_for_docker,
   }

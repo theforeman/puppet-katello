@@ -6,18 +6,6 @@
 # @param cdn_ssl_version
 #  SSL version used to communicate with the CDN
 #
-# @param proxy_host
-#  URL of the proxy server
-#
-# @param proxy_port
-#  Port the proxy is running on
-#
-# @param proxy_username
-#  Proxy username for authentication
-#
-# @param proxy_password
-#  Proxy password for authentication
-#
 # @param use_pulp_2_for_file
 #  Configure Katello to use Pulp 2 for file content
 #
@@ -27,10 +15,6 @@
 class katello::application (
   Integer[0] $rest_client_timeout = 3600,
   Optional[Enum['SSLv23', 'TLSv1', '']] $cdn_ssl_version = undef,
-  Optional[Stdlib::HTTPUrl] $proxy_host = undef,
-  Optional[Stdlib::Port] $proxy_port = undef,
-  Optional[String] $proxy_username = undef,
-  Optional[String] $proxy_password = undef,
   Boolean $use_pulp_2_for_file = false,
   Boolean $use_pulp_2_for_docker = false,
 ) {
