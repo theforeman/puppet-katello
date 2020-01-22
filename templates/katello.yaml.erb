@@ -37,11 +37,3 @@
   :container_image_registry:
     :crane_url: <%= @crane_url %>
     :crane_ca_cert_file: <%= @crane_ca_cert %>
-
-<%- unless [nil, :undefined, :undef, ''].include?(@proxy_host) -%>
-  :cdn_proxy:
-    :host: <%= @proxy_host %>
-    :port: <%= @proxy_port %>
-    :user: "<%= @proxy_username %>"
-    :password: "<%= @proxy_password %>"
-<%- end -%>
