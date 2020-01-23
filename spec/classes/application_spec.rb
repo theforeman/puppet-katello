@@ -54,6 +54,10 @@ describe 'katello::application' do
             .that_notifies(['Class[Foreman::Plugin::Tasks]'])
         end
 
+        it do
+          is_expected.to contain_foreman__dynflow__worker('worker-hosts-queue')
+        end
+
         it 'should generate correct katello.yaml' do
           verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
             ':katello:',

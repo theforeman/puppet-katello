@@ -97,4 +97,10 @@ class katello::application (
   foreman::config::apache::fragment { 'katello':
     ssl_content => file('katello/katello-apache-ssl.conf'),
   }
+
+  if $foreman::jobs_manage_service {
+    foreman::dynflow::worker { 'worker-hosts-queue':
+      queues => ['hosts_queue'],
+    }
+  }
 }
