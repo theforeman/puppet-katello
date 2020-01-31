@@ -2,9 +2,6 @@
 ## Module: puppet-katello
 
 :katello:
-  <%- unless [nil, :undefined, :undef, ''].include?(@cdn_ssl_version) -%>
-  :cdn_ssl_version: <%= @cdn_ssl_version %>
-  <%- end -%>
   :rest_client_timeout: <%= @rest_client_timeout %>
 
   :content_types:

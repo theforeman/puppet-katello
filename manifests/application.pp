@@ -3,9 +3,6 @@
 # @param rest_client_timeout
 #   Timeout for Katello rest API
 #
-# @param cdn_ssl_version
-#  SSL version used to communicate with the CDN
-#
 # @param use_pulp_2_for_file
 #  Configure Katello to use Pulp 2 for file content
 #
@@ -17,7 +14,6 @@
 #
 class katello::application (
   Integer[0] $rest_client_timeout = 3600,
-  Optional[Enum['SSLv23', 'TLSv1', '']] $cdn_ssl_version = undef,
   Boolean $use_pulp_2_for_file = false,
   Boolean $use_pulp_2_for_docker = false,
   Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',

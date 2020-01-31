@@ -111,7 +111,6 @@ describe 'katello::application' do
         let(:params) do
           {
             rest_client_timeout: 4000,
-            cdn_ssl_version: 'TLSv1',
           }
         end
 
@@ -120,7 +119,6 @@ describe 'katello::application' do
         it 'should generate correct katello.yaml' do
           verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
             ':katello:',
-            '  :cdn_ssl_version: TLSv1',
             '  :rest_client_timeout: 4000',
             '  :content_types:',
             '    :yum: true',
