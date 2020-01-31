@@ -26,8 +26,6 @@
 #
 # $candlepin_oauth_secret:: The OAuth secret for talking to the candlepin API
 #
-# $cdn_ssl_version::    SSL version used to communicate with the CDN
-#
 # $num_pulp_workers::   Number of pulp workers to use
 #
 # $qpid_wcache_page_size:: The size (in KB) of the pages in the write page cache
@@ -108,7 +106,6 @@ class katello (
   Optional[Integer[1]] $num_pulp_workers = undef,
   Integer[0] $pulp_worker_timeout = 60,
   Optional[String] $pulp_max_speed = undef,
-  Optional[Enum['SSLv23', 'TLSv1']] $cdn_ssl_version = undef,
 
   Boolean $enable_ostree = false,
   Boolean $enable_yum = true,
@@ -183,7 +180,6 @@ class katello (
 
   class { 'katello::application':
     rest_client_timeout   => $rest_client_timeout,
-    cdn_ssl_version       => $cdn_ssl_version,
     use_pulp_2_for_file   => $use_pulp_2_for_file,
     use_pulp_2_for_docker => $use_pulp_2_for_docker,
     repo_export_dir       => $repo_export_dir,
