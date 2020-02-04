@@ -8,6 +8,8 @@
 # This is a reversed model compared to the "regular" globals, but the
 # parameters on globals are reserved for the foreman-installer
 #
+# @param candlepin_host
+#   The host to run Candlepin as
 # @param candlepin_url
 #   The URL to connect to Candlepin
 # @param pulp_url
@@ -21,11 +23,12 @@
 # @param candlepin_oauth_secret
 #   The oauth secret for Candlepin
 class katello::params (
-  Stdlib::Httpsurl $candlepin_url = "https://${facts['fqdn']}:8443/candlepin",
   Stdlib::Httpsurl $pulp_url = "https://${facts['fqdn']}/pulp/api/v2/",
   Stdlib::Httpsurl $crane_url = "https://${facts['fqdn']}:5000",
   Stdlib::Host $qpid_hostname = 'localhost',
   String[1] $candlepin_oauth_key = $katello::globals::candlepin_oauth_key,
   String[1] $candlepin_oauth_secret = $katello::globals::candlepin_oauth_secret,
+  Stdlib::Host $candlepin_host = 'localhost',
+  Stdlib::Httpsurl $candlepin_url = "https://${candlepin_host}:8443/candlepin"
 ) inherits katello::globals {
 }

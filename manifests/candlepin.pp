@@ -28,11 +28,15 @@ class katello::candlepin (
   Boolean $manage_db = true,
 ) {
   include certs
-  include certs::candlepin
   include katello::params
+
+  class { 'certs::candlepin':
+    hostname => $katello::params::candlepin_host,
+  }
 
   Anchor <| title == 'katello::qpid::event_queue' |> ->
   class { 'candlepin':
+    host                         => $katello::params::candlepin_host,
     user_groups                  => $certs::candlepin::group,
     oauth_key                    => $katello::params::candlepin_oauth_key,
     oauth_secret                 => $katello::params::candlepin_oauth_secret,
