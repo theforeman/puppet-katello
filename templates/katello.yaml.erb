@@ -33,7 +33,9 @@
     :url: <%= @qpid_url %>
     :subscriptions_queue_address: <%= @candlepin_event_queue %>
 
+  <%- if @use_pulp_2_for_docker -%>
   # Internal configuration for communication from server to pulp crane service.
   :container_image_registry:
     :crane_url: <%= @crane_url %>
     :crane_ca_cert_file: <%= @crane_ca_cert %>
+  <%- end -%>
