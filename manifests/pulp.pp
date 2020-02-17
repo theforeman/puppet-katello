@@ -93,8 +93,8 @@ class katello::pulp (
   include apache
 
   # Deploy as a part of the foreman vhost
-  include foreman
-  $server_name = $foreman::servername
+  include foreman::config::apache
+  $server_name = $foreman::config::apache::servername
   foreman::config::apache::fragment { 'pulp':
     content     => template('katello/pulp-apache.conf.erb'),
     ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
