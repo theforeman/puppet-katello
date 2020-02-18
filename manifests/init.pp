@@ -198,7 +198,6 @@ class katello (
     mongodb_unsafe_autoretry => $pulp_db_unsafe_autoretry,
     mongodb_write_concern    => $pulp_db_write_concern,
     manage_mongodb           => $pulp_manage_db,
-    repo_export_dir          => $repo_export_dir,
   }
 
   class { 'katello::application':
@@ -206,6 +205,7 @@ class katello (
     cdn_ssl_version       => $cdn_ssl_version,
     use_pulp_2_for_file   => $use_pulp_2_for_file,
     use_pulp_2_for_docker => $use_pulp_2_for_docker,
+    repo_export_dir       => $repo_export_dir,
   }
 
 }
