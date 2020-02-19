@@ -181,6 +181,14 @@ class katello (
     wcache_page_size => $qpid_wcache_page_size,
   }
 
+  class { 'katello::application':
+    rest_client_timeout   => $rest_client_timeout,
+    cdn_ssl_version       => $cdn_ssl_version,
+    use_pulp_2_for_file   => $use_pulp_2_for_file,
+    use_pulp_2_for_docker => $use_pulp_2_for_docker,
+    repo_export_dir       => $repo_export_dir,
+  }
+
   class { 'katello::pulp':
     yum_max_speed            => $pulp_max_speed,
     num_workers              => $num_pulp_workers,
@@ -198,14 +206,5 @@ class katello (
     mongodb_unsafe_autoretry => $pulp_db_unsafe_autoretry,
     mongodb_write_concern    => $pulp_db_write_concern,
     manage_mongodb           => $pulp_manage_db,
-    repo_export_dir          => $repo_export_dir,
   }
-
-  class { 'katello::application':
-    rest_client_timeout   => $rest_client_timeout,
-    cdn_ssl_version       => $cdn_ssl_version,
-    use_pulp_2_for_file   => $use_pulp_2_for_file,
-    use_pulp_2_for_docker => $use_pulp_2_for_docker,
-  }
-
 }

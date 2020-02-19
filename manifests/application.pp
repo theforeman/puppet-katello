@@ -12,11 +12,15 @@
 # @param use_pulp_2_for_docker
 #  Configure Katello to use Pulp 2 for docker content
 #
+# @param repo_export_dir
+#   Create a repository export directory for Katello to use
+#
 class katello::application (
   Integer[0] $rest_client_timeout = 3600,
   Optional[Enum['SSLv23', 'TLSv1', '']] $cdn_ssl_version = undef,
   Boolean $use_pulp_2_for_file = false,
   Boolean $use_pulp_2_for_docker = false,
+  Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 ) {
   include foreman
   include certs
@@ -86,5 +90,17 @@ class katello::application (
     foreman::dynflow::worker { 'worker-hosts-queue':
       queues => ['hosts_queue'],
     }
+  }
+
+  Anchor <| title == 'katello::pulp' |> ->
+  exec { "mkdir -p ${repo_export_dir}":
+    path    => ['/bin', '/usr/bin'],
+    creates => $repo_export_dir,
+  } ->
+  file { $repo_export_dir:
+    ensure => directory,
+    owner  => $foreman::user,
+    group  => $foreman::group,
+    mode   => '0755',
   }
 }

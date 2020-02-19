@@ -63,8 +63,6 @@
 # @param pub_dir_options
 #   The Apache options to use on the `/pub` resource
 #
-# @param repo_export_dir
-#   Create a repository export directory for Katello to use
 class katello::pulp (
   Optional[String] $yum_max_speed = undef,
   Optional[Integer[1]] $num_workers = undef,
@@ -83,7 +81,6 @@ class katello::pulp (
   Optional[Enum['majority', 'all']] $mongodb_write_concern = undef,
   Boolean $manage_mongodb = true,
   String $pub_dir_options = '+FollowSymLinks +Indexes',
-  Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 ) {
   include katello::params
   include certs
@@ -96,8 +93,8 @@ class katello::pulp (
   include apache
 
   # Deploy as a part of the foreman vhost
-  include foreman
-  $server_name = $foreman::servername
+  include foreman::config::apache
+  $server_name = $foreman::config::apache::servername
   foreman::config::apache::fragment { 'pulp':
     content     => template('katello/pulp-apache.conf.erb'),
     ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
@@ -148,11 +145,7 @@ class katello::pulp (
 
   contain pulp
 
-  file { $repo_export_dir:
-    ensure  => directory,
-    owner   => $foreman::user,
-    group   => $foreman::group,
-    mode    => '0755',
+  anchor { 'katello::pulp':
     require => Class['pulp'],
   }
 }

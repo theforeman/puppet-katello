@@ -48,13 +48,7 @@ describe 'katello::pulp' do
               .with_ssl_content(%r{^<Location /pulp/api>$})
           end
 
-          it do
-            is_expected.to create_file('/var/lib/pulp/katello-export')
-              .with_ensure('directory')
-              .with_owner('foreman')
-              .with_group('foreman')
-              .with_mode('0755')
-          end
+          it { is_expected.to create_anchor('katello::pulp').that_requires('Class[pulp]') }
 
           context 'with repo present' do
             let(:pre_condition) { 'include katello::repo' }

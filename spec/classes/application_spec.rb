@@ -88,6 +88,15 @@ describe 'katello::application' do
             '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
           ])
         end
+
+        it do
+          is_expected.to create_file('/var/lib/pulp/katello-export')
+            .with_ensure('directory')
+            .with_owner('foreman')
+            .with_group('foreman')
+            .with_mode('0755')
+            .that_requires('Exec[mkdir -p /var/lib/pulp/katello-export]')
+        end
       end
 
       context 'with repo present' do
@@ -187,7 +196,16 @@ describe 'katello::application' do
       context 'with candlepin' do
         let(:pre_condition) { super() + 'include katello::candlepin' }
 
+        it { is_expected.to compile.with_all_deps }
         it { is_expected.to create_package('tfm-rubygem-katello').that_requires('Anchor[katello::candlepin]') }
+      end
+
+      context 'with pulp' do
+        # post condition because things are compile order dependent
+        let(:post_condition) { 'include katello::pulp' }
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to create_exec('mkdir -p /var/lib/pulp/katello-export').that_requires(['Anchor[katello::pulp]']) }
       end
     end
   end
