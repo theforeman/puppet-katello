@@ -70,16 +70,10 @@ class katello::application (
 
   # Katello database seeding needs candlepin
   Anchor <| title == 'katello::repo' or title ==  'katello::candlepin' |> ->
-  package { $katello::params::rubygem_katello:
-    ensure => installed,
-  } ->
-  file { "${foreman::plugin_config_dir}/katello.yaml":
-    ensure  => file,
-    owner   => 'root',
-    group   => $foreman::group,
-    mode    => '0640',
-    content => template('katello/katello.yaml.erb'),
-    notify  => [Class['foreman::service'], Foreman::Rake['db:seed'], Foreman::Rake['apipie:cache:index']],
+  foreman::plugin { 'katello':
+    package     => $foreman::plugin_prefix.regsubst(/foreman_/, 'katello'),
+    config      => template('katello/katello.yaml.erb'),
+    config_file => "${foreman::plugin_config_dir}/katello.yaml",
   }
 
   foreman::config::apache::fragment { 'katello':

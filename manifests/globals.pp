@@ -26,12 +26,6 @@ class katello::globals(
   Boolean $enable_docker = true,
   Boolean $enable_deb = true,
 ) {
-  if versioncmp($facts['operatingsystemmajrelease'], '8') >= 0 {
-    $rubygem_katello = 'rubygem-katello'
-  } else {
-    $rubygem_katello = 'tfm-rubygem-katello'
-  }
-
   # OAUTH settings
   $candlepin_oauth_key = 'katello'
   $candlepin_oauth_secret = extlib::cache_data('foreman_cache_data', 'candlepin_oauth_secret', extlib::random_password(32))

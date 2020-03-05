@@ -40,7 +40,8 @@ describe 'katello::application' do
 
         it do
           is_expected.to contain_file('/etc/foreman/plugins/katello.yaml')
-            .that_notifies(['Class[Foreman::Service]', 'Exec[foreman-rake-db:seed]'])
+            .that_notifies('Class[Foreman::Service]')
+            .that_comes_before('Foreman::Rake[db:seed]')
         end
 
         it do
