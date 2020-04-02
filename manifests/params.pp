@@ -23,12 +23,12 @@
 # @param candlepin_oauth_secret
 #   The oauth secret for Candlepin
 class katello::params (
-  Stdlib::Httpsurl $pulp_url = "https://${facts['fqdn']}/pulp/api/v2/",
-  Stdlib::Httpsurl $crane_url = "https://${facts['fqdn']}:5000",
+  Stdlib::HTTPSUrl $pulp_url = "https://${facts['fqdn']}/pulp/api/v2/",
+  Stdlib::HTTPSUrl $crane_url = "https://${facts['fqdn']}:5000",
   Stdlib::Host $qpid_hostname = 'localhost',
   String[1] $candlepin_oauth_key = $katello::globals::candlepin_oauth_key,
   String[1] $candlepin_oauth_secret = $katello::globals::candlepin_oauth_secret,
   Stdlib::Host $candlepin_host = 'localhost',
-  Stdlib::Httpsurl $candlepin_url = "https://${candlepin_host}:8443/candlepin"
+  Stdlib::HTTPSUrl $candlepin_url = "https://${candlepin_host}:8443/candlepin"
 ) inherits katello::globals {
 }
