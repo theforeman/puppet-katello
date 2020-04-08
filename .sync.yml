@@ -2,8 +2,6 @@
 .puppet-lint.rc:
   extra_disabled_lint_checks:
     - arrow_on_right_operand_line
-.travis.yml:
-  test_all_rvms: false
 Rakefile:
   param_docs_pattern:
     - manifests/init.pp
@@ -12,5 +10,3 @@ spec/spec_helper.rb:
     - name: systemd
       value: true
       source: puppet-systemd
-spec/spec_helper_acceptance.rb:
-  install_epel: true
