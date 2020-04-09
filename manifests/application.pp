@@ -63,6 +63,8 @@ class katello::application (
   $candlepin_event_queue = $katello::params::candlepin_event_queue
   $crane_url = $katello::params::crane_url
   $crane_ca_cert = $certs::katello_server_ca_cert
+  $postgresql_evr_package = $katello::params::postgresql_evr_package
+  $manage_db = $foreman::db_manage
 
   # Katello database seeding needs candlepin
   Anchor <| title == 'katello::repo' or title ==  'katello::candlepin' |> ->
@@ -70,6 +72,12 @@ class katello::application (
     package     => $foreman::plugin_prefix.regsubst(/foreman_/, 'katello'),
     config      => template('katello/katello.yaml.erb'),
     config_file => "${foreman::plugin_config_dir}/katello.yaml",
+  }
+
+  if $manage_db {
+    package { $postgresql_evr_package:
+      ensure => installed,
+    }
   }
 
   foreman::config::apache::fragment { 'katello':

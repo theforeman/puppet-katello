@@ -22,6 +22,8 @@
 #   The oauth key for Candlepin
 # @param candlepin_oauth_secret
 #   The oauth secret for Candlepin
+# @param postgresql_evr_package
+#   The contextual package name for the PostgreSQL EVR extension
 class katello::params (
   Stdlib::HTTPSUrl $pulp_url = "https://${facts['networking']['fqdn']}/pulp/api/v2/",
   Stdlib::HTTPSUrl $crane_url = "https://${facts['networking']['fqdn']}:5000",
@@ -29,6 +31,7 @@ class katello::params (
   String[1] $candlepin_oauth_key = $katello::globals::candlepin_oauth_key,
   String[1] $candlepin_oauth_secret = $katello::globals::candlepin_oauth_secret,
   Stdlib::Host $candlepin_host = 'localhost',
-  Stdlib::HTTPSUrl $candlepin_url = "https://${candlepin_host}:8443/candlepin"
+  Stdlib::HTTPSUrl $candlepin_url = "https://${candlepin_host}:8443/candlepin",
+  String[1] $postgresql_evr_package = $katello::globals::postgresql_evr_package,
 ) inherits katello::globals {
 }
