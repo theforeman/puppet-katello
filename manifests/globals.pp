@@ -32,4 +32,10 @@ class katello::globals(
 
   $candlepin_qpid_exchange = 'event'
   $candlepin_event_queue = 'katello_event_queue'
+
+  if $facts['os']['release']['major'] == '7' {
+    $postgresql_evr_package = 'rh-postgresql12-postgresql-evr'
+  } else {
+    $postgresql_evr_package = 'postgresql-evr'
+  }
 }
