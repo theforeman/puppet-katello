@@ -2,9 +2,6 @@
 .puppet-lint.rc:
   extra_disabled_lint_checks:
     - arrow_on_right_operand_line
-Rakefile:
-  param_docs_pattern:
-    - manifests/init.pp
 spec/spec_helper.rb:
   custom_facts:
     - name: systemd
