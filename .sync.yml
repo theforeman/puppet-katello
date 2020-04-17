@@ -7,3 +7,6 @@ spec/spec_helper.rb:
     - name: systemd
       value: true
       source: puppet-systemd
+    - name: root_home
+      value: /root
+      source: puppetlabs-stdlib
