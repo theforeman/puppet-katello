@@ -100,7 +100,7 @@ class katello::pulp (
     ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
   }
 
-  Anchor <| title == 'katello::repo' |> ->
+  Anchor <| title == 'katello::repo' |> -> # lint:ignore:anchor_resource
   class { 'pulp':
     server_name            => $server_name,
     messaging_url          => "ssl://${katello::params::qpid_hostname}:5671",
@@ -145,7 +145,7 @@ class katello::pulp (
 
   contain pulp
 
-  anchor { 'katello::pulp':
+  anchor { 'katello::pulp': # lint:ignore:anchor_resource
     require => Class['pulp'],
   }
 }

@@ -34,7 +34,7 @@ class katello::candlepin (
     hostname => $katello::params::candlepin_host,
   }
 
-  Anchor <| title == 'katello::qpid::event_queue' |> ->
+  Anchor <| title == 'katello::qpid::event_queue' |> -> # lint:ignore:anchor_resource
   class { 'candlepin':
     host                         => $katello::params::candlepin_host,
     user_groups                  => $certs::candlepin::group,
@@ -66,7 +66,7 @@ class katello::candlepin (
     manage_db                    => $manage_db,
     subscribe                    => Class['certs', 'certs::candlepin'],
   } ->
-  anchor { 'katello::candlepin': }
+  anchor { 'katello::candlepin': } # lint:ignore:anchor_resource
 
   contain candlepin
 }

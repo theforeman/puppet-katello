@@ -41,5 +41,5 @@ class katello::qpid (
     hostname => $katello::params::qpid_hostname,
   } ->
   # This anchor indicates the event queue is all set up.
-  anchor { 'katello::qpid::event_queue': }
+  anchor { 'katello::qpid::event_queue': } # lint:ignore:anchor_resource
 }

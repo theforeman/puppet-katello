@@ -10,7 +10,7 @@
 #   The location of the GPG key
 class katello::repo (
   String $repo_version = latest,
-  String $dist = "el${facts['operatingsystemmajrelease']}",
+  String $dist = "el${facts['os']['release']['major']}",
   Boolean $gpgcheck = false,
   String $gpgkey = 'absent',
 ) {
@@ -21,5 +21,5 @@ class katello::repo (
     gpgcheck => $gpgcheck,
     enabled  => true,
   }
-  -> anchor { 'katello::repo': }
+  -> anchor { 'katello::repo': } # lint:ignore:anchor_resource
 }
