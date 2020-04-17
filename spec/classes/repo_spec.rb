@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'katello::repo' do
   context 'with default parameters' do
-    let(:facts) { { operatingsystemmajrelease: '7' } }
+    let(:facts) { { os: { release: { major: '7' } } } }
 
     it do
       is_expected.to contain_yumrepo('katello')
@@ -12,6 +12,8 @@ describe 'katello::repo' do
         .with_gpgcheck(false)
         .with_enabled(true)
     end
+
+    it { is_expected.to contain_anchor('katello::repo').that_requires('Yumrepo[katello]') }
   end
 
   context 'with manage_repo => true' do
