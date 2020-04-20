@@ -21,6 +21,7 @@ class katello::application (
   include foreman
   include certs
   include certs::apache
+  include certs::candlepin
   include certs::foreman
   include certs::pulp_client
   include certs::qpid
@@ -59,8 +60,8 @@ class katello::application (
   $candlepin_oauth_key = $katello::params::candlepin_oauth_key
   $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret
   $candlepin_ca_cert = $certs::ca_cert
-  $qpid_url = "amqp:ssl:${katello::params::qpid_hostname}:5671"
-  $candlepin_event_queue = $katello::params::candlepin_event_queue
+  $candlepin_events_ssl_cert = $certs::candlepin::client_cert
+  $candlepin_events_ssl_key = $certs::candlepin::client_key
   $crane_url = $katello::params::crane_url
   $crane_ca_cert = $certs::katello_server_ca_cert
   $postgresql_evr_package = $katello::params::postgresql_evr_package
