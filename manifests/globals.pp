@@ -30,9 +30,6 @@ class katello::globals(
   $candlepin_oauth_key = 'katello'
   $candlepin_oauth_secret = extlib::cache_data('foreman_cache_data', 'candlepin_oauth_secret', extlib::random_password(32))
 
-  $candlepin_qpid_exchange = 'event'
-  $candlepin_event_queue = 'katello_event_queue'
-
   if $facts['os']['release']['major'] == '7' {
     $postgresql_evr_package = 'rh-postgresql12-postgresql-evr'
   } else {

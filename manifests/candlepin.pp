@@ -34,7 +34,6 @@ class katello::candlepin (
     hostname => $katello::params::candlepin_host,
   }
 
-  Anchor <| title == 'katello::qpid::event_queue' |> -> # lint:ignore:anchor_resource
   class { 'candlepin':
     host                         => $katello::params::candlepin_host,
     user_groups                  => $certs::candlepin::group,
@@ -45,17 +44,10 @@ class katello::candlepin (
     keystore_file                => $certs::candlepin::keystore,
     keystore_password            => $certs::candlepin::keystore_password,
     truststore_password          => $certs::candlepin::keystore_password,
+    artemis_client_dn            => $certs::candlepin::artemis_client_dn,
     enable_basic_auth            => false,
     consumer_system_name_pattern => '.+',
     adapter_module               => 'org.candlepin.katello.KatelloModule',
-    amq_enable                   => true,
-    amqp_keystore_password       => $certs::candlepin::keystore_password,
-    amqp_truststore_password     => $certs::candlepin::keystore_password,
-    amqp_keystore                => $certs::candlepin::amqp_keystore,
-    amqp_truststore              => $certs::candlepin::amqp_truststore,
-    qpid_hostname                => $katello::params::qpid_hostname,
-    qpid_ssl_cert                => $certs::candlepin::client_cert,
-    qpid_ssl_key                 => $certs::candlepin::client_key,
     db_host                      => $db_host,
     db_port                      => $db_port,
     db_name                      => $db_name,
