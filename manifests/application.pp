@@ -24,11 +24,15 @@ class katello::application (
   include certs::candlepin
   include certs::foreman
   include certs::pulp_client
-  include certs::qpid
   include katello::params
 
-  include katello::qpid_client
-  User<|title == $foreman::user|>{groups +> 'qpidd'}
+  if $facts['os']['release']['major'] == '7' {
+    include certs::qpid
+    include katello::qpid_client
+    User<|title == $foreman::user|>{groups +> 'qpidd'}
+
+    Class['certs', 'certs::ca', 'certs::qpid'] ~> Class['foreman::plugin::tasks']
+  }
 
   foreman_config_entry { 'pulp_client_cert':
     value          => $certs::pulp_client::client_cert,
@@ -45,7 +49,6 @@ class katello::application (
   include foreman::plugin::tasks
 
   Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
-  Class['certs', 'certs::ca', 'certs::qpid'] ~> Class['foreman::plugin::tasks']
 
   # Used in katello.yaml.erb
   $enable_ostree = $katello::params::enable_ostree

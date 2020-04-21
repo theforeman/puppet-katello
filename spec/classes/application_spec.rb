@@ -16,11 +16,24 @@ describe 'katello::application' do
 
       context 'with default parameters' do
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to create_package('tfm-rubygem-katello') }
-        it { is_expected.not_to create_package('tfm-rubygem-katello').that_requires('Anchor[katello::candlepin]') }
-        it { is_expected.to create_package('rh-postgresql12-postgresql-evr') }
-        it { is_expected.to contain_class('certs::qpid') }
-        it { is_expected.to contain_class('katello::qpid_client') }
+
+        if facts[:operatingsystemmajrelease] == '7'
+          it { is_expected.to create_package('tfm-rubygem-katello') }
+          it { is_expected.not_to create_package('tfm-rubygem-katello').that_requires('Anchor[katello::candlepin]') }
+          it { is_expected.to create_package('rh-postgresql12-postgresql-evr') }
+
+          it { is_expected.to contain_class('certs::qpid') }
+          it { is_expected.to contain_class('katello::qpid_client') }
+
+          it do
+            is_expected.to contain_class('certs::qpid')
+              .that_notifies(['Class[Foreman::Plugin::Tasks]'])
+          end
+        else
+          it { is_expected.to create_package('rubygem-katello') }
+          it { is_expected.not_to create_package('rubygem-katello').that_requires('Anchor[katello::candlepin]') }
+          it { is_expected.to create_package('postgresql-evr') }
+        end
 
         it do
           is_expected.to create_foreman_config_entry('pulp_client_cert')
@@ -49,11 +62,6 @@ describe 'katello::application' do
           is_expected.to create_foreman__config__apache__fragment('katello')
             .without_content()
             .with_ssl_content(%r{^<LocationMatch /rhsm\|/katello/api>$})
-        end
-
-        it do
-          is_expected.to contain_class('certs::qpid')
-            .that_notifies(['Class[Foreman::Plugin::Tasks]'])
         end
 
         it do
@@ -106,7 +114,12 @@ describe 'katello::application' do
         let(:pre_condition) { 'include katello::repo' }
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to create_package('tfm-rubygem-katello').that_requires(['Anchor[katello::repo]', 'Yumrepo[katello]']) }
+
+        if facts[:operatingsystemmajrelease] == '7'
+          it { is_expected.to create_package('tfm-rubygem-katello').that_requires(['Anchor[katello::repo]', 'Yumrepo[katello]']) }
+        else
+          it { is_expected.to create_package('rubygem-katello').that_requires(['Anchor[katello::repo]', 'Yumrepo[katello]']) }
+        end
       end
 
       context 'with parameters' do
@@ -200,7 +213,12 @@ describe 'katello::application' do
         let(:pre_condition) { super() + 'include katello::candlepin' }
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to create_package('tfm-rubygem-katello').that_requires('Anchor[katello::candlepin]') }
+
+        if facts[:operatingsystemmajrelease] == '7'
+          it { is_expected.to create_package('tfm-rubygem-katello').that_requires('Anchor[katello::candlepin]') }
+        else
+          it { is_expected.to create_package('rubygem-katello').that_requires('Anchor[katello::candlepin]') }
+        end
       end
 
       context 'with pulp' do

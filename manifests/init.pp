@@ -173,11 +173,6 @@ class katello (
     manage_db     => $candlepin_manage_db,
   }
 
-  class { 'katello::qpid':
-    interface        => $qpid_interface,
-    wcache_page_size => $qpid_wcache_page_size,
-  }
-
   class { 'katello::application':
     rest_client_timeout   => $rest_client_timeout,
     use_pulp_2_for_file   => $use_pulp_2_for_file,
@@ -185,22 +180,29 @@ class katello (
     repo_export_dir       => $repo_export_dir,
   }
 
-  class { 'katello::pulp':
-    yum_max_speed            => $pulp_max_speed,
-    num_workers              => $num_pulp_workers,
-    worker_timeout           => $pulp_worker_timeout,
-    mongodb_name             => $pulp_db_name,
-    mongodb_seeds            => $pulp_db_seeds,
-    mongodb_username         => $pulp_db_username,
-    mongodb_password         => $pulp_db_password,
-    mongodb_replica_set      => $pulp_db_replica_set,
-    mongodb_ssl              => $pulp_db_ssl,
-    mongodb_ssl_keyfile      => $pulp_db_ssl_keyfile,
-    mongodb_ssl_certfile     => $pulp_db_ssl_certfile,
-    mongodb_verify_ssl       => $pulp_db_verify_ssl,
-    mongodb_ca_path          => $pulp_db_ca_path,
-    mongodb_unsafe_autoretry => $pulp_db_unsafe_autoretry,
-    mongodb_write_concern    => $pulp_db_write_concern,
-    manage_mongodb           => $pulp_manage_db,
+  if $facts['os']['release']['major'] == '7' {
+    class { 'katello::qpid':
+      interface        => $qpid_interface,
+      wcache_page_size => $qpid_wcache_page_size,
+    }
+
+    class { 'katello::pulp':
+      yum_max_speed            => $pulp_max_speed,
+      num_workers              => $num_pulp_workers,
+      worker_timeout           => $pulp_worker_timeout,
+      mongodb_name             => $pulp_db_name,
+      mongodb_seeds            => $pulp_db_seeds,
+      mongodb_username         => $pulp_db_username,
+      mongodb_password         => $pulp_db_password,
+      mongodb_replica_set      => $pulp_db_replica_set,
+      mongodb_ssl              => $pulp_db_ssl,
+      mongodb_ssl_keyfile      => $pulp_db_ssl_keyfile,
+      mongodb_ssl_certfile     => $pulp_db_ssl_certfile,
+      mongodb_verify_ssl       => $pulp_db_verify_ssl,
+      mongodb_ca_path          => $pulp_db_ca_path,
+      mongodb_unsafe_autoretry => $pulp_db_unsafe_autoretry,
+      mongodb_write_concern    => $pulp_db_write_concern,
+      manage_mongodb           => $pulp_manage_db,
+    }
   }
 }
