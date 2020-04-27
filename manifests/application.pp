@@ -26,14 +26,6 @@ class katello::application (
   include certs::pulp_client
   include katello::params
 
-  if $facts['os']['release']['major'] == '7' {
-    include certs::qpid
-    include katello::qpid_client
-    User<|title == $foreman::user|>{groups +> 'qpidd'}
-
-    Class['certs', 'certs::ca', 'certs::qpid'] ~> Class['foreman::plugin::tasks']
-  }
-
   foreman_config_entry { 'pulp_client_cert':
     value          => $certs::pulp_client::client_cert,
     ignore_missing => false,
