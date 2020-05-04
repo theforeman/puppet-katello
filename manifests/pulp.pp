@@ -63,8 +63,8 @@
 # @param pub_dir_options
 #   The Apache options to use on the `/pub` resource
 #
-# @param manage_httpd
-#   Boolean to also manage httpd for Pulp in a standalone setup
+# @param manage_vhost_standalone
+#   Boolean to manage the Pulp vhost standalone. Otherwise the vhost is managed as part of Foreman
 #
 # @param https_cert
 #   The Apache public certificate for ssl
@@ -93,7 +93,7 @@ class katello::pulp (
   Optional[Enum['majority', 'all']] $mongodb_write_concern = undef,
   Boolean $manage_mongodb = true,
   String $pub_dir_options = '+FollowSymLinks +Indexes',
-  Boolean $manage_httpd = false,
+  Boolean $manage_vhost_standalone = false,
   Optional[Stdlib::Absolutepath] $https_cert = undef,
   Optional[Stdlib::Absolutepath] $https_key = undef,
   Optional[Stdlib::Absolutepath] $https_ca_cert = undef,
@@ -108,7 +108,7 @@ class katello::pulp (
 
   include apache
 
-  if $manage_httpd {
+  if $manage_vhost_standalone {
     $server_name = undef
 
     concat::fragment { 'httpd_pub':
@@ -141,7 +141,7 @@ class katello::pulp (
     broker_use_ssl         => true,
     yum_max_speed          => $yum_max_speed,
     manage_broker          => false,
-    manage_httpd           => $manage_httpd,
+    manage_httpd           => $manage_vhost_standalone,
     https_cert             => $https_cert,
     https_key              => $https_key,
     https_ca_cert          => $https_ca_cert,

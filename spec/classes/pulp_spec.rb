@@ -82,7 +82,7 @@ describe 'katello::pulp' do
 
           context 'with manage_httpd => true' do
             let :params do
-              super().merge({ 'manage_httpd' => true, })
+              super().merge({ 'manage_vhost_standalone' => true, })
             end
 
             it do
