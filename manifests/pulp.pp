@@ -63,6 +63,18 @@
 # @param pub_dir_options
 #   The Apache options to use on the `/pub` resource
 #
+# @param manage_httpd
+#   Boolean to also manage httpd for Pulp in a standalone setup
+#
+# @param https_cert
+#   The Apache public certificate for ssl
+#
+# @param https_key
+#   The Apache private key for ssl
+#
+# @param https_ca_cert
+#   The Apache CA certificate for client authentication
+#
 class katello::pulp (
   Optional[String] $yum_max_speed = undef,
   Optional[Integer[1]] $num_workers = undef,
