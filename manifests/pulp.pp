@@ -75,6 +75,13 @@
 # @param https_ca_cert
 #   The Apache CA certificate for client authentication
 #
+# @param expose_mongodb
+#   Boolean to expose MongoDB server on a public interface
+#
+# @param expose_mongodb_ipv6
+#   When exposing the Pulp database on a public interface, also listen on IPv6.
+#   Ignored when pulp_expose_db is false.
+#
 class katello::pulp (
   Optional[String] $yum_max_speed = undef,
   Optional[Integer[1]] $num_workers = undef,
@@ -97,9 +104,15 @@ class katello::pulp (
   Optional[Stdlib::Absolutepath] $https_cert = undef,
   Optional[Stdlib::Absolutepath] $https_key = undef,
   Optional[Stdlib::Absolutepath] $https_ca_cert = undef,
+  Boolean $expose_mongodb = false,
+  Boolean $expose_mongodb_ipv6 = true,
 ) {
   include katello::params
   include certs
+
+  if !manage_mongodb and $expose_mongodb {
+    fail('Exposing MongoDB is only possible on managed databases. Either manage the database or do not expose.')
+  }
 
   class { 'certs::qpid_client':
     require => Class['pulp::install'],
@@ -127,6 +140,52 @@ class katello::pulp (
       content     => template('katello/pulp-apache.conf.erb'),
       ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
     }
+  }
+
+  if $expose_mongodb {
+    include certs::mongodb
+    include certs::mongodb_client
+
+    Class['certs::mongodb_client'] ~> Class['pulp', 'apache::service']
+
+    $mongodb_bind_ip = $expose_mongodb_ipv6 ? {
+      true  => ['0.0.0.0', '::0'],
+      false => ['0.0.0.0'],
+    }
+
+    class { 'mongodb::server':
+      bind_ip => $mongodb_bind_ip,
+      ipv6    => $expose_mongodb_ipv6,
+      ssl     => true,
+      ssl_key => $certs::mongodb::mongodb_server_bundle,
+      ssl_ca  => $certs::mongodb::mongodb_server_ca_cert,
+      require => Class['certs::mongodb'],
+    }
+
+    $mongodb_seeds_real = "${certs::mongodb::hostname}:27017"
+    $db_password = extlib::cache_data('foreman_cache_data', 'mongo_db_password', extlib::random_password(32))
+    $mongo_cmd = "mongo admin --quiet --host ${mongodb_seeds_real} --ssl --sslPEMKeyFile ${certs::mongodb_client::mongodb_client_bundle} --sslCAFile ${certs::mongodb_client::mongodb_client_ca_cert}"
+
+    exec { 'mongodb user':
+      command   => "${mongo_cmd} --eval \"db.createUser({user:'pulp',pwd:'${db_password}',roles:[{role:'dbOwner', db:'${mongodb_name}'},{ role: 'readWrite', db: '${mongodb_name}'}]})\"",
+      path      => '/usr/bin:/bin',
+      logoutput => 'on_failure',
+      unless    => "${mongo_cmd} --eval 'printjson(db.system.users.find({\"_id\":\"${mongodb_name}.pulp\"}).toArray().length)' | grep -q 1",
+      require   => CLass['mongodb::server'],
+    }
+
+    $mongodb_ssl_keyfile_real = $certs::mongodb_client::mongodb_client_key
+    $mongodb_ssl_certfile_real = $certs::mongodb_client::mongodb_client_cert
+    $mongodb_ca_path_real = $certs::mongodb_client::mongodb_client_ca_cert
+    $mongodb_ssl_real = true
+    $db_username_real = 'pulp'
+    $db_password_real = $db_password
+  } else {
+    $mongodb_seeds_real = $mongodb_seeds
+    $mongodb_ssl_keyfile_real = $mongodb_ssl_keyfile
+    $mongodb_ssl_certfile_real = $mongodb_ssl_certfile
+    $mongodb_ca_path_real = $mongodb_ca_path
+    $mongodb_ssl_real = $mongodb_ssl
   }
 
   Anchor <| title == 'katello::repo' |> -> # lint:ignore:anchor_resource
@@ -161,15 +220,15 @@ class katello::pulp (
     subscribe              => Class['certs'],
     worker_timeout         => $worker_timeout,
     db_name                => $mongodb_name,
-    db_seeds               => $mongodb_seeds,
+    db_seeds               => $mongodb_seeds_real,
     db_username            => $mongodb_username,
     db_password            => $mongodb_password,
     db_replica_set         => $mongodb_replica_set,
-    db_ssl                 => $mongodb_ssl,
-    db_ssl_keyfile         => $mongodb_ssl_keyfile,
-    db_ssl_certfile        => $mongodb_ssl_certfile,
+    db_ssl                 => $mongodb_ssl_real,
+    db_ssl_keyfile         => $mongodb_ssl_keyfile_real,
+    db_ssl_certfile        => $mongodb_ssl_certfile_real,
     db_verify_ssl          => $mongodb_verify_ssl,
-    db_ca_path             => $mongodb_ca_path,
+    db_ca_path             => $mongodb_ca_path_real,
     db_unsafe_autoretry    => $mongodb_unsafe_autoretry,
     db_write_concern       => $mongodb_write_concern,
     manage_db              => $manage_mongodb,

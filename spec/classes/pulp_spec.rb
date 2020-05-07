@@ -92,6 +92,57 @@ describe 'katello::pulp' do
               end
             end
           end
+
+          context 'with expose_mongodb parameter' do
+            let :params do
+              {
+                expose_mongodb: true,
+              }
+            end
+
+            it do
+              is_expected.to compile.with_all_deps
+              is_expected.to contain_class('certs::mongodb')
+              is_expected.to contain_class('certs::mongodb_client')
+
+              is_expected.to create_class('mongodb::server')
+                .with_bind_ip(['0.0.0.0', '::0'])
+                .with_ipv6(true)
+                .with_ssl(true)
+                .with_ssl_key('/etc/pki/katello/mongodb/mongodb-server-certificate-bundle.pem')
+                .with_ssl_ca('/etc/pki/katello/certs/katello-server-ca.crt')
+
+              is_expected.to create_class('pulp')
+                .with_db_seeds("#{facts[:fqdn]}:27017")
+                .with_db_ssl_keyfile('/etc/pulp/mongodb/mongodb-client-certificate.key')
+                .with_db_ssl_certfile('/etc/pulp/mongodb/mongodb-client-certificate.crt')
+                .with_db_ca_path('/etc/pki/katello/certs/katello-server-ca.crt')
+            end
+
+            context 'with mongodb_ipv6 => false' do
+              let :params do
+                super().merge({ 'expose_mongodb_ipv6' => false, })
+              end
+
+              it do
+                is_expected.to compile.with_all_deps
+                is_expected.to contain_class('certs::mongodb')
+
+                is_expected.to create_class('mongodb::server')
+                  .with_bind_ip(['0.0.0.0'])
+                  .with_ipv6(false)
+                  .with_ssl(true)
+                  .with_ssl_key('/etc/pki/katello/mongodb/mongodb-server-certificate-bundle.pem')
+                  .with_ssl_ca('/etc/pki/katello/certs/katello-server-ca.crt')
+
+                is_expected.to create_class('pulp')
+                  .with_db_seeds("#{facts[:fqdn]}:27017")
+                  .with_db_ssl_keyfile('/etc/pulp/mongodb/mongodb-client-certificate.key')
+                  .with_db_ssl_certfile('/etc/pulp/mongodb/mongodb-client-certificate.crt')
+                  .with_db_ca_path('/etc/pki/katello/certs/katello-server-ca.crt')
+              end
+            end
+          end
         end
       end
     end

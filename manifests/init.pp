@@ -91,6 +91,11 @@
 #
 # $pulp_manage_db::      Boolean to install and configure the mongodb.
 #
+# $pulp_expose_db::        Expose Pulp database on a public interface for Pulp 3 migrations
+#
+# $pulp_expose_db_ipv6::   When exposing the Pulp database on a public interface, also listen on IPv6.
+#                          Ignored when pulp_expose_db is false.
+#
 # $use_pulp_2_for_file::   Configures Katello to use Pulp 2 for file content
 #
 # $use_pulp_2_for_docker:: Configures Katello to use Pulp 2 for docker content
@@ -144,6 +149,8 @@ class katello (
   Boolean $pulp_db_unsafe_autoretry = false,
   Optional[Enum['majority', 'all']] $pulp_db_write_concern = undef,
   Boolean $pulp_manage_db = true,
+  Boolean $pulp_expose_db = false,
+  Boolean $pulp_expose_db_ipv6 = true,
 ) {
 
   package { 'katello':
@@ -207,6 +214,8 @@ class katello (
       mongodb_unsafe_autoretry => $pulp_db_unsafe_autoretry,
       mongodb_write_concern    => $pulp_db_write_concern,
       manage_mongodb           => $pulp_manage_db,
+      expose_mongodb           => $pulp_expose_db,
+      expose_mongodb_ipv6      => $pulp_expose_db_ipv6,
     }
   }
 }
