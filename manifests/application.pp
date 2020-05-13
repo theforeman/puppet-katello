@@ -59,6 +59,7 @@ class katello::application (
   $candlepin_events_ssl_key = $certs::candlepin::client_key
   $crane_url = $katello::params::crane_url
   $crane_ca_cert = $certs::katello_server_ca_cert
+  $postgresql_debversion_package = $katello::params::postgresql_debversion_package
   $postgresql_evr_package = $katello::params::postgresql_evr_package
   $manage_db = $foreman::db_manage
 
@@ -71,6 +72,9 @@ class katello::application (
   }
 
   if $manage_db {
+    package { $postgresql_debversion_package:
+      ensure => installed,
+    }
     package { $postgresql_evr_package:
       ensure => installed,
     }

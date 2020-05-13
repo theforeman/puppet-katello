@@ -20,10 +20,12 @@ describe 'katello::application' do
         if facts[:operatingsystemmajrelease] == '7'
           it { is_expected.to create_package('tfm-rubygem-katello') }
           it { is_expected.not_to create_package('tfm-rubygem-katello').that_requires('Anchor[katello::candlepin]') }
+          it { is_expected.to create_package('rh-postgresql12-postgresql-debversion') }
           it { is_expected.to create_package('rh-postgresql12-postgresql-evr') }
         else
           it { is_expected.to create_package('rubygem-katello') }
           it { is_expected.not_to create_package('rubygem-katello').that_requires('Anchor[katello::candlepin]') }
+          it { is_expected.to create_package('postgresql-debversion') }
           it { is_expected.to create_package('postgresql-evr') }
         end
 
