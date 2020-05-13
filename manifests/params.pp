@@ -22,6 +22,8 @@
 #   The oauth key for Candlepin
 # @param candlepin_oauth_secret
 #   The oauth secret for Candlepin
+# @param postgresql_debversion_package
+#   The contextual package name for the PostgreSQL debversion extension
 # @param postgresql_evr_package
 #   The contextual package name for the PostgreSQL EVR extension
 class katello::params (
@@ -32,6 +34,7 @@ class katello::params (
   String[1] $candlepin_oauth_secret = $katello::globals::candlepin_oauth_secret,
   Stdlib::Host $candlepin_host = 'localhost',
   Stdlib::HTTPSUrl $candlepin_url = "https://${candlepin_host}:8443/candlepin",
+  String[1] $postgresql_debversion_package = $katello::globals::postgresql_debversion_package,
   String[1] $postgresql_evr_package = $katello::globals::postgresql_evr_package,
 ) inherits katello::globals {
 }

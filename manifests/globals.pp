@@ -31,8 +31,10 @@ class katello::globals(
   $candlepin_oauth_secret = extlib::cache_data('foreman_cache_data', 'candlepin_oauth_secret', extlib::random_password(32))
 
   if $facts['os']['release']['major'] == '7' {
+    $postgresql_debversion_package = 'rh-postgresql12-postgresql-debversion'
     $postgresql_evr_package = 'rh-postgresql12-postgresql-evr'
   } else {
+    $postgresql_debversion_package = 'postgresql-debversion'
     $postgresql_evr_package = 'postgresql-evr'
   }
 }
