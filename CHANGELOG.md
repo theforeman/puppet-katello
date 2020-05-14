@@ -1,5 +1,36 @@
 # Changelog
 
+## [14.0.0](https://github.com/theforeman/puppet-katello/tree/14.0.0) (2020-05-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/13.0.0...14.0.0)
+
+**Breaking changes:**
+
+- Use modern facts [\#342](https://github.com/theforeman/puppet-katello/issues/342)
+- Refs [\#28924](https://projects.theforeman.org/issues/28924): Drop qpid client configuration used by older katello-qpid [\#336](https://github.com/theforeman/puppet-katello/pull/336) ([ehelms](https://github.com/ehelms))
+- Refs [\#28924](https://projects.theforeman.org/issues/28924) - Drop qpid, add Artemis [\#327](https://github.com/theforeman/puppet-katello/pull/327) ([jturel](https://github.com/jturel))
+- Refs [\#29039](https://projects.theforeman.org/issues/29039) - Use foreman's Apache config standalone [\#324](https://github.com/theforeman/puppet-katello/pull/324) ([ekohl](https://github.com/ekohl))
+- Fixes [\#28906](https://projects.theforeman.org/issues/28906) - Remove cdn\_ssl\_version from module [\#320](https://github.com/theforeman/puppet-katello/pull/320) ([chris1984](https://github.com/chris1984))
+
+**Implemented enhancements:**
+
+- Update module dependencies to allow EL8 supported versions [\#343](https://github.com/theforeman/puppet-katello/pull/343) ([wbclark](https://github.com/wbclark))
+- Support manage\_httpd to allow Pulp in a standalone setup \(followup\) [\#337](https://github.com/theforeman/puppet-katello/pull/337) ([laugmanuel](https://github.com/laugmanuel))
+- Refs [\#29215](https://projects.theforeman.org/issues/29215): Support EL8 \(without Pulp and Qpid\) [\#335](https://github.com/theforeman/puppet-katello/pull/335) ([ehelms](https://github.com/ehelms))
+- Add postgresql-evr extension to katello [\#332](https://github.com/theforeman/puppet-katello/pull/332) ([ianballou](https://github.com/ianballou))
+- Allow extlib 5.x [\#329](https://github.com/theforeman/puppet-katello/pull/329) ([mmoll](https://github.com/mmoll))
+- Use foreman::plugin to define the plugin [\#328](https://github.com/theforeman/puppet-katello/pull/328) ([ekohl](https://github.com/ekohl))
+- Mark compatible with candlepin 9.x [\#325](https://github.com/theforeman/puppet-katello/pull/325) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- correct needed foreman dependency [\#345](https://github.com/theforeman/puppet-katello/pull/345) ([mmoll](https://github.com/mmoll))
+- Fix Stdlib::HTTPSUrl type name [\#330](https://github.com/theforeman/puppet-katello/pull/330) ([laugmanuel](https://github.com/laugmanuel))
+
+**Merged pull requests:**
+
+- Refs [\#28922](https://projects.theforeman.org/issues/28922): Communicate via localhost to Candlepin [\#321](https://github.com/theforeman/puppet-katello/pull/321) ([ehelms](https://github.com/ehelms))
+
 ## [13.0.0](https://github.com/theforeman/puppet-katello/tree/13.0.0) (2020-02-12)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/12.0.0...13.0.0)
