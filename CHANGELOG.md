@@ -1,6 +1,6 @@
 # Changelog
 
-## [14.0.0](https://github.com/theforeman/puppet-katello/tree/14.0.0) (2020-05-15)
+## [14.0.0](https://github.com/theforeman/puppet-katello/tree/14.0.0) (2020-05-18)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/13.0.0...14.0.0)
 
