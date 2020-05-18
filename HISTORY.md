@@ -1,3 +1,23 @@
+## [13.0.0](https://github.com/theforeman/puppet-katello/tree/13.0.0) (2020-02-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/12.0.0...13.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#28837](https://projects.theforeman.org/issues/28837) - removes cdn\_proxy from config [\#315](https://github.com/theforeman/puppet-katello/pull/315) ([jjeffers](https://github.com/jjeffers))
+- Drop creating /var/lib/pulp [\#310](https://github.com/theforeman/puppet-katello/pull/310) ([ehelms](https://github.com/ehelms))
+- Redesign classes to allow split deployments [\#308](https://github.com/theforeman/puppet-katello/pull/308) ([ekohl](https://github.com/ekohl))
+- Drop old workarounds [\#307](https://github.com/theforeman/puppet-katello/pull/307) ([ekohl](https://github.com/ekohl))
+- Implement automatic dependency chaining [\#306](https://github.com/theforeman/puppet-katello/pull/306) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Fixes [\#28888](https://projects.theforeman.org/issues/28888) - add cert auth for docker registry [\#319](https://github.com/theforeman/puppet-katello/pull/319) ([jlsherrill](https://github.com/jlsherrill))
+- Fixes [\#28848](https://projects.theforeman.org/issues/28848): Deploy dynflow worker dedicated to hosts\_queue [\#318](https://github.com/theforeman/puppet-katello/pull/318) ([ehelms](https://github.com/ehelms))
+- Compatibility with katello/certs 7.x [\#314](https://github.com/theforeman/puppet-katello/pull/314) ([ekohl](https://github.com/ekohl))
+- Refs [\#28695](https://projects.theforeman.org/issues/28695): Add Pulp 2 migration settings [\#313](https://github.com/theforeman/puppet-katello/pull/313) ([ehelms](https://github.com/ehelms))
+- Use the nss cert name from certs::qpid [\#305](https://github.com/theforeman/puppet-katello/pull/305) ([ekohl](https://github.com/ekohl))
+
 ## [12.0.0](https://github.com/theforeman/puppet-katello/tree/12.0.0) (2019-10-24)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/10.1.1...12.0.0)
