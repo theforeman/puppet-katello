@@ -26,6 +26,8 @@
 #   The contextual package name for the PostgreSQL debversion extension
 # @param postgresql_evr_package
 #   The contextual package name for the PostgreSQL EVR extension
+# @param hosts_queue_workers
+#   The number of dynflow workers for the Katello hosts_queue
 class katello::params (
   Stdlib::HTTPSUrl $pulp_url = "https://${facts['networking']['fqdn']}/pulp/api/v2/",
   Stdlib::HTTPSUrl $crane_url = "https://${facts['networking']['fqdn']}:5000",
@@ -36,5 +38,6 @@ class katello::params (
   Stdlib::HTTPSUrl $candlepin_url = "https://${candlepin_host}:8443/candlepin",
   String[1] $postgresql_debversion_package = $katello::globals::postgresql_debversion_package,
   String[1] $postgresql_evr_package = $katello::globals::postgresql_evr_package,
+  Integer $hosts_queue_workers = 1
 ) inherits katello::globals {
 }

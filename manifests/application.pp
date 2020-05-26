@@ -66,6 +66,7 @@ class katello::application (
   $postgresql_debversion_package = $katello::params::postgresql_debversion_package
   $postgresql_evr_package = $katello::params::postgresql_evr_package
   $manage_db = $foreman::db_manage
+  $hosts_queue_workers = $katello::params::hosts_queue_workers
 
   # Katello database seeding needs candlepin
   Anchor <| title == 'katello::repo' or title ==  'katello::candlepin' |> ->
@@ -89,8 +90,10 @@ class katello::application (
   }
 
   if $foreman::jobs_manage_service {
-    foreman::dynflow::worker { 'worker-hosts-queue':
-      queues => ['hosts_queue'],
+    Integer[1, $hosts_queue_workers].each |$n| {
+      foreman::dynflow::worker { "worker-hosts-queue-${n}":
+        queues => ['hosts_queue'],
+      }
     }
   }
 

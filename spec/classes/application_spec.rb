@@ -59,7 +59,7 @@ describe 'katello::application' do
         end
 
         it do
-          is_expected.to contain_foreman__dynflow__worker('worker-hosts-queue')
+          is_expected.to contain_foreman__dynflow__worker('worker-hosts-queue-1')
         end
 
         it 'should generate correct katello.yaml' do
