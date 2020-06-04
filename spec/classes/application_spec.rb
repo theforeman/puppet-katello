@@ -88,6 +88,7 @@ describe 'katello::application' do
             '  :use_pulp_2_for_content_type:',
             '    :docker: false',
             '    :file: false',
+            '    :yum: false',
             '  :container_image_registry:',
             '    :crane_url: https://foo.example.com:5000',
             '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
@@ -151,6 +152,7 @@ describe 'katello::application' do
             '  :use_pulp_2_for_content_type:',
             '    :docker: false',
             '    :file: false',
+            '    :yum: false',
             '  :container_image_registry:',
             '    :crane_url: https://foo.example.com:5000',
             '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
@@ -196,6 +198,7 @@ describe 'katello::application' do
             '  :use_pulp_2_for_content_type:',
             '    :docker: false',
             '    :file: false',
+            '    :yum: false',
             '  :container_image_registry:',
             '    :crane_url: https://foo.example.com:5000',
             '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
