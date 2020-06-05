@@ -37,6 +37,7 @@ class katello::candlepin (
 
   class { 'candlepin':
     host                         => $katello::params::candlepin_host,
+    ssl_port                     => $katello::params::candlepin_port,
     user_groups                  => $certs::candlepin::group,
     oauth_key                    => $katello::params::candlepin_oauth_key,
     oauth_secret                 => $katello::params::candlepin_oauth_secret,
