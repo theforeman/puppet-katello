@@ -32,6 +32,8 @@
     :file: <%= @use_pulp_2_for_file %>
     :yum: <%= @use_pulp_2_for_yum %>
 
+  :katello_applicability: <%= !@use_pulp_2_for_yum %>
+
   # Internal configuration for communication from server to pulp crane service.
   :container_image_registry:
     :crane_url: <%= @crane_url %>
