@@ -21,30 +21,37 @@ class katello::application (
   Boolean $use_pulp_2_for_docker = false,
   Boolean $use_pulp_2_for_yum = false,
   Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
+  Stdlib::Absolutepath $pulp_client_ca_cert = '/etc/foreman-pki/certs/ca/ca.crt',
+  Stdlib::Absolutepath $pulp_client_cert = '/etc/foreman-pki/certs/foreman/foreman-to-pulp.crt',
+  Stdlib::Absolutepath $pulp_client_key = '/etc/foreman-pki/certs/foreman/foreman-to-pulp.key',
+  Stdlib::Absolutepath $candlepin_ca_cert = '/etc/foreman-pki/certs/ca/ca.crt',
+  Stdlib::Absolutepath $candlepin_events_ssl_cert = '/etc/foreman-pki/certs/foreman/foreman-to-candlepin.crt',
+  Stdlib::Absolutepath $candlepin_events_ssl_key = '/etc/foreman-pki/certs/foreman/foreman-to-candlepin.key',
+  Stdlib::Absolutepath $crane_ca_cert = '/etc/foreman-pki/certs/ca/ca.crt',
 ) {
   include foreman
-  include certs
-  include certs::apache
-  include certs::candlepin
-  include certs::foreman
-  include certs::pulp_client
   include katello::params
-
-  foreman_config_entry { 'pulp_client_cert':
-    value          => $certs::pulp_client::client_cert,
-    ignore_missing => false,
-    require        => [Class['certs::pulp_client'], Foreman::Rake['db:seed']],
-  }
-
-  foreman_config_entry { 'pulp_client_key':
-    value          => $certs::pulp_client::client_key,
-    ignore_missing => false,
-    require        => [Class['certs::pulp_client'], Foreman::Rake['db:seed']],
-  }
-
   include foreman::plugin::tasks
 
-  Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
+  file { $candlepin_events_ssl_key:
+    group => $foreman::group,
+    mode  => '0640',
+  }
+
+  file { $pulp_client_key:
+    group => $foreman::group,
+    mode  => '0640',
+  } ~>
+  foreman_config_entry { 'pulp_client_cert':
+    value          => $pulp_client_cert,
+    ignore_missing => false,
+    require        => Foreman::Rake['db:seed'],
+  } ~>
+  foreman_config_entry { 'pulp_client_key':
+    value          => $pulp_client_key,
+    ignore_missing => false,
+    require        => Foreman::Rake['db:seed'],
+  }
 
   # Used in katello.yaml.erb
   $enable_ostree = $katello::params::enable_ostree
@@ -54,15 +61,12 @@ class katello::application (
   $enable_docker = $katello::params::enable_docker
   $enable_deb = $katello::params::enable_deb
   $pulp_url = $katello::params::pulp_url
-  $pulp_ca_cert = $certs::katello_server_ca_cert # TODO: certs::apache::...
+
   $candlepin_url = $katello::params::candlepin_url
   $candlepin_oauth_key = $katello::params::candlepin_oauth_key
   $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret
-  $candlepin_ca_cert = $certs::ca_cert
-  $candlepin_events_ssl_cert = $certs::candlepin::client_cert
-  $candlepin_events_ssl_key = $certs::candlepin::client_key
+
   $crane_url = $katello::params::crane_url
-  $crane_ca_cert = $certs::katello_server_ca_cert
   $postgresql_evr_package = $katello::params::postgresql_evr_package
   $manage_db = $foreman::db_manage
 

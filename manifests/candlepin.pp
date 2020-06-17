@@ -26,25 +26,26 @@ class katello::candlepin (
   Boolean $db_ssl = false,
   Boolean $db_ssl_verify = true,
   Boolean $manage_db = true,
+  Stdlib::Absolutepath $ca_cert = '/etc/foreman-pki/certs/candlepin/ca.crt',
+  Stdlib::Absolutepath $ca_key = '/etc/foreman-pki/certs/candlepin/ca.key',
+  Stdlib::Absolutepath $keystore_file = '/etc/foreman-pki/certs/tomcat/keystore',
+  Stdlib::Absolutepath $keystore_password_file = '/etc/foreman-pki/certs/tomcat/password',
+  Stdlib::Absolutepath $truststore_file = '/etc/foreman-pki/certs/artemis/truststore',
+  Stdlib::Absolutepath $truststore_password_file = '/etc/foreman-pki/certs/artemis/password',
 ) {
-  include certs
   include katello::params
-
-  class { 'certs::candlepin':
-    hostname => $katello::params::candlepin_host,
-  }
 
   class { 'candlepin':
     host                         => $katello::params::candlepin_host,
-    user_groups                  => $certs::candlepin::group,
     oauth_key                    => $katello::params::candlepin_oauth_key,
     oauth_secret                 => $katello::params::candlepin_oauth_secret,
-    ca_key                       => $certs::candlepin::ca_key,
-    ca_cert                      => $certs::candlepin::ca_cert,
-    keystore_file                => $certs::candlepin::keystore,
-    keystore_password            => $certs::candlepin::keystore_password,
-    truststore_password          => $certs::candlepin::keystore_password,
-    artemis_client_dn            => $certs::candlepin::artemis_client_dn,
+    ca_key                       => $ca_key,
+    ca_cert                      => $ca_cert,
+    keystore_file                => $keystore_file,
+    keystore_password            => file($keystore_password_file),
+    truststore_file              => $truststore_file,
+    truststore_password          => file($truststore_password_file),
+    artemis_client_dn            => "CN=${katello::params::candlepin_host}",
     enable_basic_auth            => false,
     consumer_system_name_pattern => '.+',
     adapter_module               => 'org.candlepin.katello.KatelloModule',
@@ -56,7 +57,6 @@ class katello::candlepin (
     db_ssl                       => $db_ssl,
     db_ssl_verify                => $db_ssl_verify,
     manage_db                    => $manage_db,
-    subscribe                    => Class['certs', 'certs::candlepin'],
   } ->
   anchor { 'katello::candlepin': } # lint:ignore:anchor_resource
 
