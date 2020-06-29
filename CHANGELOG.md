@@ -1,5 +1,19 @@
 # Changelog
 
+## [14.1.0](https://github.com/theforeman/puppet-katello/tree/14.1.0) (2020-06-30)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/14.0.0...14.1.0)
+
+**Implemented enhancements:**
+
+- Refs [\#30023](https://projects.theforeman.org/issues/30023) - Enable katello\_applicability based on yum support [\#349](https://github.com/theforeman/puppet-katello/pull/349) ([jlsherrill](https://github.com/jlsherrill))
+- Fixes [\#30023](https://projects.theforeman.org/issues/30023): Add Katello config for Pulp 3 RPM [\#347](https://github.com/theforeman/puppet-katello/pull/347) ([ehelms](https://github.com/ehelms))
+
+**Merged pull requests:**
+
+- Remove non-working providers and types [\#352](https://github.com/theforeman/puppet-katello/pull/352) ([ehelms](https://github.com/ehelms))
+- Add Candlepin acceptance tests [\#339](https://github.com/theforeman/puppet-katello/pull/339) ([ekohl](https://github.com/ekohl))
+
 ## [14.0.0](https://github.com/theforeman/puppet-katello/tree/14.0.0) (2020-05-18)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/13.0.0...14.0.0)
