@@ -20,44 +20,38 @@ class katello::application (
   Boolean $use_pulp_2_for_file = false,
   Boolean $use_pulp_2_for_docker = false,
   Boolean $use_pulp_2_for_yum = false,
+  Stdlib::Absolutepath $pulp_client_cert = undef,
+  Stdlib::Absolutepath $pulp_client_key = undef,
+  Stdlib::Absolutepath $pulp_ca_cert = undef,
+  Stdlib::Absolutepath $candlepin_ca_cert = undef,
+  Stdlib::Absolutepath $candlepin_events_ssl_cert = undef,
+  Stdlib::Absolutepath $candlepin_events_ssl_key = undef,
 ) {
   include foreman
-  include certs
-  include certs::apache
-  include certs::candlepin
-  include certs::foreman
-  include certs::pulp_client
   include katello::params
+  include foreman::plugin::tasks
 
   foreman_config_entry { 'pulp_client_cert':
-    value          => $certs::pulp_client::client_cert,
+    value          => $pulp_client_cert,
     ignore_missing => false,
-    require        => [Class['certs::pulp_client'], Foreman::Rake['db:seed']],
+    require        => Foreman::Rake['db:seed'],
   }
 
   foreman_config_entry { 'pulp_client_key':
-    value          => $certs::pulp_client::client_key,
+    value          => $pulp_client_key,
     ignore_missing => false,
-    require        => [Class['certs::pulp_client'], Foreman::Rake['db:seed']],
+    require        => Foreman::Rake['db:seed'],
   }
-
-  include foreman::plugin::tasks
-
-  Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
 
   # Used in katello.yaml.erb
   $enable_yum = $katello::params::enable_yum
   $enable_file = $katello::params::enable_file
   $enable_container = $katello::params::enable_container
-  $pulp_ca_cert = $certs::katello_server_ca_cert # TODO: certs::apache::...
+  $postgresql_evr_package = $katello::params::postgresql_evr_package
+  $manage_db = $foreman::db_manage
   $candlepin_url = $katello::params::candlepin_url
   $candlepin_oauth_key = $katello::params::candlepin_oauth_key
   $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret
-  $candlepin_ca_cert = $certs::ca_cert
-  $candlepin_events_ssl_cert = $certs::candlepin::client_cert
-  $candlepin_events_ssl_key = $certs::candlepin::client_key
-  $postgresql_evr_package = $katello::params::postgresql_evr_package
-  $manage_db = $foreman::db_manage
 
   # Katello database seeding needs candlepin
   Anchor <| title == 'katello::repo' or title ==  'katello::candlepin' |> ->

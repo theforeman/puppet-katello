@@ -83,21 +83,43 @@ class katello (
     candlepin_oauth_secret => $candlepin_oauth_secret,
   }
 
+  class { 'certs::candlepin':
+    hostname => $katello::params::candlepin_host,
+  } ->
   class { 'katello::candlepin':
-    db_host       => $candlepin_db_host,
-    db_port       => $candlepin_db_port,
-    db_name       => $candlepin_db_name,
-    db_user       => $candlepin_db_user,
-    db_password   => $candlepin_db_password,
-    db_ssl        => $candlepin_db_ssl,
-    db_ssl_verify => $candlepin_db_ssl_verify,
-    manage_db     => $candlepin_manage_db,
+    db_host             => $candlepin_db_host,
+    db_port             => $candlepin_db_port,
+    db_name             => $candlepin_db_name,
+    db_user             => $candlepin_db_user,
+    db_password         => $candlepin_db_password,
+    db_ssl              => $candlepin_db_ssl,
+    db_ssl_verify       => $candlepin_db_ssl_verify,
+    manage_db           => $candlepin_manage_db,
+    ca_key              => $certs::candlepin::ca_key,
+    ca_cert             => $certs::candlepin::ca_cert,
+    keystore_file       => $certs::candlepin::keystore,
+    keystore_password   => $certs::candlepin::keystore_password,
+    truststore_password => $certs::candlepin::keystore_password,
+    artemis_client_dn   => $certs::candlepin::artemis_client_dn,
   }
 
+  include certs
+  include certs::apache
+  include certs::foreman
+  include certs::pulp_client
+
+  Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
+
   class { 'katello::application':
-    rest_client_timeout   => $rest_client_timeout,
-    use_pulp_2_for_file   => $use_pulp_2_for_file,
-    use_pulp_2_for_docker => $use_pulp_2_for_docker,
-    use_pulp_2_for_yum    => $use_pulp_2_for_yum,
+    rest_client_timeout       => $rest_client_timeout,
+    use_pulp_2_for_file       => $use_pulp_2_for_file,
+    use_pulp_2_for_docker     => $use_pulp_2_for_docker,
+    use_pulp_2_for_yum        => $use_pulp_2_for_yum,
+    pulp_client_cert          => $certs::pulp_client::client_cert,
+    pulp_client_key           => $certs::pulp_client::client_key,
+    pulp_ca_cert              => $certs::katello_server_ca_cert, # TODO: certs::apache::...
+    candlepin_ca_cert         => $certs::ca_cert,
+    candlepin_events_ssl_cert => $certs::candlepin::client_cert,
+    candlepin_events_ssl_key  => $certs::candlepin::client_key,
   }
 }
