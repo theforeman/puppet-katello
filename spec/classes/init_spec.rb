@@ -10,8 +10,6 @@ describe 'katello' do
       it { is_expected.to contain_class('katello::application') }
 
       if facts[:operatingsystemmajrelease] == '7'
-        it { is_expected.to contain_class('katello::pulp') }
-        it { is_expected.to contain_class('katello::qpid') }
         it { is_expected.to contain_package('tfm-rubygem-katello').that_requires('Class[candlepin]') }
       else
         it { is_expected.to contain_package('rubygem-katello').that_requires('Class[candlepin]') }

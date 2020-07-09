@@ -20,7 +20,6 @@ class katello::application (
   Boolean $use_pulp_2_for_file = false,
   Boolean $use_pulp_2_for_docker = false,
   Boolean $use_pulp_2_for_yum = false,
-  Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 ) {
   include foreman
   include certs
@@ -47,13 +46,9 @@ class katello::application (
   Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
 
   # Used in katello.yaml.erb
-  $enable_ostree = $katello::params::enable_ostree
   $enable_yum = $katello::params::enable_yum
   $enable_file = $katello::params::enable_file
-  $enable_puppet = $katello::params::enable_puppet
-  $enable_docker = $katello::params::enable_docker
-  $enable_deb = $katello::params::enable_deb
-  $pulp_url = $katello::params::pulp_url
+  $enable_container = $katello::params::enable_container
   $pulp_ca_cert = $certs::katello_server_ca_cert # TODO: certs::apache::...
   $candlepin_url = $katello::params::candlepin_url
   $candlepin_oauth_key = $katello::params::candlepin_oauth_key
@@ -61,8 +56,6 @@ class katello::application (
   $candlepin_ca_cert = $certs::ca_cert
   $candlepin_events_ssl_cert = $certs::candlepin::client_cert
   $candlepin_events_ssl_key = $certs::candlepin::client_key
-  $crane_url = $katello::params::crane_url
-  $crane_ca_cert = $certs::katello_server_ca_cert
   $postgresql_evr_package = $katello::params::postgresql_evr_package
   $manage_db = $foreman::db_manage
 
@@ -88,17 +81,5 @@ class katello::application (
     foreman::dynflow::worker { 'worker-hosts-queue':
       queues => ['hosts_queue'],
     }
-  }
-
-  Anchor <| title == 'katello::pulp' |> ->
-  exec { "mkdir -p ${repo_export_dir}":
-    path    => ['/bin', '/usr/bin'],
-    creates => $repo_export_dir,
-  } ->
-  file { $repo_export_dir:
-    ensure => directory,
-    owner  => $foreman::user,
-    group  => $foreman::group,
-    mode   => '0755',
   }
 }

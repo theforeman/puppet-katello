@@ -7,10 +7,7 @@
   :content_types:
     :file: <%= @enable_file %>
     :yum: <%= @enable_yum %>
-    :deb: <%= @enable_deb %>
-    :puppet: <%= @enable_puppet %>
-    :docker: <%= @enable_docker %>
-    :ostree: <%= @enable_ostree %>
+    :docker: <%= @enable_container %>
 
   :candlepin:
     :url: <%= @candlepin_url %>
@@ -24,7 +21,6 @@
     :ssl_ca_file: <%= @candlepin_ca_cert %>
 
   :pulp:
-    :url: <%= @pulp_url %>
     :ca_cert_file: <%= @pulp_ca_cert %>
 
   :use_pulp_2_for_content_type:
@@ -33,8 +29,3 @@
     :yum: <%= @use_pulp_2_for_yum %>
 
   :katello_applicability: <%= !@use_pulp_2_for_yum %>
-
-  # Internal configuration for communication from server to pulp crane service.
-  :container_image_registry:
-    :crane_url: <%= @crane_url %>
-    :crane_ca_cert_file: <%= @crane_ca_cert %>
