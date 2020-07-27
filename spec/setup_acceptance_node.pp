@@ -8,6 +8,10 @@ class { 'candlepin::repo':
   version => 'nightly',
 }
 
+group { 'foreman':
+  ensure => present,
+}
+
 if $facts['os']['release']['major'] == '8' {
   # https://tickets.puppetlabs.com/browse/PUP-9978
   exec { '/usr/bin/dnf -y module enable pki-core':

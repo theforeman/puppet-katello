@@ -32,6 +32,7 @@ class katello::params (
   String[1] $candlepin_oauth_secret = $katello::globals::candlepin_oauth_secret,
   Stdlib::Host $candlepin_host = 'localhost',
   Stdlib::HTTPSUrl $candlepin_url = "https://${candlepin_host}:8443/candlepin",
+  String[1] $candlepin_client_keypair_group = 'foreman',
   String[1] $postgresql_evr_package = $katello::globals::postgresql_evr_package,
 ) inherits katello::globals {
 }
