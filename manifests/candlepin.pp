@@ -31,7 +31,8 @@ class katello::candlepin (
   include katello::params
 
   class { 'certs::candlepin':
-    hostname => $katello::params::candlepin_host,
+    hostname             => $katello::params::candlepin_host,
+    client_keypair_group => $katello::params::candlepin_client_keypair_group,
   }
 
   class { 'candlepin':
