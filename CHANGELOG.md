@@ -1,5 +1,17 @@
 # Changelog
 
+## [15.0.0](https://github.com/theforeman/puppet-katello/tree/15.0.0) (2020-08-07)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/14.1.0...15.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#30346](https://projects.theforeman.org/issues/30346): Pass truststore to Candlepin [\#355](https://github.com/theforeman/puppet-katello/pull/355) ([ehelms](https://github.com/ehelms))
+
+**Fixed bugs:**
+
+- Refs [\#30346](https://projects.theforeman.org/issues/30346) - override candlepin client keypair group [\#358](https://github.com/theforeman/puppet-katello/pull/358) ([jturel](https://github.com/jturel))
+
 ## [14.1.0](https://github.com/theforeman/puppet-katello/tree/14.1.0) (2020-06-30)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/14.0.0...14.1.0)
