@@ -1,15 +1,5 @@
 ### File managed with puppet ###
 
-Alias /pub /var/www/html/pub
-
-<Location /pub>
-  <IfModule mod_passenger.c>
-    PassengerEnabled off
-  </IfModule>
-  Options <%= @pub_dir_options %>
-  Require all granted
-</Location>
-
 Include <%= scope['apache::confd_dir'] %>/pulp-vhosts80/*.conf
 
 <Location /pulp>
