@@ -60,9 +60,6 @@
 # @param yum_max_speed
 #   The maximum download speed per second for a Pulp task, such as a sync. (e.g. "4 Kb" (Uses SI KB), 4MB, or 1GB" )
 #
-# @param pub_dir_options
-#   The Apache options to use on the `/pub` resource
-#
 # @param manage_vhost_standalone
 #   Boolean to manage the Pulp vhost standalone. Otherwise the vhost is managed as part of Foreman
 #
@@ -92,7 +89,6 @@ class katello::pulp (
   Boolean $mongodb_unsafe_autoretry = false,
   Optional[Enum['majority', 'all']] $mongodb_write_concern = undef,
   Boolean $manage_mongodb = true,
-  String $pub_dir_options = '+FollowSymLinks +Indexes',
   Boolean $manage_vhost_standalone = false,
   Optional[Stdlib::Absolutepath] $https_cert = undef,
   Optional[Stdlib::Absolutepath] $https_key = undef,
@@ -111,12 +107,12 @@ class katello::pulp (
   if $manage_vhost_standalone {
     $server_name = undef
 
-    concat::fragment { 'httpd_pub':
+    concat::fragment { 'httpd_pulp':
       target  => '05-pulp-http.conf',
       content => template('katello/pulp-apache.conf.erb'),
     }
 
-    pulp::apache::fragment { 'httpd_ssl_pub':
+    pulp::apache::fragment { 'httpd_ssl_pulp':
       ssl_content => template('katello/pulp-apache-ssl.conf.erb'),
     }
   } else {
