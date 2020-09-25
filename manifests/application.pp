@@ -66,6 +66,8 @@ class katello::application (
   $postgresql_evr_package = $katello::params::postgresql_evr_package
   $manage_db = $foreman::db_manage
 
+  $pulp2_support = $facts['os']['release']['major'] == '7'
+
   # Katello database seeding needs candlepin
   Anchor <| title == 'katello::repo' or title ==  'katello::candlepin' |> ->
   foreman::plugin { 'katello':

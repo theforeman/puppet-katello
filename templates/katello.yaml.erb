@@ -23,6 +23,7 @@
     :ssl_key_file: <%= @candlepin_events_ssl_key %>
     :ssl_ca_file: <%= @candlepin_ca_cert %>
 
+<% if @pulp2_support %>
   :pulp:
     :url: <%= @pulp_url %>
     :ca_cert_file: <%= @pulp_ca_cert %>
@@ -38,3 +39,6 @@
   :container_image_registry:
     :crane_url: <%= @crane_url %>
     :crane_ca_cert_file: <%= @crane_ca_cert %>
+<% else %>
+  :katello_applicability: true
+<% end %>

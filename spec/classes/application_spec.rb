@@ -60,38 +60,66 @@ describe 'katello::application' do
           is_expected.to contain_foreman__dynflow__worker('worker-hosts-queue')
         end
 
+        let(:katello_yaml_content) do
+          if facts[:operatingsystemmajrelease] == '7'
+            [
+              ':katello:',
+              '  :rest_client_timeout: 3600',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: true',
+              '    :docker: true',
+              '    :ostree: false',
+              '  :candlepin:',
+              '    :url: https://localhost:23443/candlepin',
+              '    :oauth_key: "katello"',
+              '    :oauth_secret: "candlepin-secret"',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :candlepin_events:',
+              '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
+              '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
+              '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :pulp:',
+              '    :url: https://foo.example.com/pulp/api/v2/',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
+              '  :use_pulp_2_for_content_type:',
+              '    :docker: false',
+              '    :file: false',
+              '    :yum: false',
+              '  :katello_applicability: true',
+              '  :container_image_registry:',
+              '    :crane_url: https://foo.example.com:5000',
+              '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
+            ]
+          else
+            [
+              ':katello:',
+              '  :rest_client_timeout: 3600',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: true',
+              '    :docker: true',
+              '    :ostree: false',
+              '  :candlepin:',
+              '    :url: https://localhost:23443/candlepin',
+              '    :oauth_key: "katello"',
+              '    :oauth_secret: "candlepin-secret"',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :candlepin_events:',
+              '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
+              '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
+              '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :katello_applicability: true',
+            ]
+          end
+        end
+
         it 'should generate correct katello.yaml' do
-          verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
-            ':katello:',
-            '  :rest_client_timeout: 3600',
-            '  :content_types:',
-            '    :yum: true',
-            '    :file: true',
-            '    :deb: true',
-            '    :puppet: true',
-            '    :docker: true',
-            '    :ostree: false',
-            '  :candlepin:',
-            '    :url: https://localhost:23443/candlepin',
-            '    :oauth_key: "katello"',
-            '    :oauth_secret: "candlepin-secret"',
-            '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
-            '  :candlepin_events:',
-            '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
-            '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
-            '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
-            '  :pulp:',
-            '    :url: https://foo.example.com/pulp/api/v2/',
-            '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
-            '  :use_pulp_2_for_content_type:',
-            '    :docker: false',
-            '    :file: false',
-            '    :yum: false',
-            '  :katello_applicability: true',
-            '  :container_image_registry:',
-            '    :crane_url: https://foo.example.com:5000',
-            '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
-          ])
+          verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
         end
 
         it do
@@ -125,38 +153,66 @@ describe 'katello::application' do
 
         it { is_expected.to compile.with_all_deps }
 
+        let(:katello_yaml_content) do
+          if facts[:operatingsystemmajrelease] == '7'
+            [
+              ':katello:',
+              '  :rest_client_timeout: 4000',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: true',
+              '    :docker: true',
+              '    :ostree: false',
+              '  :candlepin:',
+              '    :url: https://localhost:23443/candlepin',
+              '    :oauth_key: "katello"',
+              '    :oauth_secret: "candlepin-secret"',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :candlepin_events:',
+              '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
+              '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
+              '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :pulp:',
+              '    :url: https://foo.example.com/pulp/api/v2/',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
+              '  :use_pulp_2_for_content_type:',
+              '    :docker: false',
+              '    :file: false',
+              '    :yum: false',
+              '  :katello_applicability: true',
+              '  :container_image_registry:',
+              '    :crane_url: https://foo.example.com:5000',
+              '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
+            ]
+          else
+            [
+              ':katello:',
+              '  :rest_client_timeout: 4000',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: true',
+              '    :docker: true',
+              '    :ostree: false',
+              '  :candlepin:',
+              '    :url: https://localhost:23443/candlepin',
+              '    :oauth_key: "katello"',
+              '    :oauth_secret: "candlepin-secret"',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :candlepin_events:',
+              '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
+              '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
+              '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :katello_applicability: true',
+            ]
+          end
+        end
+
         it 'should generate correct katello.yaml' do
-          verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
-            ':katello:',
-            '  :rest_client_timeout: 4000',
-            '  :content_types:',
-            '    :yum: true',
-            '    :file: true',
-            '    :deb: true',
-            '    :puppet: true',
-            '    :docker: true',
-            '    :ostree: false',
-            '  :candlepin:',
-            '    :url: https://localhost:23443/candlepin',
-            '    :oauth_key: "katello"',
-            '    :oauth_secret: "candlepin-secret"',
-            '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
-            '  :candlepin_events:',
-            '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
-            '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
-            '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
-            '  :pulp:',
-            '    :url: https://foo.example.com/pulp/api/v2/',
-            '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
-            '  :use_pulp_2_for_content_type:',
-            '    :docker: false',
-            '    :file: false',
-            '    :yum: false',
-            '  :katello_applicability: true',
-            '  :container_image_registry:',
-            '    :crane_url: https://foo.example.com:5000',
-            '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
-          ])
+          verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
         end
       end
 
@@ -172,38 +228,66 @@ describe 'katello::application' do
 
         it { is_expected.to compile.with_all_deps }
 
+        let(:katello_yaml_content) do
+          if facts[:operatingsystemmajrelease] == '7'
+            [
+              ':katello:',
+              '  :rest_client_timeout: 3600',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: true',
+              '    :docker: true',
+              '    :ostree: true',
+              '  :candlepin:',
+              '    :url: https://localhost:23443/candlepin',
+              '    :oauth_key: "katello"',
+              '    :oauth_secret: "candlepin-secret"',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :candlepin_events:',
+              '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
+              '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
+              '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :pulp:',
+              '    :url: https://foo.example.com/pulp/api/v2/',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
+              '  :use_pulp_2_for_content_type:',
+              '    :docker: false',
+              '    :file: false',
+              '    :yum: false',
+              '  :katello_applicability: true',
+              '  :container_image_registry:',
+              '    :crane_url: https://foo.example.com:5000',
+              '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
+            ]
+          else
+            [
+              ':katello:',
+              '  :rest_client_timeout: 3600',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: true',
+              '    :docker: true',
+              '    :ostree: true',
+              '  :candlepin:',
+              '    :url: https://localhost:23443/candlepin',
+              '    :oauth_key: "katello"',
+              '    :oauth_secret: "candlepin-secret"',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :candlepin_events:',
+              '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
+              '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
+              '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :katello_applicability: true',
+            ]
+          end
+        end
+
         it 'should generate correct katello.yaml' do
-          verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', [
-            ':katello:',
-            '  :rest_client_timeout: 3600',
-            '  :content_types:',
-            '    :yum: true',
-            '    :file: true',
-            '    :deb: true',
-            '    :puppet: true',
-            '    :docker: true',
-            '    :ostree: true',
-            '  :candlepin:',
-            '    :url: https://localhost:23443/candlepin',
-            '    :oauth_key: "katello"',
-            '    :oauth_secret: "candlepin-secret"',
-            '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
-            '  :candlepin_events:',
-            '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
-            '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
-            '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
-            '  :pulp:',
-            '    :url: https://foo.example.com/pulp/api/v2/',
-            '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
-            '  :use_pulp_2_for_content_type:',
-            '    :docker: false',
-            '    :file: false',
-            '    :yum: false',
-            '  :katello_applicability: true',
-            '  :container_image_registry:',
-            '    :crane_url: https://foo.example.com:5000',
-            '    :crane_ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt'
-          ])
+          verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
         end
       end
 
