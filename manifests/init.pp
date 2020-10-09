@@ -184,7 +184,7 @@ class katello (
     repo_export_dir       => $repo_export_dir,
   }
 
-  if $facts['os']['release']['major'] == '7' {
+  if $katello::params::pulp2_support {
     class { 'katello::qpid':
       interface        => $qpid_interface,
       wcache_page_size => $qpid_wcache_page_size,
