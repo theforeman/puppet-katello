@@ -35,4 +35,6 @@ class katello::globals(
   } else {
     $postgresql_evr_package = 'postgresql-evr'
   }
+
+  $pulp2_support = $facts['os']['release']['major'] == '7'
 }
