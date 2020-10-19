@@ -43,6 +43,8 @@
 #
 # $rest_client_timeout:: Timeout for Katello rest API
 #
+# $hosts_queue_workers::   Configures the number of workers handling the hosts_queue queue.
+#
 class katello (
   Optional[String] $candlepin_oauth_key = undef,
   Optional[String] $candlepin_oauth_secret = undef,
@@ -65,6 +67,8 @@ class katello (
   Boolean $candlepin_db_ssl = false,
   Boolean $candlepin_db_ssl_verify = true,
   Boolean $candlepin_manage_db = true,
+
+  Integer[0] $hosts_queue_workers = 1,
 ) {
 
   package { 'katello':
@@ -97,6 +101,7 @@ class katello (
 
   class { 'katello::application':
     rest_client_timeout => $rest_client_timeout,
+    hosts_queue_workers => $hosts_queue_workers,
   }
 
   class { 'katello::qpid':
