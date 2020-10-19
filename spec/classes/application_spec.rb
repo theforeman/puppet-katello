@@ -56,9 +56,8 @@ describe 'katello::application' do
             .with_ssl_content(%r{^<LocationMatch /rhsm\|/katello/api>$})
         end
 
-        it do
-          is_expected.to contain_foreman__dynflow__worker('worker-hosts-queue')
-        end
+        it { is_expected.to contain_foreman__dynflow__pool('worker-hosts-queue').with_instances(1) }
+        it { is_expected.to contain_foreman__dynflow__worker('worker-hosts-queue') }
 
         let(:katello_yaml_content) do
           if facts[:operatingsystemmajrelease] == '7'

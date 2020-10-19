@@ -3,8 +3,12 @@
 # @param rest_client_timeout
 #   Timeout for Katello rest API
 #
+# @param hosts_queue_workers
+#   The number of workers handling the hosts_queue queue.
+#
 class katello::application (
   Integer[0] $rest_client_timeout = 3600,
+  Integer[0] $hosts_queue_workers = 1,
 ) {
   include foreman
   include certs
@@ -64,9 +68,10 @@ class katello::application (
     ssl_content => file('katello/katello-apache-ssl.conf'),
   }
 
-  if $foreman::jobs_manage_service {
-    foreman::dynflow::worker { 'worker-hosts-queue':
-      queues => ['hosts_queue'],
+  if $foreman::dynflow_manage_services {
+    foreman::dynflow::pool { 'worker-hosts-queue':
+      instances => $hosts_queue_workers,
+      queues    => ['hosts_queue'],
     }
   }
 }
