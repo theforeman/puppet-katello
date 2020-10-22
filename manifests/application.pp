@@ -50,7 +50,7 @@ class katello::application (
   $enable_ostree = $katello::params::enable_ostree
   $enable_yum = $katello::params::enable_yum
   $enable_file = $katello::params::enable_file
-  $enable_puppet = $katello::params::enable_puppet
+  $enable_puppet = $katello::params::pulp2_support and $katello::params::enable_puppet
   $enable_docker = $katello::params::enable_docker
   $enable_deb = $katello::params::enable_deb
   $pulp_url = $katello::params::pulp_url
