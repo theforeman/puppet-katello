@@ -1,3 +1,29 @@
+## [16.0.0](https://github.com/theforeman/puppet-katello/tree/16.0.0) (2020-10-30)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/15.0.0...16.0.0)
+
+**Breaking changes:**
+
+- never deploy /pub, that's handled by f\_p\_c now [\#362](https://github.com/theforeman/puppet-katello/pull/362) ([evgeni](https://github.com/evgeni))
+- Fixes [\#29664](https://projects.theforeman.org/issues/29664): Update Candlepin port to new default [\#348](https://github.com/theforeman/puppet-katello/pull/348) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Do not enable Puppet if there is no Pulp 2 [\#365](https://github.com/theforeman/puppet-katello/pull/365) ([ehelms](https://github.com/ehelms))
+- don't configure Pulp2 when running on EL8 [\#363](https://github.com/theforeman/puppet-katello/pull/363) ([evgeni](https://github.com/evgeni))
+
+## [15.0.0](https://github.com/theforeman/puppet-katello/tree/15.0.0) (2020-08-07)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/14.1.0...15.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#30346](https://projects.theforeman.org/issues/30346): Pass truststore to Candlepin [\#355](https://github.com/theforeman/puppet-katello/pull/355) ([ehelms](https://github.com/ehelms))
+
+**Fixed bugs:**
+
+- Refs [\#30346](https://projects.theforeman.org/issues/30346) - override candlepin client keypair group [\#358](https://github.com/theforeman/puppet-katello/pull/358) ([jturel](https://github.com/jturel))
+
 ## [14.1.0](https://github.com/theforeman/puppet-katello/tree/14.1.0) (2020-06-30)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/14.0.0...14.1.0)
