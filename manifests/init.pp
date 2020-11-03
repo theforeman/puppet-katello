@@ -97,6 +97,8 @@
 #
 # $use_pulp_2_for_yum::    Configures Katello to use Pulp 2 for yum content
 #
+# $use_pulp_2_for_deb::    Configures Katello to use Pulp 2 for deb content
+#
 class katello (
   Optional[String] $candlepin_oauth_key = undef,
   Optional[String] $candlepin_oauth_secret = undef,
@@ -119,6 +121,7 @@ class katello (
   Boolean $use_pulp_2_for_file = false,
   Boolean $use_pulp_2_for_docker = false,
   Boolean $use_pulp_2_for_yum = false,
+  Boolean $use_pulp_2_for_deb = false,
 
   Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 
@@ -181,6 +184,7 @@ class katello (
     use_pulp_2_for_file   => $use_pulp_2_for_file,
     use_pulp_2_for_docker => $use_pulp_2_for_docker,
     use_pulp_2_for_yum    => $use_pulp_2_for_yum,
+    use_pulp_2_for_deb    => $use_pulp_2_for_deb,
     repo_export_dir       => $repo_export_dir,
   }
 
