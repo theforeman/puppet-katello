@@ -12,6 +12,9 @@
 # @param use_pulp_2_for_yum
 #  Configure Katello to use Pulp 2 for yum
 #
+# @param use_pulp_2_for_deb
+#  Configure Katello to use Pulp 2 for deb
+#
 # @param repo_export_dir
 #   Create a repository export directory for Katello to use
 #
@@ -20,6 +23,7 @@ class katello::application (
   Boolean $use_pulp_2_for_file = false,
   Boolean $use_pulp_2_for_docker = false,
   Boolean $use_pulp_2_for_yum = false,
+  Boolean $use_pulp_2_for_deb = false,
   Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 ) {
   include foreman
