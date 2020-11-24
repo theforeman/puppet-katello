@@ -14,8 +14,6 @@
 #   The URL to connect to Candlepin
 # @param pulp_url
 #   The URL to connect to Pulp
-# @param crane_url
-#   The URL to connect to Crane
 # @param qpid_hostname
 #   QPID's hostname to connect
 # @param candlepin_oauth_key
@@ -28,7 +26,6 @@
 #   Whether Pulp2 deployment is supported or not
 class katello::params (
   Stdlib::HTTPSUrl $pulp_url = "https://${facts['networking']['fqdn']}/pulp/api/v2/",
-  Stdlib::HTTPSUrl $crane_url = "https://${facts['networking']['fqdn']}:5000",
   Stdlib::Host $qpid_hostname = 'localhost',
   String[1] $candlepin_oauth_key = $katello::globals::candlepin_oauth_key,
   String[1] $candlepin_oauth_secret = $katello::globals::candlepin_oauth_secret,

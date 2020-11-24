@@ -36,10 +36,6 @@
 
   :katello_applicability: <%= !@use_pulp_2_for_yum %>
 
-  # Internal configuration for communication from server to pulp crane service.
-  :container_image_registry:
-    :crane_url: <%= @crane_url %>
-    :crane_ca_cert_file: <%= @crane_ca_cert %>
 <% else %>
   :katello_applicability: true
 <% end %>

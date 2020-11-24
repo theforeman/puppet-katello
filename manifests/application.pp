@@ -65,8 +65,6 @@ class katello::application (
   $candlepin_ca_cert = $certs::ca_cert
   $candlepin_events_ssl_cert = $certs::candlepin::client_cert
   $candlepin_events_ssl_key = $certs::candlepin::client_key
-  $crane_url = $katello::params::crane_url
-  $crane_ca_cert = $certs::katello_server_ca_cert
   $postgresql_evr_package = $katello::params::postgresql_evr_package
   $manage_db = $foreman::db_manage
 
