@@ -23,19 +23,10 @@
     :ssl_key_file: <%= @candlepin_events_ssl_key %>
     :ssl_ca_file: <%= @candlepin_ca_cert %>
 
+  :katello_applicability: true
+
 <% if @pulp2_support %>
   :pulp:
     :url: <%= @pulp_url %>
     :ca_cert_file: <%= @pulp_ca_cert %>
-
-  :use_pulp_2_for_content_type:
-    :docker: <%= @use_pulp_2_for_docker %>
-    :file: <%= @use_pulp_2_for_file %>
-    :yum: <%= @use_pulp_2_for_yum %>
-    :deb: <%= @use_pulp_2_for_deb %>
-
-  :katello_applicability: <%= !@use_pulp_2_for_yum %>
-
-<% else %>
-  :katello_applicability: true
 <% end %>

@@ -84,11 +84,6 @@ describe 'katello::application' do
               '  :pulp:',
               '    :url: https://foo.example.com/pulp/api/v2/',
               '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
-              '  :use_pulp_2_for_content_type:',
-              '    :docker: false',
-              '    :file: false',
-              '    :yum: false',
-              '    :deb: false',
               '  :katello_applicability: true',
             ]
           else
@@ -175,11 +170,6 @@ describe 'katello::application' do
               '  :pulp:',
               '    :url: https://foo.example.com/pulp/api/v2/',
               '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
-              '  :use_pulp_2_for_content_type:',
-              '    :docker: false',
-              '    :file: false',
-              '    :yum: false',
-              '    :deb: false', 
               '  :katello_applicability: true',
             ]
           else
@@ -248,11 +238,6 @@ describe 'katello::application' do
               '  :pulp:',
               '    :url: https://foo.example.com/pulp/api/v2/',
               '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
-              '  :use_pulp_2_for_content_type:',
-              '    :docker: false',
-              '    :file: false',
-              '    :yum: false',
-              '    :deb: false',
               '  :katello_applicability: true',
             ]
           else

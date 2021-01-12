@@ -91,14 +91,6 @@
 #
 # $pulp_manage_db::      Boolean to install and configure the mongodb.
 #
-# $use_pulp_2_for_file::   Configures Katello to use Pulp 2 for file content
-#
-# $use_pulp_2_for_docker:: Configures Katello to use Pulp 2 for docker content
-#
-# $use_pulp_2_for_yum::    Configures Katello to use Pulp 2 for yum content
-#
-# $use_pulp_2_for_deb::    Configures Katello to use Pulp 2 for deb content
-#
 class katello (
   Optional[String] $candlepin_oauth_key = undef,
   Optional[String] $candlepin_oauth_secret = undef,
@@ -117,11 +109,6 @@ class katello (
   Boolean $enable_puppet = true,
   Boolean $enable_docker = true,
   Boolean $enable_deb = true,
-
-  Boolean $use_pulp_2_for_file = false,
-  Boolean $use_pulp_2_for_docker = false,
-  Boolean $use_pulp_2_for_yum = false,
-  Boolean $use_pulp_2_for_deb = false,
 
   Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 
@@ -180,12 +167,8 @@ class katello (
   }
 
   class { 'katello::application':
-    rest_client_timeout   => $rest_client_timeout,
-    use_pulp_2_for_file   => $use_pulp_2_for_file,
-    use_pulp_2_for_docker => $use_pulp_2_for_docker,
-    use_pulp_2_for_yum    => $use_pulp_2_for_yum,
-    use_pulp_2_for_deb    => $use_pulp_2_for_deb,
-    repo_export_dir       => $repo_export_dir,
+    rest_client_timeout => $rest_client_timeout,
+    repo_export_dir     => $repo_export_dir,
   }
 
   if $katello::params::pulp2_support {
