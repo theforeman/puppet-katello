@@ -48,6 +48,8 @@ class katello::candlepin (
     truststore_file              => $certs::candlepin::truststore,
     truststore_password          => $certs::candlepin::truststore_password,
     artemis_client_dn            => $certs::candlepin::artemis_client_dn,
+    java_home                    => '/usr/lib/jvm/jre-11',
+    java_package                 => 'java-11-openjdk',
     enable_basic_auth            => false,
     consumer_system_name_pattern => '.+',
     adapter_module               => 'org.candlepin.katello.KatelloModule',
