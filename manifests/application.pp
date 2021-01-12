@@ -3,27 +3,11 @@
 # @param rest_client_timeout
 #   Timeout for Katello rest API
 #
-# @param use_pulp_2_for_file
-#  Configure Katello to use Pulp 2 for file content
-#
-# @param use_pulp_2_for_docker
-#  Configure Katello to use Pulp 2 for docker content
-#
-# @param use_pulp_2_for_yum
-#  Configure Katello to use Pulp 2 for yum
-#
-# @param use_pulp_2_for_deb
-#  Configure Katello to use Pulp 2 for deb
-#
 # @param repo_export_dir
 #   Create a repository export directory for Katello to use
 #
 class katello::application (
   Integer[0] $rest_client_timeout = 3600,
-  Boolean $use_pulp_2_for_file = false,
-  Boolean $use_pulp_2_for_docker = false,
-  Boolean $use_pulp_2_for_yum = false,
-  Boolean $use_pulp_2_for_deb = false,
   Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 ) {
   include foreman
