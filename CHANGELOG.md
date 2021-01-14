@@ -1,5 +1,13 @@
 # Changelog
 
+## [16.1.0](https://github.com/theforeman/puppet-katello/tree/16.1.0) (2020-10-30)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/16.0.0...16.1.0)
+
+**Implemented enhancements:**
+
+- Support use\_pulp\_2\_for\_deb [\#370](https://github.com/theforeman/puppet-katello/pull/370) ([jlsherrill](https://github.com/jlsherrill))
+
 ## [16.0.0](https://github.com/theforeman/puppet-katello/tree/16.0.0) (2020-10-30)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/15.0.0...16.0.0)
