@@ -1,7 +1,5 @@
 ### File managed with puppet ###
 
-Include <%= scope['apache::confd_dir'] %>/pulp-vhosts80/*.conf
-
 <Location /pulp>
   <IfModule mod_passenger.c>
     PassengerEnabled off
