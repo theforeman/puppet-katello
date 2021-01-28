@@ -8,6 +8,7 @@ describe 'katello' do
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_class('katello::candlepin') }
       it { is_expected.to contain_class('katello::application') }
+      it { is_expected.to contain_class('katello::qpid_client') }
 
       if facts[:operatingsystemmajrelease] == '7'
         it { is_expected.to contain_class('katello::pulp') }

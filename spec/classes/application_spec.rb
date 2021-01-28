@@ -28,6 +28,13 @@ describe 'katello::application' do
         end
 
         it do
+          is_expected.to contain_class('certs::qpid')
+            .that_notifies(['Class[Foreman::Plugin::Tasks]'])
+        end
+
+        it { is_expected.to contain_class('katello::qpid_client') }
+
+        it do
           is_expected.to create_foreman_config_entry('pulp_client_cert')
             .with_value('/etc/pki/katello/certs/pulp-client.crt')
             .that_requires(['Class[Certs::Pulp_client]', 'Foreman::Rake[db:seed]'])
