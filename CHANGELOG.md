@@ -1,5 +1,28 @@
 # Changelog
 
+## [17.0.0](https://github.com/theforeman/puppet-katello/tree/17.0.0) (2021-02-01)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/16.1.0...17.0.0)
+
+**Breaking changes:**
+
+- Drop inclusion of pulp-vhosts80 with no managed content types [\#376](https://github.com/theforeman/puppet-katello/pull/376) ([ehelms](https://github.com/ehelms))
+- Drop enabling Pulp 2 content types [\#373](https://github.com/theforeman/puppet-katello/pull/373) ([ehelms](https://github.com/ehelms))
+- Drop Crane configuration that is no longer used from Pulp 2 [\#371](https://github.com/theforeman/puppet-katello/pull/371) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Fixes [\#31693](https://projects.theforeman.org/issues/31693) - Restore katello::qpid\_client [\#377](https://github.com/theforeman/puppet-katello/pull/377) ([jturel](https://github.com/jturel))
+- Refs [\#31346](https://projects.theforeman.org/issues/31346) - Use Java 11 for Candlepin [\#372](https://github.com/theforeman/puppet-katello/pull/372) ([jturel](https://github.com/jturel))
+
+## [16.1.0](https://github.com/theforeman/puppet-katello/tree/16.1.0) (2020-10-30)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/16.0.0...16.1.0)
+
+**Implemented enhancements:**
+
+- Support use\_pulp\_2\_for\_deb [\#370](https://github.com/theforeman/puppet-katello/pull/370) ([jlsherrill](https://github.com/jlsherrill))
+
 ## [16.0.0](https://github.com/theforeman/puppet-katello/tree/16.0.0) (2020-10-30)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/15.0.0...16.0.0)
