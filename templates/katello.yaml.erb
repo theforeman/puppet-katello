@@ -8,9 +8,9 @@
     :file: <%= @enable_file %>
     :yum: <%= @enable_yum %>
     :deb: <%= @enable_deb %>
-    :puppet: <%= @enable_puppet %>
+    :puppet: false
     :docker: <%= @enable_docker %>
-    :ostree: <%= @enable_ostree %>
+    :ostree: false
 
   :candlepin:
     :url: <%= @candlepin_url %>
@@ -28,9 +28,3 @@
     :event_queue_name: <%= @agent_event_queue_name %>
 
   :katello_applicability: true
-
-<% if @pulp2_support %>
-  :pulp:
-    :url: <%= @pulp_url %>
-    :ca_cert_file: <%= @pulp_ca_cert %>
-<% end %>

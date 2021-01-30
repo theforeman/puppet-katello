@@ -14,8 +14,6 @@
 #   The host to run Candlepin as
 # @param candlepin_url
 #   The URL to connect to Candlepin
-# @param pulp_url
-#   The URL to connect to Pulp
 # @param qpid_hostname
 #   QPID's hostname to connect
 # @param qpid_url
@@ -26,11 +24,8 @@
 #   The oauth secret for Candlepin
 # @param postgresql_evr_package
 #   The contextual package name for the PostgreSQL EVR extension
-# @param pulp2_support
-#   Whether Pulp2 deployment is supported or not
 class katello::params (
   String[1] $agent_event_queue_name = 'katello.agent',
-  Stdlib::HTTPSUrl $pulp_url = "https://${facts['networking']['fqdn']}/pulp/api/v2/",
   Stdlib::Host $qpid_hostname = 'localhost',
   String[1] $qpid_url = "amqp:ssl:${qpid_hostname}:5671",
   String[1] $candlepin_oauth_key = $katello::globals::candlepin_oauth_key,
@@ -40,6 +35,5 @@ class katello::params (
   Stdlib::HTTPSUrl $candlepin_url = "https://${candlepin_host}:${candlepin_port}/candlepin",
   String[1] $candlepin_client_keypair_group = 'foreman',
   String[1] $postgresql_evr_package = $katello::globals::postgresql_evr_package,
-  Boolean $pulp2_support = $katello::globals::pulp2_support,
 ) inherits katello::globals {
 }

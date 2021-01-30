@@ -76,7 +76,7 @@ describe 'katello::application' do
               '    :yum: true',
               '    :file: true',
               '    :deb: true',
-              '    :puppet: true',
+              '    :puppet: false',
               '    :docker: true',
               '    :ostree: false',
               '  :candlepin:',
@@ -91,9 +91,6 @@ describe 'katello::application' do
               '  :agent:',
               '    :broker_url: amqp:ssl:localhost:5671',
               '    :event_queue_name: katello.agent',
-              '  :pulp:',
-              '    :url: https://foo.example.com/pulp/api/v2/',
-              '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
               '  :katello_applicability: true',
             ]
           else
@@ -127,15 +124,6 @@ describe 'katello::application' do
         it 'should generate correct katello.yaml' do
           verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
         end
-
-        it do
-          is_expected.to create_file('/var/lib/pulp/katello-export')
-            .with_ensure('directory')
-            .with_owner('foreman')
-            .with_group('foreman')
-            .with_mode('0755')
-            .that_requires('Exec[mkdir -p /var/lib/pulp/katello-export]')
-        end
       end
 
       context 'with repo present' do
@@ -168,7 +156,7 @@ describe 'katello::application' do
               '    :yum: true',
               '    :file: true',
               '    :deb: true',
-              '    :puppet: true',
+              '    :puppet: false',
               '    :docker: true',
               '    :ostree: false',
               '  :candlepin:',
@@ -183,9 +171,6 @@ describe 'katello::application' do
               '  :agent:',
               '    :broker_url: amqp:ssl:localhost:5671',
               '    :event_queue_name: katello.agent',
-              '  :pulp:',
-              '    :url: https://foo.example.com/pulp/api/v2/',
-              '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
               '  :katello_applicability: true',
             ]
           else
@@ -225,7 +210,7 @@ describe 'katello::application' do
         let :pre_condition do
           <<-EOS
           class {'katello::globals':
-            enable_ostree => true,
+            enable_deb => false,
           }
           #{super()}
           EOS
@@ -241,10 +226,10 @@ describe 'katello::application' do
               '  :content_types:',
               '    :yum: true',
               '    :file: true',
-              '    :deb: true',
-              '    :puppet: true',
+              '    :deb: false',
+              '    :puppet: false',
               '    :docker: true',
-              '    :ostree: true',
+              '    :ostree: false',
               '  :candlepin:',
               '    :url: https://localhost:23443/candlepin',
               '    :oauth_key: "katello"',
@@ -257,9 +242,6 @@ describe 'katello::application' do
               '  :agent:',
               '    :broker_url: amqp:ssl:localhost:5671',
               '    :event_queue_name: katello.agent',
-              '  :pulp:',
-              '    :url: https://foo.example.com/pulp/api/v2/',
-              '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
               '  :katello_applicability: true',
             ]
           else
@@ -269,10 +251,10 @@ describe 'katello::application' do
               '  :content_types:',
               '    :yum: true',
               '    :file: true',
-              '    :deb: true',
+              '    :deb: false',
               '    :puppet: false',
               '    :docker: true',
-              '    :ostree: true',
+              '    :ostree: false',
               '  :candlepin:',
               '    :url: https://localhost:23443/candlepin',
               '    :oauth_key: "katello"',
@@ -305,14 +287,6 @@ describe 'katello::application' do
         else
           it { is_expected.to create_package('rubygem-katello').that_requires('Anchor[katello::candlepin]') }
         end
-      end
-
-      context 'with pulp' do
-        # post condition because things are compile order dependent
-        let(:post_condition) { 'include katello::pulp' }
-
-        it { is_expected.to compile.with_all_deps }
-        it { is_expected.to create_exec('mkdir -p /var/lib/pulp/katello-export').that_requires(['Anchor[katello::pulp]']) }
       end
     end
   end
