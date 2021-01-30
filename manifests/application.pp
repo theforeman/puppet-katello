@@ -3,12 +3,8 @@
 # @param rest_client_timeout
 #   Timeout for Katello rest API
 #
-# @param repo_export_dir
-#   Create a repository export directory for Katello to use
-#
 class katello::application (
   Integer[0] $rest_client_timeout = 3600,
-  Stdlib::Absolutepath $repo_export_dir = '/var/lib/pulp/katello-export',
 ) {
   include foreman
   include certs
@@ -43,14 +39,10 @@ class katello::application (
   # Used in katello.yaml.erb
   $agent_broker_url = $katello::params::qpid_url
   $agent_event_queue_name = $katello::params::agent_event_queue_name
-  $enable_ostree = $katello::params::enable_ostree
   $enable_yum = $katello::params::enable_yum
   $enable_file = $katello::params::enable_file
-  $enable_puppet = $katello::params::pulp2_support and $katello::params::enable_puppet
   $enable_docker = $katello::params::enable_docker
   $enable_deb = $katello::params::enable_deb
-  $pulp_url = $katello::params::pulp_url
-  $pulp_ca_cert = $certs::katello_server_ca_cert # TODO: certs::apache::...
   $candlepin_url = $katello::params::candlepin_url
   $candlepin_oauth_key = $katello::params::candlepin_oauth_key
   $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret
@@ -59,8 +51,6 @@ class katello::application (
   $candlepin_events_ssl_key = $certs::candlepin::client_key
   $postgresql_evr_package = $katello::params::postgresql_evr_package
   $manage_db = $foreman::db_manage
-
-  $pulp2_support = $katello::params::pulp2_support
 
   # Katello database seeding needs candlepin
   Anchor <| title == 'katello::repo' or title ==  'katello::candlepin' |> ->
@@ -84,17 +74,5 @@ class katello::application (
     foreman::dynflow::worker { 'worker-hosts-queue':
       queues => ['hosts_queue'],
     }
-  }
-
-  Anchor <| title == 'katello::pulp' |> ->
-  exec { "mkdir -p ${repo_export_dir}":
-    path    => ['/bin', '/usr/bin'],
-    creates => $repo_export_dir,
-  } ->
-  file { $repo_export_dir:
-    ensure => directory,
-    owner  => $foreman::user,
-    group  => $foreman::group,
-    mode   => '0755',
   }
 }
