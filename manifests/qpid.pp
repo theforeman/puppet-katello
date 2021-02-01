@@ -12,17 +12,26 @@ class katello::qpid (
 ) {
   include certs
   include certs::qpid
+  include katello::params
+
+  $agent_event_queue_name = $katello::params::agent_event_queue_name
 
   class { 'qpid':
     ssl                    => true,
     ssl_cert_db            => $certs::qpid::nss_db_dir,
     ssl_cert_password_file => $certs::qpid::nss_db_password_file,
     ssl_cert_name          => $certs::qpid::nss_cert_name,
-    acl_content            => file('katello/qpid_acls.acl'),
+    acl_content            => template('katello/qpid_acls.acl'),
     interface              => $interface,
     wcache_page_size       => $wcache_page_size,
     subscribe              => Class['certs', 'certs::qpid'],
   }
 
   contain qpid
+
+  qpid::config::queue { $katello::params::agent_event_queue_name:
+    ssl_cert => $certs::qpid::client_cert,
+    ssl_key  => $certs::qpid::client_key,
+    hostname => $katello::params::qpid_hostname,
+  }
 }

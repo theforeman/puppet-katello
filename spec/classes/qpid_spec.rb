@@ -12,6 +12,12 @@ describe 'katello::qpid' do
           it { is_expected.to create_class('qpid').with_wcache_page_size(4).with_interface('lo') }
         end
 
+        it do
+          is_expected.to create_qpid__config__queue('katello.agent')
+            .with_ssl_cert('/etc/pki/katello/certs/foo.example.com-qpid-broker.crt')
+            .with_ssl_key('/etc/pki/katello/private/foo.example.com-qpid-broker.key')
+        end
+
         context 'with overridden parameters' do
           let :params do
             {

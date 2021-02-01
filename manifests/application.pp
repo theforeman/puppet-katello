@@ -41,6 +41,8 @@ class katello::application (
   Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
 
   # Used in katello.yaml.erb
+  $agent_broker_url = $katello::params::qpid_url
+  $agent_event_queue_name = $katello::params::agent_event_queue_name
   $enable_ostree = $katello::params::enable_ostree
   $enable_yum = $katello::params::enable_yum
   $enable_file = $katello::params::enable_file
