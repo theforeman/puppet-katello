@@ -88,6 +88,9 @@ describe 'katello::application' do
               '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :agent:',
+              '    :broker_url: amqp:ssl:localhost:5671',
+              '    :event_queue_name: katello.agent',
               '  :pulp:',
               '    :url: https://foo.example.com/pulp/api/v2/',
               '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
@@ -113,6 +116,9 @@ describe 'katello::application' do
               '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :agent:',
+              '    :broker_url: amqp:ssl:localhost:5671',
+              '    :event_queue_name: katello.agent',
               '  :katello_applicability: true',
             ]
           end
@@ -174,6 +180,9 @@ describe 'katello::application' do
               '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :agent:',
+              '    :broker_url: amqp:ssl:localhost:5671',
+              '    :event_queue_name: katello.agent',
               '  :pulp:',
               '    :url: https://foo.example.com/pulp/api/v2/',
               '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
@@ -199,6 +208,9 @@ describe 'katello::application' do
               '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :agent:',
+              '    :broker_url: amqp:ssl:localhost:5671',
+              '    :event_queue_name: katello.agent',
               '  :katello_applicability: true',
             ]
           end
@@ -242,6 +254,9 @@ describe 'katello::application' do
               '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :agent:',
+              '    :broker_url: amqp:ssl:localhost:5671',
+              '    :event_queue_name: katello.agent',
               '  :pulp:',
               '    :url: https://foo.example.com/pulp/api/v2/',
               '    :ca_cert_file: /etc/pki/katello/certs/katello-server-ca.crt',
@@ -267,6 +282,9 @@ describe 'katello::application' do
               '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :agent:',
+              '    :broker_url: amqp:ssl:localhost:5671',
+              '    :event_queue_name: katello.agent',
               '  :katello_applicability: true',
             ]
           end
