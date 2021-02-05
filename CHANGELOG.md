@@ -1,5 +1,17 @@
 # Changelog
 
+## [18.0.0](https://github.com/theforeman/puppet-katello/tree/18.0.0) (2021-02-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/17.0.0...18.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#30360](https://projects.theforeman.org/issues/30360): Remove Pulp 2 deployment code [\#380](https://github.com/theforeman/puppet-katello/pull/380) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Fixes [\#31761](https://projects.theforeman.org/issues/31761) - create katello.agent qpid queue [\#379](https://github.com/theforeman/puppet-katello/pull/379) ([jturel](https://github.com/jturel))
+
 ## [17.0.0](https://github.com/theforeman/puppet-katello/tree/17.0.0) (2021-02-01)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/16.1.0...17.0.0)
