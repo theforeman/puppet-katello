@@ -24,6 +24,7 @@ class katello::qpid (
     acl_content            => template('katello/qpid_acls.acl'),
     interface              => $interface,
     wcache_page_size       => $wcache_page_size,
+    auth                   => true,
     subscribe              => Class['certs', 'certs::qpid'],
   }
 

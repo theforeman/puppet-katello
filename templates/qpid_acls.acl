@@ -1,14 +1,14 @@
-# allow the actions needed by katello_agent
-acl allow katello_agent@QPID create queue
-acl allow katello_agent@QPID consume queue
-acl allow katello_agent@QPID access exchange
-acl allow katello_agent@QPID access queue
-acl allow katello_agent@QPID publish exchange routingkey=<%= @agent_event_queue_name %>
-acl allow katello_agent@QPID publish exchange name=qmf.default.direct
-acl allow katello_agent@QPID access method name=create
+# allow the actions needed by qpid_router_katello_agent
+acl allow qpid_router_katello_agent@QPID create queue
+acl allow qpid_router_katello_agent@QPID consume queue
+acl allow qpid_router_katello_agent@QPID access exchange
+acl allow qpid_router_katello_agent@QPID access queue
+acl allow qpid_router_katello_agent@QPID publish exchange routingkey=<%= @agent_event_queue_name %>
+acl allow qpid_router_katello_agent@QPID publish exchange name=qmf.default.direct
+acl allow qpid_router_katello_agent@QPID access method name=create
 
-acl deny-log katello_agent@QPID access method name=*
-acl deny-log katello_agent@QPID all all
+acl deny-log qpid_router_katello_agent@QPID access method name=*
+acl deny-log qpid_router_katello_agent@QPID all all
 
 # allow anything else
 acl allow all all
