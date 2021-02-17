@@ -27,7 +27,7 @@
 class katello::params (
   String[1] $agent_event_queue_name = 'katello.agent',
   Stdlib::Host $qpid_hostname = 'localhost',
-  String[1] $qpid_url = "amqp:ssl:${qpid_hostname}:5671",
+  String[1] $qpid_url = "amqps://${qpid_hostname}:5671",
   String[1] $candlepin_oauth_key = $katello::globals::candlepin_oauth_key,
   String[1] $candlepin_oauth_secret = $katello::globals::candlepin_oauth_secret,
   Stdlib::Host $candlepin_host = 'localhost',
