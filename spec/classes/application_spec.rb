@@ -81,8 +81,7 @@ describe 'katello::application' do
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
               '  :agent:',
-              '    :broker_url: amqps://localhost:5671',
-              '    :event_queue_name: katello.agent',
+              '    :enabled: false',
               '  :katello_applicability: true',
             ]
           else
@@ -106,8 +105,7 @@ describe 'katello::application' do
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
               '  :agent:',
-              '    :broker_url: amqps://localhost:5671',
-              '    :event_queue_name: katello.agent',
+              '    :enabled: false',
               '  :katello_applicability: true',
             ]
           end
@@ -161,8 +159,7 @@ describe 'katello::application' do
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
               '  :agent:',
-              '    :broker_url: amqps://localhost:5671',
-              '    :event_queue_name: katello.agent',
+              '    :enabled: false',
               '  :katello_applicability: true',
             ]
           else
@@ -186,8 +183,7 @@ describe 'katello::application' do
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
               '  :agent:',
-              '    :broker_url: amqps://localhost:5671',
-              '    :event_queue_name: katello.agent',
+              '    :enabled: false',
               '  :katello_applicability: true',
             ]
           end
@@ -232,8 +228,7 @@ describe 'katello::application' do
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
               '  :agent:',
-              '    :broker_url: amqps://localhost:5671',
-              '    :event_queue_name: katello.agent',
+              '    :enabled: false',
               '  :katello_applicability: true',
             ]
           else
@@ -257,8 +252,7 @@ describe 'katello::application' do
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
               '  :agent:',
-              '    :broker_url: amqps://localhost:5671',
-              '    :event_queue_name: katello.agent',
+              '    :enabled: false',
               '  :katello_applicability: true',
             ]
           end
@@ -315,8 +309,7 @@ describe 'katello::application' do
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
               '  :agent:',
-              '    :broker_url: amqps://localhost:5671',
-              '    :event_queue_name: katello.agent',
+              '    :enabled: false',
               '  :katello_applicability: true',
             ]
           else
@@ -340,8 +333,7 @@ describe 'katello::application' do
               '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
               '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
               '  :agent:',
-              '    :broker_url: amqps://localhost:5671',
-              '    :event_queue_name: katello.agent',
+              '    :enabled: false',
               '  :katello_applicability: true',
             ]
           end
@@ -349,6 +341,31 @@ describe 'katello::application' do
 
         it 'should generate correct katello.yaml' do
           verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
+        end
+      end
+
+      context 'with katello::globals::enable_katello_agent true' do
+        let :pre_condition do
+          <<-EOS
+          class {'katello::globals':
+            enable_katello_agent => true,
+          }
+          EOS
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        let(:katello_yaml_content) do
+          [
+            '  :agent:',
+            '    :enabled: true',
+            '    :broker_url: amqps://localhost:5671',
+            '    :event_queue_name: katello.agent',
+          ]
+        end
+
+        it 'should generate correct katello.yaml' do
+          verify_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
         end
       end
     end
