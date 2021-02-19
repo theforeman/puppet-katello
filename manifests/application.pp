@@ -41,6 +41,7 @@ class katello::application (
   $enable_file = $katello::params::enable_file
   $enable_docker = $katello::params::enable_docker
   $enable_deb = $katello::params::enable_deb
+  $enable_katello_agent = $katello::params::enable_katello_agent
   $candlepin_url = $katello::params::candlepin_url
   $candlepin_oauth_key = $katello::params::candlepin_oauth_key
   $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret

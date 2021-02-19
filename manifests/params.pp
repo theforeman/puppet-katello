@@ -41,5 +41,6 @@ class katello::params (
   $enable_file = $katello::globals::enable_file != false
   $enable_docker = $katello::globals::enable_docker != false
   $enable_deb = $katello::globals::enable_deb != false
+  $enable_katello_agent = $katello::globals::enable_katello_agent != false
 
 }

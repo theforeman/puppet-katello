@@ -24,7 +24,10 @@
     :ssl_ca_file: <%= @candlepin_ca_cert %>
 
   :agent:
+    :enabled: <%= @enable_katello_agent %>
+    <%- if @enable_katello_agent -%>
     :broker_url: <%= @agent_broker_url %>
     :event_queue_name: <%= @agent_event_queue_name %>
+    <%- end -%>
 
   :katello_applicability: true
