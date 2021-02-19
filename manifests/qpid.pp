@@ -30,9 +30,9 @@ class katello::qpid (
 
   contain qpid
 
-  qpid::config::queue { $katello::params::agent_event_queue_name:
+  qpid::config::queue { "${katello::params::agent_event_queue_name} --sasl-mechanism=EXTERNAL":
     ssl_cert => $certs::qpid::client_cert,
     ssl_key  => $certs::qpid::client_key,
-    hostname => $katello::params::qpid_hostname,
+    hostname => "${certs::qpid::hostname}@${katello::params::qpid_hostname}",
   }
 }
