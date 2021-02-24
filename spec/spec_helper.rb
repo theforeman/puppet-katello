@@ -3,9 +3,6 @@
 
 require 'voxpupuli/test/spec_helper'
 
-add_custom_fact :systemd, true # puppet-systemd
-add_custom_fact :root_home, "/root" # puppetlabs-stdlib
-
 def get_content(subject, title)
   is_expected.to contain_file(title)
   content = subject.resource('file', title).send(:parameters)[:content]
