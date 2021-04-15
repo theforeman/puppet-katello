@@ -19,7 +19,7 @@ This module is designed to setup a full katello server, including candlepin, pul
 
 ## Limitations
 
-* EL7 (RHEL7 / CentOS 7)
+* Supports EL7 (RHEL7 / CentOS 7) and EL8 (RHEL8 / CentOS 8)
 
 ## Development
 
