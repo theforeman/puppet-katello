@@ -16,7 +16,7 @@ class katello::repo (
 ) {
   yumrepo { 'katello':
     descr    => "katello ${repo_version}",
-    baseurl  => "https://fedorapeople.org/groups/katello/releases/yum/${repo_version}/katello/${dist}/\$basearch/",
+    baseurl  => "https://yum.theforeman.org/katello/${repo_version}/katello/${dist}/\$basearch/",
     gpgkey   => $gpgkey,
     gpgcheck => $gpgcheck,
     enabled  => true,
