@@ -12,6 +12,8 @@
 # @param enable_deb
 #   Enable debian content plugin
 #
+# @param enable_ansible_collection
+#   Enable ansible collection content plugin
 # @param enable_katello_agent
 #   Set to true to setup Qpid and katello-agent infrastructure.
 #
@@ -20,6 +22,7 @@ class katello::globals(
   Katello::HieraBoolean $enable_file = true,
   Katello::HieraBoolean $enable_docker = true,
   Katello::HieraBoolean $enable_deb = true,
+  Katello::HieraBoolean $enable_ansible_collection = true,
   Katello::HieraBoolean $enable_katello_agent = false,
 ) {
   # OAUTH settings
