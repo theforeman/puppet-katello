@@ -4,14 +4,6 @@
 #
 # === Parameters:
 #
-# $enable_yum::         Enable rpm content plugin, including syncing of yum content
-#
-# $enable_file::        Enable generic file content management
-#
-# $enable_docker::      Enable docker content plugin
-#
-# $enable_deb::         Enable debian content plugin
-#
 # === Advanced parameters:
 #
 # $candlepin_oauth_key:: The OAuth key for talking to the candlepin API
@@ -54,11 +46,6 @@ class katello (
   String $qpid_interface = 'lo',
   Stdlib::Host $qpid_hostname = 'localhost',
 
-  Boolean $enable_yum = true,
-  Boolean $enable_file = true,
-  Boolean $enable_docker = true,
-  Boolean $enable_deb = true,
-
   String $candlepin_db_host = 'localhost',
   Optional[Stdlib::Port] $candlepin_db_port = undef,
   String $candlepin_db_name = 'candlepin',
@@ -73,13 +60,6 @@ class katello (
 
   package { 'katello':
     ensure => installed,
-  }
-
-  class { 'katello::globals':
-    enable_yum    => $enable_yum,
-    enable_file   => $enable_file,
-    enable_docker => $enable_docker,
-    enable_deb    => $enable_deb,
   }
 
   class { 'katello::params':

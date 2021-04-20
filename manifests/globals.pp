@@ -13,10 +13,10 @@
 #   Enable debian content plugin
 #
 class katello::globals(
-  Boolean $enable_yum = true,
-  Boolean $enable_file = true,
-  Boolean $enable_docker = true,
-  Boolean $enable_deb = true,
+  Katello::HieraBoolean $enable_yum = true,
+  Katello::HieraBoolean $enable_file = true,
+  Katello::HieraBoolean $enable_docker = true,
+  Katello::HieraBoolean $enable_deb = true,
 ) {
   # OAUTH settings
   $candlepin_oauth_key = 'katello'
