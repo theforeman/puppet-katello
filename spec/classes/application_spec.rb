@@ -280,6 +280,77 @@ describe 'katello::application' do
           it { is_expected.to create_package('rubygem-katello').that_requires('Anchor[katello::candlepin]') }
         end
       end
+
+      context 'with katello::globals parameter as an empty string' do
+        let :pre_condition do
+          <<-EOS
+          class {'katello::globals':
+            enable_deb => '',
+          }
+          #{super()}
+          EOS
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        let(:katello_yaml_content) do
+          if facts[:operatingsystemmajrelease] == '7'
+            [
+              ':katello:',
+              '  :rest_client_timeout: 3600',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: false',
+              '    :docker: true',
+              '    :ostree: false',
+              '  :candlepin:',
+              '    :url: https://localhost:23443/candlepin',
+              '    :oauth_key: "katello"',
+              '    :oauth_secret: "candlepin-secret"',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :candlepin_events:',
+              '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
+              '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
+              '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :agent:',
+              '    :broker_url: amqps://localhost:5671',
+              '    :event_queue_name: katello.agent',
+              '  :katello_applicability: true',
+            ]
+          else
+            [
+              ':katello:',
+              '  :rest_client_timeout: 3600',
+              '  :content_types:',
+              '    :yum: true',
+              '    :file: true',
+              '    :deb: true',
+              '    :puppet: false',
+              '    :docker: true',
+              '    :ostree: false',
+              '  :candlepin:',
+              '    :url: https://localhost:23443/candlepin',
+              '    :oauth_key: "katello"',
+              '    :oauth_secret: "candlepin-secret"',
+              '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :candlepin_events:',
+              '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
+              '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
+              '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
+              '  :agent:',
+              '    :broker_url: amqps://localhost:5671',
+              '    :event_queue_name: katello.agent',
+              '  :katello_applicability: true',
+            ]
+          end
+        end
+
+        it 'should generate correct katello.yaml' do
+          verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
+        end
+      end
     end
   end
 end
