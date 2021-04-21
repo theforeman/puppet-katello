@@ -33,6 +33,7 @@ class katello::candlepin (
   class { 'certs::candlepin':
     hostname             => $katello::params::candlepin_host,
     client_keypair_group => $katello::params::candlepin_client_keypair_group,
+    require              => User['tomcat'],
   }
 
   class { 'candlepin':
