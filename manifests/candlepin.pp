@@ -35,6 +35,8 @@ class katello::candlepin (
     client_keypair_group => $katello::params::candlepin_client_keypair_group,
   }
 
+  $artemis_client_dn = katello::certificate_subject($certs::candlepin::client_cert)
+
   class { 'candlepin':
     host                         => $katello::params::candlepin_host,
     ssl_port                     => $katello::params::candlepin_port,
@@ -47,7 +49,7 @@ class katello::candlepin (
     keystore_password            => $certs::candlepin::keystore_password,
     truststore_file              => $certs::candlepin::truststore,
     truststore_password          => $certs::candlepin::truststore_password,
-    artemis_client_dn            => $certs::candlepin::artemis_client_dn,
+    artemis_client_dn            => $artemis_client_dn,
     java_home                    => '/usr/lib/jvm/jre-11',
     java_package                 => 'java-11-openjdk',
     enable_basic_auth            => false,
