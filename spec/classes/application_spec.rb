@@ -114,33 +114,12 @@ describe 'katello::application' do
 
         let(:katello_yaml_content) do
           [
-            ':katello:',
             '  :rest_client_timeout: 4000',
-            '  :content_types:',
-            '    :yum: true',
-            '    :file: true',
-            '    :deb: true',
-            '    :puppet: false',
-            '    :docker: true',
-            '    :ansible_collection: true',
-            '    :ostree: false',
-            '  :candlepin:',
-            '    :url: https://localhost:23443/candlepin',
-            '    :oauth_key: "katello"',
-            '    :oauth_secret: "candlepin-secret"',
-            '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
-            '  :candlepin_events:',
-            '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
-            '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
-            '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
-            '  :agent:',
-            '    :enabled: false',
-            '  :katello_applicability: true',
           ]
         end
 
         it 'should generate correct katello.yaml' do
-          verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
+          verify_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
         end
       end
 
@@ -214,33 +193,13 @@ describe 'katello::application' do
 
         let(:katello_yaml_content) do
           [
-            ':katello:',
-            '  :rest_client_timeout: 3600',
             '  :content_types:',
-            '    :yum: true',
-            '    :file: true',
             '    :deb: true',
-            '    :puppet: false',
-            '    :docker: true',
-            '    :ostree: false',
-            '    :ansible_collection: true',
-            '  :candlepin:',
-            '    :url: https://localhost:23443/candlepin',
-            '    :oauth_key: "katello"',
-            '    :oauth_secret: "candlepin-secret"',
-            '    :ca_cert_file: /etc/pki/katello/certs/katello-default-ca.crt',
-            '  :candlepin_events:',
-            '    :ssl_cert_file: /etc/pki/katello/certs/java-client.crt',
-            '    :ssl_key_file: /etc/pki/katello/private/java-client.key',
-            '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
-            '  :agent:',
-            '    :enabled: false',
-            '  :katello_applicability: true',
           ]
         end
 
         it 'should generate correct katello.yaml' do
-          verify_exact_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
+          verify_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
         end
       end
 
