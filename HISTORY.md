@@ -1,3 +1,57 @@
+## [19.0.0](https://github.com/theforeman/puppet-katello/tree/19.0.0) (2021-03-10)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/18.0.0...19.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#31878](https://projects.theforeman.org/issues/31878): Turn on Qpid auth and set ACLs to the router certificat… [\#384](https://github.com/theforeman/puppet-katello/pull/384) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Refs [\#31878](https://projects.theforeman.org/issues/31878) - Allow external mechanism for qpid SASL [\#390](https://github.com/theforeman/puppet-katello/pull/390) ([ekohl](https://github.com/ekohl))
+- Refs [\#31880](https://projects.theforeman.org/issues/31880) - Switch to AMQP 1.0 SSL URL [\#385](https://github.com/theforeman/puppet-katello/pull/385) ([ehelms](https://github.com/ehelms))
+- No need to configure qpid::client [\#383](https://github.com/theforeman/puppet-katello/pull/383) ([ehelms](https://github.com/ehelms))
+
+**Merged pull requests:**
+
+- Refs [\#31878](https://projects.theforeman.org/issues/31878) - Correct qpid dependency [\#391](https://github.com/theforeman/puppet-katello/pull/391) ([ekohl](https://github.com/ekohl))
+- Require puppet-certs 11+ [\#386](https://github.com/theforeman/puppet-katello/pull/386) ([ehelms](https://github.com/ehelms))
+
+## [18.0.0](https://github.com/theforeman/puppet-katello/tree/18.0.0) (2021-02-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/17.0.0...18.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#30360](https://projects.theforeman.org/issues/30360): Remove Pulp 2 deployment code [\#380](https://github.com/theforeman/puppet-katello/pull/380) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Fixes [\#31761](https://projects.theforeman.org/issues/31761) - create katello.agent qpid queue [\#379](https://github.com/theforeman/puppet-katello/pull/379) ([jturel](https://github.com/jturel))
+
+## [17.0.0](https://github.com/theforeman/puppet-katello/tree/17.0.0) (2021-02-01)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/16.1.0...17.0.0)
+
+**Breaking changes:**
+
+- Drop inclusion of pulp-vhosts80 with no managed content types [\#376](https://github.com/theforeman/puppet-katello/pull/376) ([ehelms](https://github.com/ehelms))
+- Drop enabling Pulp 2 content types [\#373](https://github.com/theforeman/puppet-katello/pull/373) ([ehelms](https://github.com/ehelms))
+- Drop Crane configuration that is no longer used from Pulp 2 [\#371](https://github.com/theforeman/puppet-katello/pull/371) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Fixes [\#31693](https://projects.theforeman.org/issues/31693) - Restore katello::qpid\_client [\#377](https://github.com/theforeman/puppet-katello/pull/377) ([jturel](https://github.com/jturel))
+- Refs [\#31346](https://projects.theforeman.org/issues/31346) - Use Java 11 for Candlepin [\#372](https://github.com/theforeman/puppet-katello/pull/372) ([jturel](https://github.com/jturel))
+
+## [16.1.0](https://github.com/theforeman/puppet-katello/tree/16.1.0) (2021-01-14)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/16.0.0...16.1.0)
+
+**Implemented enhancements:**
+
+- Support use\_pulp\_2\_for\_deb [\#370](https://github.com/theforeman/puppet-katello/pull/370) ([jlsherrill](https://github.com/jlsherrill))
+
 ## [16.0.0](https://github.com/theforeman/puppet-katello/tree/16.0.0) (2020-10-30)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/15.0.0...16.0.0)
