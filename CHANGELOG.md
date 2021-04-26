@@ -1,5 +1,30 @@
 # Changelog
 
+## [20.0.0](https://github.com/theforeman/puppet-katello/tree/20.0.0) (2021-04-27)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/19.0.0...20.0.0)
+
+**Breaking changes:**
+
+- Refs [\#32369](https://projects.theforeman.org/issues/32369) - Move content enable flags to params [\#402](https://github.com/theforeman/puppet-katello/pull/402) ([ehelms](https://github.com/ehelms))
+- Refs [\#32037](https://projects.theforeman.org/issues/32037): Add flag to enable katello\_agent infrastructure and disable it by default [\#387](https://github.com/theforeman/puppet-katello/pull/387) ([ehelms](https://github.com/ehelms))
+- Refs [\#29817](https://projects.theforeman.org/issues/29817) - Implement a resizable hosts\_queue pool [\#364](https://github.com/theforeman/puppet-katello/pull/364) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Allow puppet-certs \< 13.0.0 [\#408](https://github.com/theforeman/puppet-katello/pull/408) ([wbclark](https://github.com/wbclark))
+- Fixes [\#32160](https://projects.theforeman.org/issues/32160) - enable ansible collection content [\#401](https://github.com/theforeman/puppet-katello/pull/401) ([jlsherrill](https://github.com/jlsherrill))
+- Allow puppet-qpid 8+ [\#400](https://github.com/theforeman/puppet-katello/pull/400) ([ehelms](https://github.com/ehelms))
+- Update yumrepo to use yum.theforeman.org [\#396](https://github.com/theforeman/puppet-katello/pull/396) ([ehelms](https://github.com/ehelms))
+
+**Fixed bugs:**
+
+- Update Limitations in README [\#398](https://github.com/theforeman/puppet-katello/pull/398) ([moritzdietz](https://github.com/moritzdietz))
+
+**Closed issues:**
+
+- Question: RHEL 8 support [\#397](https://github.com/theforeman/puppet-katello/issues/397)
+
 ## [19.0.0](https://github.com/theforeman/puppet-katello/tree/19.0.0) (2021-03-10)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/18.0.0...19.0.0)
