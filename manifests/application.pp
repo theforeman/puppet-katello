@@ -10,13 +10,24 @@ class katello::application (
   Integer[0] $rest_client_timeout = 3600,
   Integer[0] $hosts_queue_workers = 1,
 ) {
-  include foreman
   include certs
   include certs::apache
   include certs::candlepin
   include certs::foreman
   include certs::pulp_client
   include katello::params
+
+  class { 'foreman':
+    client_ssl_cert  => $certs::foreman::client_cert,
+    client_ssl_key   => $certs::foreman::client_key,
+    client_ssl_ca    => $certs::foreman::ssl_ca_cert,
+    server_ssl_key   => $certs::apache::apache_key,
+    server_ssl_cert  => $certs::apache::apache_cert,
+    server_ssl_chain => $certs::apache::apache_ca_cert, # TODO: is this correct?
+    server_ssl_ca    => $certs::apache::apache_ca_cert, # TODO: is this correct?
+    user_groups      => [],
+    require          => Class['certs::apache', 'certs::foreman'],
+  }
 
   foreman_config_entry { 'pulp_client_cert':
     value          => $certs::pulp_client::client_cert,
