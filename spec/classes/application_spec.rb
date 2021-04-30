@@ -28,18 +28,6 @@ describe 'katello::application' do
         end
 
         it do
-          is_expected.to create_foreman_config_entry('pulp_client_cert')
-            .with_value('/etc/pki/katello/certs/pulp-client.crt')
-            .that_requires(['Class[Certs::Pulp_client]', 'Foreman::Rake[db:seed]'])
-        end
-
-        it do
-          is_expected.to create_foreman_config_entry('pulp_client_key')
-            .with_value('/etc/pki/katello/private/pulp-client.key')
-            .that_requires(['Class[Certs::Pulp_client]', 'Foreman::Rake[db:seed]'])
-        end
-
-        it do
           is_expected.to contain_service('httpd')
             .that_subscribes_to(['Class[Certs::Apache]', 'Class[Certs::Ca]'])
         end
