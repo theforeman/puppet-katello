@@ -14,11 +14,11 @@
     },
     {
       "name": "puppetlabs/apache",
-      "version_requirement": ">= 1.0.0 < 6.0.0"
+      "version_requirement": ">= 1.0.0 < 7.0.0"
     },
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.25.1 < 7.0.0"
+      "version_requirement": ">= 4.25.1 < 8.0.0"
     },
     {
       "name": "katello/candlepin",
