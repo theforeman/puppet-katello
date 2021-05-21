@@ -1,9 +1,9 @@
 require 'spec_helper_acceptance'
 
 describe 'Install Candlepin' do
-  let(:pp) { 'include katello::candlepin' }
-
-  it_behaves_like 'a idempotent resource'
+  it_behaves_like 'an idempotent resource' do
+    let(:manifest) { 'include katello::candlepin' }
+  end
 
   describe service('tomcat') do
     it { is_expected.to be_running }

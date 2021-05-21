@@ -2,16 +2,16 @@ require 'spec_helper_acceptance'
 
 describe 'Install qpid' do
   context 'with enable_katello_agent true' do
-    let(:pp) do
-      <<-PUPPET
-      class { 'katello::globals':
-        enable_katello_agent => true,
-      }
-      include katello::qpid
-      PUPPET
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-PUPPET
+        class { 'katello::globals':
+          enable_katello_agent => true,
+        }
+        include katello::qpid
+        PUPPET
+      end
     end
-
-    it_behaves_like 'a idempotent resource'
 
     describe service('qpidd') do
       it { is_expected.to be_running }
@@ -28,16 +28,16 @@ describe 'Install qpid' do
   end
 
   context 'with enable_katello_agent false' do
-    let(:pp) do
-      <<-PUPPET
-      class { 'katello::globals':
-        enable_katello_agent => false,
-      }
-      include katello::qpid
-      PUPPET
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-PUPPET
+        class { 'katello::globals':
+          enable_katello_agent => false,
+        }
+        include katello::qpid
+        PUPPET
+      end
     end
-
-    it_behaves_like 'a idempotent resource'
 
     describe service('qpidd') do
       it { is_expected.not_to be_running }
