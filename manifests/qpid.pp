@@ -21,7 +21,7 @@ class katello::qpid (
     $_qpid_ensure = 'present'
     $ssl = true
     $ssl_cert_db = $certs::qpid::nss_db_dir
-    $ssl_cert_password_file = $certs::qpid::nss_db_password_file
+    $ssl_cert_password_file = $certs::qpid::nss_db_password_path
     $ssl_cert_name = $certs::qpid::nss_cert_name
 
     Class['certs', 'certs::qpid'] ~> Class['qpid']
