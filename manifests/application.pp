@@ -61,8 +61,13 @@ class katello::application (
   }
 
   if $manage_db {
-    package { $postgresql_evr_package:
-      ensure => installed,
+    postgresql::server::extension { 'evr':
+      database     => $foreman::database::postgresql::dbname,
+      package_name => $postgresql_evr_package,
+    }
+
+    if $foreman::db_manage_rake {
+      Postgresql::Server::Extension['evr'] ~> Foreman::Rake['db:migrate']
     }
   }
 
