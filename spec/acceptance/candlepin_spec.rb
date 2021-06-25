@@ -1,6 +1,8 @@
 require 'spec_helper_acceptance'
 
 describe 'Install Candlepin' do
+  before(:context) { purge_katello }
+
   it_behaves_like 'an idempotent resource' do
     let(:manifest) { 'include katello::candlepin' }
   end
