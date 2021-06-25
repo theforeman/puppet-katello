@@ -1,6 +1,8 @@
 require 'spec_helper_acceptance'
 
 describe 'Install qpid' do
+  before(:context) { purge_katello }
+
   context 'with enable_katello_agent true' do
     it_behaves_like 'an idempotent resource' do
       let(:manifest) do
