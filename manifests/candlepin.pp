@@ -65,5 +65,7 @@ class katello::candlepin (
   } ->
   anchor { 'katello::candlepin': } # lint:ignore:anchor_resource
 
+  File[$certs::candlepin::client_cert] -> File["${::candlepin::catalina_home}/conf/cert-users.properties"]
+
   contain candlepin
 }
