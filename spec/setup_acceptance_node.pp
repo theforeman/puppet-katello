@@ -12,6 +12,10 @@ group { 'foreman':
   ensure => present,
 }
 
+file { '/etc/foreman':
+  ensure => directory
+}
+
 if $facts['os']['release']['major'] == '8' {
   package { 'glibc-langpack-en':
     ensure => installed,
