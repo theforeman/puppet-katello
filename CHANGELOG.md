@@ -1,5 +1,23 @@
 # Changelog
 
+## [21.0.0](https://github.com/theforeman/puppet-katello/tree/21.0.0) (2021-07-23)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/20.0.0...21.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 5 support [\#416](https://github.com/theforeman/puppet-katello/pull/416) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Allow puppet-foreman 18.0.0 [\#422](https://github.com/theforeman/puppet-katello/pull/422) ([ehelms](https://github.com/ehelms))
+- Allow puppet-qpid 9.0.0 [\#421](https://github.com/theforeman/puppet-katello/pull/421) ([ehelms](https://github.com/ehelms))
+- Support Puppet 7 [\#392](https://github.com/theforeman/puppet-katello/pull/392) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Remove unused Pulp Apache templates [\#410](https://github.com/theforeman/puppet-katello/pull/410) ([ehelms](https://github.com/ehelms))
+
 ## [20.0.0](https://github.com/theforeman/puppet-katello/tree/20.0.0) (2021-04-27)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/19.0.0...20.0.0)
