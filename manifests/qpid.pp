@@ -48,9 +48,11 @@ class katello::qpid (
   contain qpid
 
   if $katello::params::enable_katello_agent {
+    include certs::foreman
+
     qpid::config::queue { $katello::params::agent_event_queue_name:
-      ssl_cert       => $certs::qpid::client_cert,
-      ssl_key        => $certs::qpid::client_key,
+      ssl_cert       => $certs::foreman::client_cert,
+      ssl_key        => $certs::foreman::client_key,
       hostname       => $katello::params::qpid_hostname,
       username       => $certs::qpid::hostname,
       sasl_mechanism => 'EXTERNAL',
