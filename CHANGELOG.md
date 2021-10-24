@@ -1,5 +1,20 @@
 # Changelog
 
+## [21.1.0](https://github.com/theforeman/puppet-katello/tree/21.1.0) (2021-11-05)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.0.0...21.1.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#33830](https://projects.theforeman.org/issues/33830) - Drop content type settings [\#433](https://github.com/theforeman/puppet-katello/pull/433) ([ekohl](https://github.com/ekohl))
+- Allow katello/certs 14.0.0 [\#431](https://github.com/theforeman/puppet-katello/pull/431) ([ehelms](https://github.com/ehelms))
+- Use Foreman client certificates to setup qpid queues [\#428](https://github.com/theforeman/puppet-katello/pull/428) ([ehelms](https://github.com/ehelms))
+- Configure Candlepin with CA key password [\#427](https://github.com/theforeman/puppet-katello/pull/427) ([ehelms](https://github.com/ehelms))
+
+**Fixed bugs:**
+
+- Remove katello\_applicability setting [\#432](https://github.com/theforeman/puppet-katello/pull/432) ([ekohl](https://github.com/ekohl))
+
 ## [21.0.0](https://github.com/theforeman/puppet-katello/tree/21.0.0) (2021-07-23)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/20.0.0...21.0.0)
