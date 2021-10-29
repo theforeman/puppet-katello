@@ -82,7 +82,6 @@ describe 'katello::application' do
             '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
             '  :agent:',
             '    :enabled: false',
-            '  :katello_applicability: true',
           ]
         end
 
@@ -158,7 +157,6 @@ describe 'katello::application' do
             '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
             '  :agent:',
             '    :enabled: false',
-            '  :katello_applicability: true',
           ]
         end
 
