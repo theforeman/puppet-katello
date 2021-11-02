@@ -4,15 +4,6 @@
 :katello:
   :rest_client_timeout: <%= @rest_client_timeout %>
 
-  :content_types:
-    :file: <%= @enable_file %>
-    :yum: <%= @enable_yum %>
-    :deb: <%= @enable_deb %>
-    :puppet: false
-    :docker: <%= @enable_docker %>
-    :ansible_collection: <%= @enable_ansible_collection %>
-    :ostree: false
-
   :candlepin:
     :url: <%= @candlepin_url %>
     :oauth_key: "<%= @candlepin_oauth_key %>"

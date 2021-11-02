@@ -63,14 +63,6 @@ describe 'katello::application' do
           [
             ':katello:',
             '  :rest_client_timeout: 3600',
-            '  :content_types:',
-            '    :yum: true',
-            '    :file: true',
-            '    :deb: true',
-            '    :puppet: false',
-            '    :docker: true',
-            '    :ansible_collection: true',
-            '    :ostree: false',
             '  :candlepin:',
             '    :url: https://localhost:23443/candlepin',
             '    :oauth_key: "katello"',
@@ -126,7 +118,7 @@ describe 'katello::application' do
         let :pre_condition do
           <<-EOS
           class {'katello::globals':
-            enable_deb => false,
+            enable_katello_agent => true,
           }
           #{super()}
           EOS
@@ -138,14 +130,6 @@ describe 'katello::application' do
           [
             ':katello:',
             '  :rest_client_timeout: 3600',
-            '  :content_types:',
-            '    :yum: true',
-            '    :file: true',
-            '    :deb: false',
-            '    :puppet: false',
-            '    :docker: true',
-            '    :ansible_collection: true',
-            '    :ostree: false',
             '  :candlepin:',
             '    :url: https://localhost:23443/candlepin',
             '    :oauth_key: "katello"',
@@ -156,7 +140,9 @@ describe 'katello::application' do
             '    :ssl_key_file: /etc/foreman/client_key.pem',
             '    :ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
             '  :agent:',
-            '    :enabled: false',
+            '    :enabled: true',
+            '    :broker_url: amqps://localhost:5671',
+            '    :event_queue_name: katello.agent',
           ]
         end
 
@@ -181,23 +167,15 @@ describe 'katello::application' do
         let :pre_condition do
           <<-EOS
           class {'katello::globals':
-            enable_deb => '',
+            enable_katello_agent => '',
           }
-          #{super()}
           EOS
         end
 
         it { is_expected.to compile.with_all_deps }
 
-        let(:katello_yaml_content) do
-          [
-            '  :content_types:',
-            '    :deb: true',
-          ]
-        end
-
         it 'should generate correct katello.yaml' do
-          verify_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
+          is_expected.to contain_file('/etc/foreman/plugins/katello.yaml').with_content(%r{:enabled: true})
         end
       end
 
