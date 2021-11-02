@@ -37,11 +37,6 @@ class katello::params (
   String[1] $postgresql_evr_package = $katello::globals::postgresql_evr_package,
 ) inherits katello::globals {
 
-  $enable_yum = $katello::globals::enable_yum != false
-  $enable_file = $katello::globals::enable_file != false
-  $enable_docker = $katello::globals::enable_docker != false
-  $enable_deb = $katello::globals::enable_deb != false
-  $enable_ansible_collection = $katello::globals::enable_ansible_collection != false
   $enable_katello_agent = $katello::globals::enable_katello_agent != false
 
 }
