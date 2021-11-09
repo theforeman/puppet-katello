@@ -1,5 +1,13 @@
 # Changelog
 
+## [21.2.0](https://github.com/theforeman/puppet-katello/tree/21.2.0) (2021-11-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.1.0...21.2.0)
+
+**Implemented enhancements:**
+
+- Allow theforeman/foreman 19.0.0 [\#434](https://github.com/theforeman/puppet-katello/pull/434) ([ehelms](https://github.com/ehelms))
+
 ## [21.1.0](https://github.com/theforeman/puppet-katello/tree/21.1.0) (2021-11-05)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.0.0...21.1.0)
