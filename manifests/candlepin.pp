@@ -43,7 +43,6 @@ class katello::candlepin (
     oauth_secret                 => $katello::params::candlepin_oauth_secret,
     ca_key                       => $certs::candlepin::ca_key,
     ca_cert                      => $certs::candlepin::ca_cert,
-    ca_key_password              => $certs::ca_key_password,
     keystore_file                => $certs::candlepin::keystore,
     keystore_password            => $certs::candlepin::keystore_password,
     truststore_file              => $certs::candlepin::truststore,
