@@ -1,5 +1,14 @@
 # Changelog
 
+## [21.3.0](https://github.com/theforeman/puppet-katello/tree/21.3.0) (2022-02-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.2.0...21.3.0)
+
+**Implemented enhancements:**
+
+- enable dnf module for 4.3+ [\#439](https://github.com/theforeman/puppet-katello/pull/439) ([evgeni](https://github.com/evgeni))
+- Configure Candlepin with unencrypted CA key [\#437](https://github.com/theforeman/puppet-katello/pull/437) ([ehelms](https://github.com/ehelms))
+
 ## [21.2.0](https://github.com/theforeman/puppet-katello/tree/21.2.0) (2021-11-09)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.1.0...21.2.0)
