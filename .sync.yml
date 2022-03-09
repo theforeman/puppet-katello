@@ -2,3 +2,5 @@
 .puppet-lint.rc:
   extra_disabled_lint_checks:
     - arrow_on_right_operand_line
+spec/spec_helper_acceptance.rb:
+  locale_workaround: true
