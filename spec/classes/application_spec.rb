@@ -142,6 +142,9 @@ describe 'katello::application' do
             '  :agent:',
             '    :enabled: true',
             '    :broker_url: amqps://localhost:5671',
+            '    :broker_ssl_cert_file: /etc/foreman/client_cert.pem',
+            '    :broker_ssl_key_file: /etc/foreman/client_key.pem',
+            '    :broker_ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
             '    :event_queue_name: katello.agent',
           ]
         end
@@ -195,6 +198,9 @@ describe 'katello::application' do
             '  :agent:',
             '    :enabled: true',
             '    :broker_url: amqps://localhost:5671',
+            '    :broker_ssl_cert_file: /etc/foreman/client_cert.pem',
+            '    :broker_ssl_key_file: /etc/foreman/client_key.pem',
+            '    :broker_ssl_ca_file: /etc/pki/katello/certs/katello-default-ca.crt',
             '    :event_queue_name: katello.agent',
           ]
         end
