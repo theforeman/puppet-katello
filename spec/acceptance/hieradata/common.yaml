@@ -1,4 +1,5 @@
 ---
+apache::default_mods: false
 foreman::client_ssl_ca: /etc/foreman/proxy_ca.pem
 foreman::client_ssl_cert: /etc/foreman/client_cert.pem
 foreman::client_ssl_key: /etc/foreman/client_key.pem
