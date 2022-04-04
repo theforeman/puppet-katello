@@ -1,5 +1,14 @@
 # Changelog
 
+## [21.4.0](https://github.com/theforeman/puppet-katello/tree/21.4.0) (2022-04-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.3.0...21.4.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#34708](https://projects.theforeman.org/issues/34708) - configure certs for the katello agent broker [\#443](https://github.com/theforeman/puppet-katello/pull/443) ([evgeni](https://github.com/evgeni))
+- Allow extlib 6.x, apache 7.x, stdlib 8.x [\#441](https://github.com/theforeman/puppet-katello/pull/441) ([ekohl](https://github.com/ekohl))
+
 ## [21.3.0](https://github.com/theforeman/puppet-katello/tree/21.3.0) (2022-02-04)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.2.0...21.3.0)
