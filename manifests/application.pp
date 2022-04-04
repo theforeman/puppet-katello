@@ -64,6 +64,9 @@ class katello::application (
     }
   }
 
+  # required by configuration in katello-apache-ssl.conf
+  include apache::mod::setenvif
+
   foreman::config::apache::fragment { 'katello':
     ssl_content => file('katello/katello-apache-ssl.conf'),
   }
