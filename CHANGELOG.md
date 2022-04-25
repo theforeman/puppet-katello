@@ -1,5 +1,17 @@
 # Changelog
 
+## [21.5.0](https://github.com/theforeman/puppet-katello/tree/21.5.0) (2022-04-25)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.4.0...21.5.0)
+
+**Implemented enhancements:**
+
+- allow theforeman/foreman 20.x [\#447](https://github.com/theforeman/puppet-katello/pull/447) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- Include apache::mod::setenvif [\#445](https://github.com/theforeman/puppet-katello/pull/445) ([wbclark](https://github.com/wbclark))
+
 ## [21.4.0](https://github.com/theforeman/puppet-katello/tree/21.4.0) (2022-04-04)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.3.0...21.4.0)
