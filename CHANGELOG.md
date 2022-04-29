@@ -1,6 +1,14 @@
 # Changelog
 
-## [21.5.0](https://github.com/theforeman/puppet-katello/tree/21.5.0) (2022-04-25)
+## [21.6.0](https://github.com/theforeman/puppet-katello/tree/21.6.0) (2022-04-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.5.0...21.6.0)
+
+**Implemented enhancements:**
+
+- Refs [\#34672](https://projects.theforeman.org/issues/34672) - allow setting the Candlepin DB CA [\#448](https://github.com/theforeman/puppet-katello/pull/448) ([evgeni](https://github.com/evgeni))
+
+## [21.5.0](https://github.com/theforeman/puppet-katello/tree/21.5.0) (2022-04-26)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.4.0...21.5.0)
 
