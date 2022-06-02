@@ -15,20 +15,7 @@ class katello::application (
   include certs::apache
   include certs::candlepin
   include certs::foreman
-  include certs::pulp_client
   include katello::params
-
-  foreman_config_entry { 'pulp_client_cert':
-    value          => $certs::pulp_client::client_cert,
-    ignore_missing => false,
-    require        => [Class['certs::pulp_client'], Foreman::Rake['db:seed']],
-  }
-
-  foreman_config_entry { 'pulp_client_key':
-    value          => $certs::pulp_client::client_key,
-    ignore_missing => false,
-    require        => [Class['certs::pulp_client'], Foreman::Rake['db:seed']],
-  }
 
   include foreman::plugin::tasks
 
