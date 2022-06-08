@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe 'katello::repo' do
   context 'with default parameters' do
-    let(:facts) { { os: { release: { major: '7' } } } }
+    let(:facts) { { os: { release: { major: '8' } } } }
 
     it do
       is_expected.to contain_yumrepo('katello')
         .with_descr('katello latest')
-        .with_baseurl("https://yum.theforeman.org/katello/latest/katello/el7/\$basearch/")
+        .with_baseurl("https://yum.theforeman.org/katello/latest/katello/el8/\$basearch/")
         .with_gpgkey('absent')
         .with_gpgcheck(false)
         .with_enabled(true)

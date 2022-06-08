@@ -25,14 +25,12 @@ class katello::repo (
 
   Anchor <| title == 'foreman::repo' |> -> Yumrepo['katello']
 
-  if $facts['os']['release']['major'] != '7' and ($repo_version == 'nightly' or versioncmp($repo_version, '4.3') >= 0) {
-    package { 'katello-dnf-module':
-      ensure      => $dist,
-      name        => 'katello',
-      enable_only => true,
-      provider    => 'dnfmodule',
-      require     => Yumrepo['katello'],
-      before      => Anchor['katello::repo'],
-    }
+  package { 'katello-dnf-module':
+    ensure      => $dist,
+    name        => 'katello',
+    enable_only => true,
+    provider    => 'dnfmodule',
+    require     => Yumrepo['katello'],
+    before      => Anchor['katello::repo'],
   }
 }
