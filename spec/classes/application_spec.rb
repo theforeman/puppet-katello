@@ -17,15 +17,9 @@ describe 'katello::application' do
       context 'with default parameters' do
         it { is_expected.to compile.with_all_deps }
 
-        if facts[:operatingsystemmajrelease] == '7'
-          it { is_expected.to create_package('tfm-rubygem-katello') }
-          it { is_expected.not_to create_package('tfm-rubygem-katello').that_requires('Anchor[katello::candlepin]') }
-          it { is_expected.to create_package('rh-postgresql12-postgresql-evr') }
-        else
-          it { is_expected.to create_package('rubygem-katello') }
-          it { is_expected.not_to create_package('rubygem-katello').that_requires('Anchor[katello::candlepin]') }
-          it { is_expected.to create_package('postgresql-evr') }
-        end
+        it { is_expected.to create_package('rubygem-katello') }
+        it { is_expected.not_to create_package('rubygem-katello').that_requires('Anchor[katello::candlepin]') }
+        it { is_expected.to create_package('postgresql-evr') }
 
         it do
           is_expected.to contain_service('httpd')
@@ -75,11 +69,7 @@ describe 'katello::application' do
 
         it { is_expected.to compile.with_all_deps }
 
-        if facts[:operatingsystemmajrelease] == '7'
-          it { is_expected.to create_package('tfm-rubygem-katello').that_requires(['Anchor[katello::repo]', 'Yumrepo[katello]']) }
-        else
-          it { is_expected.to create_package('rubygem-katello').that_requires(['Anchor[katello::repo]', 'Yumrepo[katello]']) }
-        end
+        it { is_expected.to create_package('rubygem-katello').that_requires(['Anchor[katello::repo]', 'Yumrepo[katello]']) }
       end
 
       context 'with parameters' do
@@ -147,11 +137,7 @@ describe 'katello::application' do
 
         it { is_expected.to compile.with_all_deps }
 
-        if facts[:operatingsystemmajrelease] == '7'
-          it { is_expected.to create_package('tfm-rubygem-katello').that_requires('Anchor[katello::candlepin]') }
-        else
-          it { is_expected.to create_package('rubygem-katello').that_requires('Anchor[katello::candlepin]') }
-        end
+        it { is_expected.to create_package('rubygem-katello').that_requires('Anchor[katello::candlepin]') }
       end
 
       context 'with katello::globals parameter as an empty string' do
