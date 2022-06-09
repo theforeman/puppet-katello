@@ -39,6 +39,8 @@
 #
 # $hosts_queue_workers::   Configures the number of workers handling the hosts_queue queue.
 #
+# $redhat_repository_url:: URL to use for syncing RH Repos that contain a redirect.
+#
 class katello (
   Optional[String] $candlepin_oauth_key = undef,
   Optional[String] $candlepin_oauth_secret = undef,
@@ -47,6 +49,7 @@ class katello (
   Integer[0, 1000] $qpid_wcache_page_size = 4,
   String $qpid_interface = 'lo',
   Stdlib::Host $qpid_hostname = 'localhost',
+  Optional[String] $redhat_repository_url = undef,
 
   String $candlepin_db_host = 'localhost',
   Optional[Stdlib::Port] $candlepin_db_port = undef,
@@ -84,8 +87,9 @@ class katello (
   }
 
   class { 'katello::application':
-    rest_client_timeout => $rest_client_timeout,
-    hosts_queue_workers => $hosts_queue_workers,
+    rest_client_timeout   => $rest_client_timeout,
+    hosts_queue_workers   => $hosts_queue_workers,
+    redhat_repository_url => $redhat_repository_url,
   }
 
   class { 'katello::qpid':

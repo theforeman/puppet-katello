@@ -3,12 +3,16 @@
 # @param rest_client_timeout
 #   Timeout for Katello rest API
 #
+# @param redhat_repository_url
+#   URL to use for syncing RH Repos that contain a redirect.
+#
 # @param hosts_queue_workers
 #   The number of workers handling the hosts_queue queue.
 #
 class katello::application (
   Integer[0] $rest_client_timeout = 3600,
   Integer[0] $hosts_queue_workers = 1,
+  Optional[String] $redhat_repository_url = undef
 ) {
   include foreman
   include certs

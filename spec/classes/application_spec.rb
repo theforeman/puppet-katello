@@ -142,6 +142,26 @@ describe 'katello::application' do
         end
       end
 
+      context 'with RH repo url set' do
+        let(:params) do
+          {
+            redhat_repository_url: 'https://foo.example.com',
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        let(:katello_yaml_content) do
+          [
+            '  :redhat_repository_url: https://foo.example.com',
+          ]
+        end
+
+        it 'should generate correct katello.yaml' do
+          verify_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
+        end
+      end
+
       context 'with candlepin' do
         let(:pre_condition) { super() + 'include katello::candlepin' }
 

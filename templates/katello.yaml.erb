@@ -3,6 +3,9 @@
 
 :katello:
   :rest_client_timeout: <%= @rest_client_timeout %>
+    <%- if @redhat_repository_url -%>
+  :redhat_repository_url: <%= @redhat_repository_url %>
+    <%- end -%>
 
   :candlepin:
     :url: <%= @candlepin_url %>
