@@ -60,7 +60,6 @@ class katello (
 
   Integer[0] $hosts_queue_workers = 1,
 ) {
-
   package { 'katello':
     ensure => installed,
   }

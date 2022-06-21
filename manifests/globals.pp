@@ -3,7 +3,7 @@
 # @param enable_katello_agent
 #   Set to true to setup Qpid and katello-agent infrastructure.
 #
-class katello::globals(
+class katello::globals (
   Katello::HieraBoolean $enable_katello_agent = false,
 ) {
   # OAUTH settings
