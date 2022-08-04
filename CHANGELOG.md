@@ -1,5 +1,19 @@
 # Changelog
 
+## [22.0.0](https://github.com/theforeman/puppet-katello/tree/22.0.0) (2022-08-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.6.0...22.0.0)
+
+**Breaking changes:**
+
+- Drop EL7 support [\#451](https://github.com/theforeman/puppet-katello/pull/451) ([ehelms](https://github.com/ehelms))
+- Fixes [\#35005](https://projects.theforeman.org/issues/35005): Drop setting Pulp client certificate settings [\#450](https://github.com/theforeman/puppet-katello/pull/450) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Allow foreman 21.x and candlepin 13.x [\#454](https://github.com/theforeman/puppet-katello/pull/454) ([ekohl](https://github.com/ekohl))
+- Update to voxpupuli-test 5 [\#453](https://github.com/theforeman/puppet-katello/pull/453) ([ekohl](https://github.com/ekohl))
+
 ## [21.6.0](https://github.com/theforeman/puppet-katello/tree/21.6.0) (2022-04-29)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.5.0...21.6.0)
