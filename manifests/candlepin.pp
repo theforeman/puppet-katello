@@ -31,7 +31,10 @@ class katello::candlepin (
   Boolean $manage_db = true,
 ) {
   include certs
+  include certs::foreman
   include katello::params
+
+  $client_dn = katello::build_dn([['CN', $certs::foreman::hostname], ['OU', $certs::foreman::org_unit], ['O', $certs::foreman::org], ['ST', $certs::foreman::state], ['C', $certs::foreman::country]])
 
   class { 'certs::candlepin':
     hostname             => $katello::params::candlepin_host,
@@ -50,7 +53,7 @@ class katello::candlepin (
     keystore_password            => $certs::candlepin::keystore_password,
     truststore_file              => $certs::candlepin::truststore,
     truststore_password          => $certs::candlepin::truststore_password,
-    artemis_client_dn            => $certs::candlepin::artemis_client_dn,
+    artemis_client_dn            => $client_dn,
     java_home                    => '/usr/lib/jvm/jre-11',
     java_package                 => 'java-11-openjdk',
     enable_basic_auth            => false,
