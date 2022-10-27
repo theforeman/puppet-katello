@@ -25,6 +25,6 @@ describe 'Install Candlepin' do
     it { should be_mode 640 }
     it { should be_owned_by 'tomcat' }
     it { should be_grouped_into 'tomcat' }
-    its(:content) { should eq("katelloUser=CN=#{fact('fqdn')}, OU=PUPPET, O=FOREMAN, ST=North Carolina, C=US\n") }
+    its(:content) { should eq("katelloUser=CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ\n") }
   end
 end
