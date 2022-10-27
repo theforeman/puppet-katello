@@ -40,4 +40,8 @@ describe 'Scenario: install katello' do
   describe command('hammer --version') do
     its(:stdout) { is_expected.to match(/^hammer/) }
   end
+
+  describe file("/usr/share/tomcat/conf/cert-users.properties") do
+    its(:content) { should eq("katelloUser=CN=#{fact('fqdn')}, OU=PUPPET, O=FOREMAN, ST=North Carolina, C=US\n") }
+  end
 end

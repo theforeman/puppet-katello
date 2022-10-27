@@ -19,4 +19,12 @@ describe 'Install Candlepin' do
   describe command('curl -k -s -o /dev/null -w \'%{http_code}\' https://localhost:23443/candlepin/status') do
     its(:stdout) { should eq "200" }
   end
+
+  describe file("/usr/share/tomcat/conf/cert-users.properties") do
+    it { should be_file }
+    it { should be_mode 640 }
+    it { should be_owned_by 'tomcat' }
+    it { should be_grouped_into 'tomcat' }
+    its(:content) { should eq("katelloUser=CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ\n") }
+  end
 end

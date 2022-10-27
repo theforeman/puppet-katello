@@ -19,6 +19,9 @@
 #   The CA certificate to verify the SSL connection to the database with
 # @param manage_db
 #   Whether to manage the database. Set this to false when using a remote database
+# @param artemis_client_dn
+#   The Distinguished Name of the client certificate that's allowed to access
+#   Artemis. It should still be signed by the correct Certificate Authority.
 class katello::candlepin (
   Stdlib::Host $db_host = 'localhost',
   Optional[Stdlib::Port] $db_port = undef,
@@ -29,6 +32,7 @@ class katello::candlepin (
   Boolean $db_ssl_verify = true,
   Optional[Stdlib::Absolutepath] $db_ssl_ca = undef,
   Boolean $manage_db = true,
+  Variant[Undef, Deferred, String[1]] $artemis_client_dn = undef,
 ) {
   include certs
   include katello::params
@@ -50,7 +54,7 @@ class katello::candlepin (
     keystore_password            => $certs::candlepin::keystore_password,
     truststore_file              => $certs::candlepin::truststore,
     truststore_password          => $certs::candlepin::truststore_password,
-    artemis_client_dn            => $certs::candlepin::artemis_client_dn,
+    artemis_client_dn            => $artemis_client_dn,
     java_home                    => '/usr/lib/jvm/jre-11',
     java_package                 => 'java-11-openjdk',
     enable_basic_auth            => false,
