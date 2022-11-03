@@ -1,5 +1,15 @@
 # Changelog
 
+## [22.1.0](https://github.com/theforeman/puppet-katello/tree/22.1.0) (2022-11-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/22.0.0...22.1.0)
+
+**Implemented enhancements:**
+
+- Allow katello/certs 16.x [\#458](https://github.com/theforeman/puppet-katello/pull/458) ([ekohl](https://github.com/ekohl))
+- Calculate the client DN for Artemis, ignoring empty values [\#457](https://github.com/theforeman/puppet-katello/pull/457) ([ehelms](https://github.com/ehelms))
+- Allow puppetlabs/apache 8.x [\#456](https://github.com/theforeman/puppet-katello/pull/456) ([ekohl](https://github.com/ekohl))
+
 ## [22.0.0](https://github.com/theforeman/puppet-katello/tree/22.0.0) (2022-08-04)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/21.6.0...22.0.0)
