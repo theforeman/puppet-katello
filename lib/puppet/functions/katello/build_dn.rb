@@ -9,11 +9,12 @@ require 'yaml'
 Puppet::Functions.create_function(:'katello::build_dn') do
   # @param options
   dispatch :build_dn do
-    param 'Array[Tuple[String[1], Optional[String[1]]]]', :options
+    param 'Array[Tuple[String[1], Optional[String]]]', :options
     return_type 'String'
   end
 
   def build_dn(options)
-    options.select { |_key, value| value }.map { |key, value| "#{key}=#{value}" }.join(', ')
+    options_with_values = options.select { |_key, value| !value.nil? && value != '' }
+    options_with_values.map { |key, value| "#{key}=#{value}" }.join(', ')
   end
 end
