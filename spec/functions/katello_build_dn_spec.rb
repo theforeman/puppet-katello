@@ -12,4 +12,8 @@ describe 'katello::build_dn' do
   it 'should compute dn and ignore empty values' do
     is_expected.to run.with_params([['a', nil], ['b', '2']]).and_return("b=2")
   end
+
+  it 'should ignore empty strings' do
+    is_expected.to run.with_params([['a', ''], ['b', '2']]).and_return("b=2")
+  end
 end
