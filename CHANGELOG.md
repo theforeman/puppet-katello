@@ -1,5 +1,13 @@
 # Changelog
 
+## [22.1.1](https://github.com/theforeman/puppet-katello/tree/22.1.1) (2023-02-02)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/22.1.1...22.1.1)
+
+**Fixed bugs:**
+
+- Allow but filter out empty strings in build\_dn [\#460](https://github.com/theforeman/puppet-katello/pull/460) ([ehelms](https://github.com/ehelms))
+
 ## [22.1.0](https://github.com/theforeman/puppet-katello/tree/22.1.0) (2022-11-04)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/22.0.0...22.1.0)
