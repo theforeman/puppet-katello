@@ -22,7 +22,7 @@
     },
     {
       "name": "katello/candlepin",
-      "version_requirement": ">= 12.3.0 < 14.0.0"
+      "version_requirement": ">= 12.3.0 < 15.0.0"
     },
     {
       "name": "katello/certs",
@@ -34,7 +34,7 @@
     },
     {
       "name": "theforeman/foreman",
-      "version_requirement": ">= 17.0.0 < 23.0.0"
+      "version_requirement": ">= 17.0.0 < 24.0.0"
     }
   ],
   "requirements": [
