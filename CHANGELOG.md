@@ -1,8 +1,26 @@
 # Changelog
 
-## [22.1.1](https://github.com/theforeman/puppet-katello/tree/22.1.1) (2023-02-02)
+## [22.1.1](https://github.com/theforeman/puppet-katello/tree/22.1.1) (2023-05-16)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/22.1.1...22.1.1)
+
+**Breaking changes:**
+
+- Refs [\#36345](https://projects.theforeman.org/issues/36345) - Raise minimum Puppet version to 7.0.0 [\#464](https://github.com/theforeman/puppet-katello/pull/464) ([ekohl](https://github.com/ekohl))
+- Use Java 17 for Candlepin 4.3.1 [\#462](https://github.com/theforeman/puppet-katello/pull/462) ([lfu](https://github.com/lfu))
+
+**Implemented enhancements:**
+
+- Mark compatible with theforeman/foreman 23.x & katello/candlepin 14.x [\#465](https://github.com/theforeman/puppet-katello/pull/465) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppetlabs/apache 10.x [\#463](https://github.com/theforeman/puppet-katello/pull/463) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Remove redundant information from README [\#466](https://github.com/theforeman/puppet-katello/pull/466) ([ekohl](https://github.com/ekohl))
+
+## [22.1.1](https://github.com/theforeman/puppet-katello/tree/22.1.1) (2023-02-03)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/22.1.0...22.1.1)
 
 **Fixed bugs:**
 
