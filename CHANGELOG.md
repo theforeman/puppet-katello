@@ -1,5 +1,13 @@
 # Changelog
 
+## [23.1.0](https://github.com/theforeman/puppet-katello/tree/23.1.0) (2023-05-23)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/23.0.0...23.1.0)
+
+**Implemented enhancements:**
+
+- Mark compatible with theforeman/qpid 10.x [\#469](https://github.com/theforeman/puppet-katello/pull/469) ([ekohl](https://github.com/ekohl))
+
 ## [23.0.0](https://github.com/theforeman/puppet-katello/tree/23.0.0) (2023-05-16)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/22.1.1...23.0.0)

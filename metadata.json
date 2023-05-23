@@ -1,6 +1,6 @@
 {
   "name": "katello-katello",
-  "version": "23.0.0",
+  "version": "23.1.0",
   "author": "katello",
   "summary": "Handles deploying and managing a Katello + Foreman server",
   "license": "GPL-3.0+",
