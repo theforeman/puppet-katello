@@ -1,41 +1,12 @@
 require 'spec_helper_acceptance'
 
-describe 'Install qpid' do
+describe 'Uninstall qpid' do
   before(:context) { purge_katello }
 
-  context 'with enable_katello_agent true' do
+  context 'with default parameters' do
     it_behaves_like 'an idempotent resource' do
       let(:manifest) do
         <<-PUPPET
-        class { 'katello::globals':
-          enable_katello_agent => true,
-        }
-        include katello::qpid
-        PUPPET
-      end
-    end
-
-    describe service('qpidd') do
-      it { is_expected.to be_running }
-      it { is_expected.to be_enabled }
-    end
-
-    describe port('5671') do
-      it { is_expected.to be_listening }
-    end
-
-    describe port('5672') do
-      it { is_expected.to be_listening }
-    end
-  end
-
-  context 'with enable_katello_agent false' do
-    it_behaves_like 'an idempotent resource' do
-      let(:manifest) do
-        <<-PUPPET
-        class { 'katello::globals':
-          enable_katello_agent => false,
-        }
         include katello::qpid
         PUPPET
       end

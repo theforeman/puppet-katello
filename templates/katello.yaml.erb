@@ -14,13 +14,3 @@
     :ssl_cert_file: <%= @candlepin_events_ssl_cert %>
     :ssl_key_file: <%= @candlepin_events_ssl_key %>
     :ssl_ca_file: <%= @candlepin_ca_cert %>
-
-  :agent:
-    :enabled: <%= @enable_katello_agent %>
-    <%- if @enable_katello_agent -%>
-    :broker_url: <%= @agent_broker_url %>
-    :broker_ssl_cert_file: <%= @agent_broker_client_cert %>
-    :broker_ssl_key_file: <%= @agent_broker_client_key %>
-    :broker_ssl_ca_file: <%= @agent_broker_ca_cert %>
-    :event_queue_name: <%= @agent_event_queue_name %>
-    <%- end -%>
