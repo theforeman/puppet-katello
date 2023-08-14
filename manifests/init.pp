@@ -10,12 +10,6 @@
 #
 # $candlepin_oauth_secret:: The OAuth secret for talking to the candlepin API
 #
-# $qpid_wcache_page_size:: The size (in KB) of the pages in the write page cache
-#
-# $qpid_interface::     The interface qpidd listens to.
-#
-# $qpid_hostname::      Hostname used to connect to qpidd.
-#
 # $candlepin_db_host::  Host with Candlepin DB
 #
 # $candlepin_db_port::  Port accepting connections to Candlepin DB
@@ -44,9 +38,6 @@ class katello (
   Optional[String] $candlepin_oauth_secret = undef,
 
   Integer[0] $rest_client_timeout = 3600,
-  Integer[0, 1000] $qpid_wcache_page_size = 4,
-  String $qpid_interface = 'lo',
-  Stdlib::Host $qpid_hostname = 'localhost',
 
   String $candlepin_db_host = 'localhost',
   Optional[Stdlib::Port] $candlepin_db_port = undef,
@@ -67,7 +58,6 @@ class katello (
   class { 'katello::params':
     candlepin_oauth_key    => $candlepin_oauth_key,
     candlepin_oauth_secret => $candlepin_oauth_secret,
-    qpid_hostname          => $qpid_hostname,
   }
 
   class { 'katello::application':
@@ -88,8 +78,5 @@ class katello (
     artemis_client_dn => $katello::application::artemis_client_dn,
   }
 
-  class { 'katello::qpid':
-    interface        => $qpid_interface,
-    wcache_page_size => $qpid_wcache_page_size,
-  }
+  class { 'katello::qpid': }
 }

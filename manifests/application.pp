@@ -21,12 +21,6 @@ class katello::application (
   Class['certs', 'certs::ca', 'certs::apache'] ~> Class['apache::service']
 
   # Used in katello.yaml.erb
-  $agent_broker_url = $katello::params::qpid_url
-  $agent_event_queue_name = $katello::params::agent_event_queue_name
-  $agent_broker_client_key = $certs::foreman::client_key
-  $agent_broker_client_cert = $certs::foreman::client_cert
-  $agent_broker_ca_cert = $certs::ca_cert
-  $enable_katello_agent = $katello::params::enable_katello_agent
   $candlepin_url = $katello::params::candlepin_url
   $candlepin_oauth_key = $katello::params::candlepin_oauth_key
   $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret
