@@ -22,6 +22,8 @@
 # @param artemis_client_dn
 #   The Distinguished Name of the client certificate that's allowed to access
 #   Artemis. It should still be signed by the correct Certificate Authority.
+# @param loggers
+#   Configure the Candlepin loggers
 class katello::candlepin (
   Stdlib::Host $db_host = 'localhost',
   Optional[Stdlib::Port] $db_port = undef,
@@ -33,6 +35,7 @@ class katello::candlepin (
   Optional[Stdlib::Absolutepath] $db_ssl_ca = undef,
   Boolean $manage_db = true,
   Variant[Undef, Deferred, String[1]] $artemis_client_dn = undef,
+  Hash[String[1], Candlepin::LogLevel] $loggers = {},
 ) {
   include certs
   include katello::params
@@ -69,6 +72,7 @@ class katello::candlepin (
     db_ssl_verify                => $db_ssl_verify,
     db_ssl_ca                    => $db_ssl_ca,
     manage_db                    => $manage_db,
+    loggers                      => $loggers,
     subscribe                    => Class['certs', 'certs::candlepin'],
   } ->
   anchor { 'katello::candlepin': } # lint:ignore:anchor_resource
