@@ -34,6 +34,8 @@
 # $candlepin_db_ssl_ca:: The CA certificate to verify the SSL connection to the database with
 #
 # $candlepin_manage_db:: Boolean indicating whether a database should be installed, this includes db creation and user
+# 
+# $candlepin_loggers:: Configure the Candlepin loggers
 #
 # $rest_client_timeout:: Timeout for Katello rest API
 #
@@ -57,6 +59,7 @@ class katello (
   Boolean $candlepin_db_ssl_verify = true,
   Optional[Stdlib::Absolutepath] $candlepin_db_ssl_ca = undef,
   Boolean $candlepin_manage_db = true,
+  Hash[String[1], Candlepin::LogLevel] $candlepin_loggers = {},
 
   Integer[0] $hosts_queue_workers = 1,
 ) {
@@ -86,6 +89,7 @@ class katello (
     db_ssl_ca         => $candlepin_db_ssl_ca,
     manage_db         => $candlepin_manage_db,
     artemis_client_dn => $katello::application::artemis_client_dn,
+    loggers           => $candlepin_loggers,
   }
 
   class { 'katello::qpid':
