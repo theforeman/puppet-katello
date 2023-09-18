@@ -1,5 +1,13 @@
 # Changelog
 
+## [24.0.0](https://github.com/theforeman/puppet-katello/tree/24.0.0) (2023-09-18)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/23.1.0...24.0.0)
+
+**Breaking changes:**
+
+- Remove katello-agent [\#471](https://github.com/theforeman/puppet-katello/pull/471) ([wbclark](https://github.com/wbclark))
+
 ## [23.1.0](https://github.com/theforeman/puppet-katello/tree/23.1.0) (2023-05-23)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/23.0.0...23.1.0)
