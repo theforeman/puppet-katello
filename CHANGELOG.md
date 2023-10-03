@@ -1,5 +1,14 @@
 # Changelog
 
+## [24.1.0](https://github.com/theforeman/puppet-katello/tree/24.1.0) (2023-10-03)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/24.0.0...24.1.0)
+
+**Implemented enhancements:**
+
+- Mark compatible with puppetlabs/apache 11.x [\#475](https://github.com/theforeman/puppet-katello/pull/475) ([ehelms](https://github.com/ehelms))
+- Fixes [\#36697](https://projects.theforeman.org/issues/36697) - Expose candlepin loggers parameter [\#473](https://github.com/theforeman/puppet-katello/pull/473) ([ekohl](https://github.com/ekohl))
+
 ## [24.0.0](https://github.com/theforeman/puppet-katello/tree/24.0.0) (2023-09-18)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/23.1.0...24.0.0)
