@@ -65,6 +65,12 @@ class katello (
     }
   }
 
+  if $facts['os']['selinux']['enabled'] {
+    package { 'katello-selinux':
+      ensure => installed,
+    }
+  }
+
   class { 'katello::application':
     rest_client_timeout => $rest_client_timeout,
     hosts_queue_workers => $hosts_queue_workers,
