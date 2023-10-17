@@ -1,7 +1,21 @@
 require 'spec_helper_acceptance'
 
 describe 'Scenario: install katello' do
-  before(:context) { purge_katello }
+  before(:context) do
+    purge_katello
+
+    # Ensure foreman-installer-katello is installer prior
+    # katello would pull it in, but it purges the candlepin caches
+    # config/katello.migrations/231003142402-reset-store-credentials.rb
+    on hosts, <<~SKIP_INSTALLER_MIGRATION
+    applied=/etc/foreman-installer/scenarios.d/katello-migrations-applied
+    migration=231003142402-reset-store-credentials.rb
+    if ! grep -q $migration $applied 2> /dev/null ; then
+      mkdir -p $(dirname $applied)
+      echo "- $migration" >> $applied
+    fi
+    SKIP_INSTALLER_MIGRATION
+  end
 
   it_behaves_like 'an idempotent resource' do
     let(:manifest) do
