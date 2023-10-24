@@ -54,13 +54,15 @@ class katello (
 
   Integer[0] $hosts_queue_workers = 1,
 ) {
-  package { 'katello':
-    ensure => installed,
-  }
-
   class { 'katello::params':
     candlepin_oauth_key    => $candlepin_oauth_key,
     candlepin_oauth_secret => $candlepin_oauth_secret,
+  }
+
+  if $katello::params::meta_package != '' {
+    package { $katello::params::meta_package:
+      ensure => installed,
+    }
   }
 
   class { 'katello::application':

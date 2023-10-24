@@ -10,6 +10,7 @@ describe 'katello' do
       it { is_expected.to contain_class('katello::application') }
       it { is_expected.to contain_class('katello::qpid') }
       it { is_expected.to contain_package('rubygem-katello').that_requires('Class[candlepin]') }
+      it { is_expected.to contain_package('katello') }
     end
   end
 end
