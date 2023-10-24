@@ -26,4 +26,5 @@ class katello::params (
   Stdlib::HTTPSUrl $candlepin_url = "https://${candlepin_host}:${candlepin_port}/candlepin",
   String[1] $candlepin_client_keypair_group = 'foreman',
   String[1] $postgresql_evr_package = $katello::globals::postgresql_evr_package,
+  String[0] $meta_package = 'katello',
 ) inherits katello::globals {}
