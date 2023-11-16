@@ -1,7 +1,7 @@
 # @summary Manage the Katello repository
 #
 # @param repo_version
-#   The repository version to use. Either latest or a version like 3.14.
+#   The repository version to use
 # @param dist
 #   The distribution to use
 # @param gpgcheck
@@ -9,7 +9,7 @@
 # @param gpgkey
 #   The location of the GPG key
 class katello::repo (
-  String $repo_version = latest,
+  Variant[Pattern[/^\d\.\d+$/], Enum['nightly']] $repo_version,
   String $dist = "el${facts['os']['release']['major']}",
   Boolean $gpgcheck = false,
   String $gpgkey = 'absent',

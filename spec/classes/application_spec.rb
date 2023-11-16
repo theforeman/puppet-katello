@@ -63,7 +63,13 @@ describe 'katello::application' do
       end
 
       context 'with repo present' do
-        let(:pre_condition) { 'include katello::repo' }
+        let(:pre_condition) do
+          <<~PUPPET
+            class { 'katello::repo':
+              repo_version => 'nightly',
+            }
+          PUPPET
+        end
 
         it { is_expected.to compile.with_all_deps }
 
