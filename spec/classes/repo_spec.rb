@@ -4,10 +4,20 @@ describe 'katello::repo' do
   let(:facts) { { os: { release: { major: '8' } } } }
 
   context 'with default parameters' do
+    it { is_expected.to compile.and_raise_error(//) }
+  end
+
+  context 'with nightly repo' do
+    let :params do
+      {
+        'repo_version' => 'nightly',
+      }
+    end
+
     it do
       is_expected.to contain_yumrepo('katello')
-        .with_descr('katello latest')
-        .with_baseurl("https://yum.theforeman.org/katello/latest/katello/el8/\$basearch/")
+        .with_descr('katello nightly')
+        .with_baseurl("https://yum.theforeman.org/katello/nightly/katello/el8/\$basearch/")
         .with_gpgkey('absent')
         .with_gpgcheck(false)
         .with_enabled(true)
