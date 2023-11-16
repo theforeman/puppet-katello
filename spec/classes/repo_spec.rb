@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe 'katello::repo' do
-  context 'with default parameters' do
-    let(:facts) { { os: { release: { major: '8' } } } }
+  let(:facts) { { os: { release: { major: '8' } } } }
 
+  context 'with default parameters' do
     it do
       is_expected.to contain_yumrepo('katello')
         .with_descr('katello latest')
@@ -17,8 +17,6 @@ describe 'katello::repo' do
   end
 
   context 'with manage_repo => true' do
-    let(:facts) { { os: { release: { major: '8' } } } }
-
     let :params do
       {
         'repo_version' => '3.14',
@@ -38,8 +36,6 @@ describe 'katello::repo' do
     end
   end
   context 'with manage_repo => true on EL8 with modular metadata' do
-    let(:facts) { { os: { release: { major: '8' } } } }
-
     let :params do
       {
         'repo_version' => 'nightly',
