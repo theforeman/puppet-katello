@@ -1,5 +1,22 @@
 # Changelog
 
+## [24.2.0](https://github.com/theforeman/puppet-katello/tree/24.2.0) (2023-11-16)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/24.1.0...24.2.0)
+
+**Implemented enhancements:**
+
+- Mark compatible with katello/qpid 11.x [\#485](https://github.com/theforeman/puppet-katello/pull/485) ([ekohl](https://github.com/ekohl))
+- Mark compatible with Puppet 8 [\#484](https://github.com/theforeman/puppet-katello/pull/484) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppet-extlib 7.x [\#483](https://github.com/theforeman/puppet-katello/pull/483) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppetlabs/stdlib 9.x [\#482](https://github.com/theforeman/puppet-katello/pull/482) ([ekohl](https://github.com/ekohl))
+- allow overriding the name of the metapackage [\#481](https://github.com/theforeman/puppet-katello/pull/481) ([evgeni](https://github.com/evgeni))
+- Mark compatible with katello/certs 17.x [\#479](https://github.com/theforeman/puppet-katello/pull/479) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Remove invalid default for $katello::repo::repo\_version [\#487](https://github.com/theforeman/puppet-katello/pull/487) ([ekohl](https://github.com/ekohl))
+
 ## [24.1.0](https://github.com/theforeman/puppet-katello/tree/24.1.0) (2023-10-03)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/24.0.0...24.1.0)
