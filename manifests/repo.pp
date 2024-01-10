@@ -25,12 +25,14 @@ class katello::repo (
 
   Anchor <| title == 'foreman::repo' |> -> Yumrepo['katello']
 
-  package { 'katello-dnf-module':
-    ensure      => $dist,
-    name        => 'katello',
-    enable_only => true,
-    provider    => 'dnfmodule',
-    require     => Yumrepo['katello'],
-    before      => Anchor['katello::repo'],
+  if $facts['os']['release']['major'] == '8' {
+    package { 'katello-dnf-module':
+      ensure      => $dist,
+      name        => 'katello',
+      enable_only => true,
+      provider    => 'dnfmodule',
+      require     => Yumrepo['katello'],
+      before      => Anchor['katello::repo'],
+    }
   }
 }
