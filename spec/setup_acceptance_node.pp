@@ -29,6 +29,8 @@ package { 'glibc-langpack-en':
   ensure => installed,
 }
 
-yumrepo { 'powertools':
-  enabled => true,
+if $facts['os']['release']['major'] == '8' {
+  yumrepo { 'powertools':
+    enabled => true,
+  }
 }
