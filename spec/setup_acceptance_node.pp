@@ -13,16 +13,16 @@ group { 'foreman':
 }
 
 file { '/etc/foreman':
-  ensure => directory
+  ensure => directory,
 }
 
 # Necessary for PostgreSQL EVR extension
-yumrepo { "pulpcore":
-  baseurl  => "http://yum.theforeman.org/pulpcore/3.14/el\$releasever/x86_64/",
-  descr    => "Pulpcore",
+yumrepo { 'pulpcore':
+  baseurl  => "http://yum.theforeman.org/pulpcore/3.14/el\$releasever/\$basearch/",
+  descr    => 'Pulpcore',
   enabled  => true,
   gpgcheck => true,
-  gpgkey   => "https://yum.theforeman.org/pulpcore/3.14/GPG-RPM-KEY-pulpcore",
+  gpgkey   => 'https://yum.theforeman.org/pulpcore/3.14/GPG-RPM-KEY-pulpcore',
 }
 
 package { 'glibc-langpack-en':
