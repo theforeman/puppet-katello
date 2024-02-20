@@ -1,5 +1,17 @@
 # Changelog
 
+## [24.3.0](https://github.com/theforeman/puppet-katello/tree/24.3.0) (2024-02-20)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/24.2.0...24.3.0)
+
+**Implemented enhancements:**
+
+- Support EL9 [\#489](https://github.com/theforeman/puppet-katello/pull/489) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Only install dnf module on EL8 [\#488](https://github.com/theforeman/puppet-katello/pull/488) ([evgeni](https://github.com/evgeni))
+
 ## [24.2.0](https://github.com/theforeman/puppet-katello/tree/24.2.0) (2023-11-16)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/24.1.0...24.2.0)
