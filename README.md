@@ -1,6 +1,6 @@
 ## Overview
 
-This module is designed to setup a Katello server, including Candlepin and, if katello-agent is enabled, qpid.
+This module is designed to setup a Katello server, including Candlepin.
 
 ## Development
 

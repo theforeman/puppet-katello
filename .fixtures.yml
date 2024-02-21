@@ -13,7 +13,6 @@ fixtures:
     extlib:        "https://github.com/voxpupuli/puppet-extlib"
     foreman:       "https://github.com/theforeman/puppet-foreman.git"
     postgresql:    "https://github.com/puppetlabs/puppetlabs-postgresql.git"
-    qpid:          "https://github.com/theforeman/puppet-qpid.git"
     redis:         "https://github.com/voxpupuli/puppet-redis"
     selinux:       "https://github.com/voxpupuli/puppet-selinux.git"
     selinux_core:
