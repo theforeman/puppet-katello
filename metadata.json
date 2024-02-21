@@ -29,10 +29,6 @@
       "version_requirement": ">= 15.0.0 < 18.0.0"
     },
     {
-      "name": "katello/qpid",
-      "version_requirement": ">= 8.0.0 < 12.0.0"
-    },
-    {
       "name": "theforeman/foreman",
       "version_requirement": ">= 17.0.0 < 25.0.0"
     }
