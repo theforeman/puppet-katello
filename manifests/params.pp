@@ -19,8 +19,8 @@
 # @param postgresql_evr_package
 #   The contextual package name for the PostgreSQL EVR extension
 class katello::params (
-  String[1] $candlepin_oauth_key = $katello::globals::candlepin_oauth_key,
-  String[1] $candlepin_oauth_secret = $katello::globals::candlepin_oauth_secret,
+  Variant[Sensitive[String[1], String[1]]] $candlepin_oauth_key = $katello::globals::candlepin_oauth_key,
+  Variant[Sensitive[String[1], String[1]]] $candlepin_oauth_secret = $katello::globals::candlepin_oauth_secret,
   Stdlib::Host $candlepin_host = 'localhost',
   Stdlib::Port $candlepin_port = 23443,
   Stdlib::HTTPSUrl $candlepin_url = "https://${candlepin_host}:${candlepin_port}/candlepin",
