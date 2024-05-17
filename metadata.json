@@ -22,7 +22,7 @@
     },
     {
       "name": "katello/candlepin",
-      "version_requirement": ">= 13.2.0 < 16.0.0"
+      "version_requirement": ">= 13.2.0 < 17.0.0"
     },
     {
       "name": "katello/certs",
