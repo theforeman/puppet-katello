@@ -1,5 +1,18 @@
 # Changelog
 
+## [25.0.0](https://github.com/theforeman/puppet-katello/tree/25.0.0) (2024-05-17)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/24.3.0...25.0.0)
+
+**Breaking changes:**
+
+- Remove Qpid [\#491](https://github.com/theforeman/puppet-katello/pull/491) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Mark compatible with katello/candlepin 16.x & katello/certs 18.x [\#494](https://github.com/theforeman/puppet-katello/pull/494) ([ekohl](https://github.com/ekohl))
+- Allow puppetlabs/apache 12.x [\#492](https://github.com/theforeman/puppet-katello/pull/492) ([evgeni](https://github.com/evgeni))
+
 ## [24.3.0](https://github.com/theforeman/puppet-katello/tree/24.3.0) (2024-02-20)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/24.2.0...24.3.0)
