@@ -1,5 +1,13 @@
 # Changelog
 
+## [25.1.0](https://github.com/theforeman/puppet-katello/tree/25.1.0) (2024-05-21)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/25.0.0...25.1.0)
+
+**Implemented enhancements:**
+
+- Allow theforeman/foreman 25.x [\#496](https://github.com/theforeman/puppet-katello/pull/496) ([evgeni](https://github.com/evgeni))
+
 ## [25.0.0](https://github.com/theforeman/puppet-katello/tree/25.0.0) (2024-05-17)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/24.3.0...25.0.0)
