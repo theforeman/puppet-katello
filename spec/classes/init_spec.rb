@@ -10,6 +10,16 @@ describe 'katello' do
       it { is_expected.to contain_class('katello::application') }
       it { is_expected.to contain_package('rubygem-katello').that_requires('Class[candlepin]') }
       it { is_expected.to contain_package('katello') }
+
+      context 'with facts_match_regex' do
+        let(:params) { { candlepin_facts_match_regex: 'test_match_regex' } }
+
+        it { is_expected.to compile.with_all_deps }
+
+        it 'should pass the facts_match_regex parameter to katello::candlepin' do
+          is_expected.to contain_class('katello::candlepin').with_facts_match_regex('test_match_regex')
+        end
+      end
     end
   end
 end

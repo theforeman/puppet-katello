@@ -31,6 +31,8 @@
 #
 # $candlepin_loggers:: Configure the Candlepin loggers
 #
+# $candlepin_facts_match_regex:: Configure the Candlepin facts_match_regex
+#
 # $rest_client_timeout:: Timeout for Katello rest API
 #
 # $hosts_queue_workers::   Configures the number of workers handling the hosts_queue queue.
@@ -38,9 +40,7 @@
 class katello (
   Optional[String] $candlepin_oauth_key = undef,
   Optional[String] $candlepin_oauth_secret = undef,
-
   Integer[0] $rest_client_timeout = 3600,
-
   String $candlepin_db_host = 'localhost',
   Optional[Stdlib::Port] $candlepin_db_port = undef,
   String $candlepin_db_name = 'candlepin',
@@ -51,6 +51,7 @@ class katello (
   Optional[Stdlib::Absolutepath] $candlepin_db_ssl_ca = undef,
   Boolean $candlepin_manage_db = true,
   Hash[String[1], Candlepin::LogLevel] $candlepin_loggers = {},
+  Optional[String[1]] $candlepin_facts_match_regex = undef,
 
   Integer[0] $hosts_queue_workers = 1,
 ) {
@@ -82,5 +83,6 @@ class katello (
     manage_db         => $candlepin_manage_db,
     artemis_client_dn => $katello::application::artemis_client_dn,
     loggers           => $candlepin_loggers,
+    facts_match_regex => $candlepin_facts_match_regex,
   }
 }
