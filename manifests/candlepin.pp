@@ -24,6 +24,8 @@
 #   Artemis. It should still be signed by the correct Certificate Authority.
 # @param loggers
 #   Configure the Candlepin loggers
+# @param facts_match_regex
+#   Configure the Candlepin facts_match_regex
 class katello::candlepin (
   Stdlib::Host $db_host = 'localhost',
   Optional[Stdlib::Port] $db_port = undef,
@@ -36,6 +38,7 @@ class katello::candlepin (
   Boolean $manage_db = true,
   Variant[Undef, Deferred, String[1]] $artemis_client_dn = undef,
   Hash[String[1], Candlepin::LogLevel] $loggers = {},
+  Optional[String[1]] $facts_match_regex = undef,
 ) {
   include certs
   include katello::params
@@ -73,6 +76,7 @@ class katello::candlepin (
     db_ssl_ca                    => $db_ssl_ca,
     manage_db                    => $manage_db,
     loggers                      => $loggers,
+    facts_match_regex            => $facts_match_regex,
     subscribe                    => Class['certs', 'certs::candlepin'],
   } ->
   anchor { 'katello::candlepin': } # lint:ignore:anchor_resource
