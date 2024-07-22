@@ -45,7 +45,7 @@ class katello (
   Optional[Stdlib::Port] $candlepin_db_port = undef,
   String $candlepin_db_name = 'candlepin',
   String $candlepin_db_user = 'candlepin',
-  Optional[String] $candlepin_db_password = undef,
+  Variant[Undef, Sensitive[String[1]], String] $candlepin_db_password = undef,
   Boolean $candlepin_db_ssl = false,
   Boolean $candlepin_db_ssl_verify = true,
   Optional[Stdlib::Absolutepath] $candlepin_db_ssl_ca = undef,
@@ -56,8 +56,8 @@ class katello (
   Integer[0] $hosts_queue_workers = 1,
 ) {
   class { 'katello::params':
-    candlepin_oauth_key    => $candlepin_oauth_key,
-    candlepin_oauth_secret => $candlepin_oauth_secret,
+    candlepin_oauth_key    => Sensitive($candlepin_oauth_key),
+    candlepin_oauth_secret => Sensitive($candlepin_oauth_secret),
   }
 
   if $katello::params::meta_package != '' {
@@ -76,7 +76,7 @@ class katello (
     db_port           => $candlepin_db_port,
     db_name           => $candlepin_db_name,
     db_user           => $candlepin_db_user,
-    db_password       => $candlepin_db_password,
+    db_password       => if $candlepin_db_password { Sensitive($candlepin_db_password) } else { $candlepin_db_password },
     db_ssl            => $candlepin_db_ssl,
     db_ssl_verify     => $candlepin_db_ssl_verify,
     db_ssl_ca         => $candlepin_db_ssl_ca,
