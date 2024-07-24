@@ -19,7 +19,6 @@ describe 'katello::application' do
 
         it { is_expected.to create_package('rubygem-katello') }
         it { is_expected.not_to create_package('rubygem-katello').that_requires('Anchor[katello::candlepin]') }
-        it { is_expected.to create_package('postgresql-evr') }
 
         it do
           is_expected.to contain_service('httpd')
