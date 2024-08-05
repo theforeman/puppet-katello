@@ -47,6 +47,10 @@ class katello::application (
     }
   }
 
+  package { 'rubygem-anemone':
+    ensure => absent,
+  }
+
   # required by configuration in katello-apache-ssl.conf
   include apache::mod::setenvif
 
