@@ -27,7 +27,6 @@ class katello::application (
   $candlepin_ca_cert = $certs::ca_cert
   $candlepin_events_ssl_cert = $certs::foreman::client_cert
   $candlepin_events_ssl_key = $certs::foreman::client_key
-  $postgresql_evr_package = $katello::params::postgresql_evr_package
   $manage_db = $foreman::db_manage
 
   # Used in Candlepin
@@ -39,12 +38,6 @@ class katello::application (
     package     => $foreman::plugin_prefix.regsubst(/foreman_/, 'katello'),
     config      => template('katello/katello.yaml.erb'),
     config_file => "${foreman::plugin_config_dir}/katello.yaml",
-  }
-
-  if $manage_db {
-    package { $postgresql_evr_package:
-      ensure => installed,
-    }
   }
 
   # required by configuration in katello-apache-ssl.conf
