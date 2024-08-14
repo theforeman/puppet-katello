@@ -1,5 +1,15 @@
 # Changelog
 
+## [25.2.0](https://github.com/theforeman/puppet-katello/tree/25.2.0) (2024-08-14)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/25.1.0...25.2.0)
+
+**Implemented enhancements:**
+
+- Mark compatible with katello/certs 19.x [\#505](https://github.com/theforeman/puppet-katello/pull/505) ([ekohl](https://github.com/ekohl))
+- Add AlmaLinux 8 & 9 support [\#499](https://github.com/theforeman/puppet-katello/pull/499) ([archanaserver](https://github.com/archanaserver))
+- Add facts\_match\_regex parameter in katello class [\#498](https://github.com/theforeman/puppet-katello/pull/498) ([archanaserver](https://github.com/archanaserver))
+
 ## [25.1.0](https://github.com/theforeman/puppet-katello/tree/25.1.0) (2024-05-21)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/25.0.0...25.1.0)
