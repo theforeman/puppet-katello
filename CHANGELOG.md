@@ -1,5 +1,19 @@
 # Changelog
 
+## [26.0.0](https://github.com/theforeman/puppet-katello/tree/26.0.0) (2025-02-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/25.2.0...26.0.0)
+
+**Breaking changes:**
+
+- Drop EL8 support [\#508](https://github.com/theforeman/puppet-katello/pull/508) ([ehelms](https://github.com/ehelms))
+- Fixes [\#37680](https://projects.theforeman.org/issues/37680) - Stop installing postgresql\_evr extension [\#502](https://github.com/theforeman/puppet-katello/pull/502) ([sjha4](https://github.com/sjha4))
+
+**Implemented enhancements:**
+
+- Allow puppet-foreman 26.0.0 [\#509](https://github.com/theforeman/puppet-katello/pull/509) ([ehelms](https://github.com/ehelms))
+- Allow puppet-certs 20.0.0 [\#507](https://github.com/theforeman/puppet-katello/pull/507) ([ehelms](https://github.com/ehelms))
+
 ## [25.2.0](https://github.com/theforeman/puppet-katello/tree/25.2.0) (2024-08-14)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/25.1.0...25.2.0)
