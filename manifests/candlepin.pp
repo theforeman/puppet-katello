@@ -46,40 +46,6 @@ class katello::candlepin (
   class { 'certs::candlepin':
     hostname             => $katello::params::candlepin_host,
     client_keypair_group => $katello::params::candlepin_client_keypair_group,
+    deploy               => false,
   }
-
-  class { 'candlepin':
-    host                         => $katello::params::candlepin_host,
-    ssl_port                     => $katello::params::candlepin_port,
-    user_groups                  => $certs::candlepin::group,
-    oauth_key                    => $katello::params::candlepin_oauth_key,
-    oauth_secret                 => $katello::params::candlepin_oauth_secret,
-    ca_key                       => $certs::candlepin::ca_key,
-    ca_cert                      => $certs::candlepin::ca_cert,
-    keystore_file                => $certs::candlepin::keystore,
-    keystore_password            => $certs::candlepin::keystore_password,
-    truststore_file              => $certs::candlepin::truststore,
-    truststore_password          => $certs::candlepin::truststore_password,
-    artemis_client_dn            => $artemis_client_dn,
-    java_home                    => '/usr/lib/jvm/jre-17',
-    java_package                 => 'java-17-openjdk',
-    enable_basic_auth            => false,
-    consumer_system_name_pattern => '.+',
-    adapter_module               => 'org.candlepin.katello.KatelloModule',
-    db_host                      => $db_host,
-    db_port                      => $db_port,
-    db_name                      => $db_name,
-    db_user                      => $db_user,
-    db_password                  => $db_password,
-    db_ssl                       => $db_ssl,
-    db_ssl_verify                => $db_ssl_verify,
-    db_ssl_ca                    => $db_ssl_ca,
-    manage_db                    => $manage_db,
-    loggers                      => $loggers,
-    facts_match_regex            => $facts_match_regex,
-    subscribe                    => Class['certs', 'certs::candlepin'],
-  } ->
-  anchor { 'katello::candlepin': } # lint:ignore:anchor_resource
-
-  contain candlepin
 }

@@ -60,12 +60,6 @@ class katello (
     candlepin_oauth_secret => $candlepin_oauth_secret,
   }
 
-  if $katello::params::meta_package != '' {
-    package { $katello::params::meta_package:
-      ensure => installed,
-    }
-  }
-
   class { 'katello::application':
     rest_client_timeout => $rest_client_timeout,
     hosts_queue_workers => $hosts_queue_workers,
@@ -85,4 +79,8 @@ class katello (
     loggers           => $candlepin_loggers,
     facts_match_regex => $candlepin_facts_match_regex,
   }
+
+  class { 'katello::frankenstein': }
+
+  Class['katello::application'] -> Class['katello::candlepin'] -> Class['katello::frankenstein']
 }
