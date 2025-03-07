@@ -55,32 +55,5 @@ class katello (
 
   Integer[0] $hosts_queue_workers = 1,
 ) {
-  class { 'katello::params':
-    candlepin_oauth_key    => $candlepin_oauth_key,
-    candlepin_oauth_secret => $candlepin_oauth_secret,
-  }
-
-  class { 'katello::application':
-    rest_client_timeout => $rest_client_timeout,
-    hosts_queue_workers => $hosts_queue_workers,
-  }
-
-  class { 'katello::candlepin':
-    db_host           => $candlepin_db_host,
-    db_port           => $candlepin_db_port,
-    db_name           => $candlepin_db_name,
-    db_user           => $candlepin_db_user,
-    db_password       => $candlepin_db_password,
-    db_ssl            => $candlepin_db_ssl,
-    db_ssl_verify     => $candlepin_db_ssl_verify,
-    db_ssl_ca         => $candlepin_db_ssl_ca,
-    manage_db         => $candlepin_manage_db,
-    artemis_client_dn => $katello::application::artemis_client_dn,
-    loggers           => $candlepin_loggers,
-    facts_match_regex => $candlepin_facts_match_regex,
-  }
-
   class { 'katello::frankenstein': }
-
-  Class['katello::application'] -> Class['katello::candlepin'] -> Class['katello::frankenstein']
 }
