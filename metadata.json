@@ -26,7 +26,7 @@
     },
     {
       "name": "katello/certs",
-      "version_requirement": ">= 15.0.0 < 21.0.0"
+      "version_requirement": ">= 15.0.0 < 22.0.0"
     },
     {
       "name": "theforeman/foreman",
