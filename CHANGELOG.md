@@ -1,6 +1,15 @@
 # Changelog
 
-## [26.0.0](https://github.com/theforeman/puppet-katello/tree/26.0.0) (2025-02-12)
+## [26.1.0](https://github.com/theforeman/puppet-katello/tree/26.1.0) (2025-05-13)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/26.0.0...26.1.0)
+
+**Implemented enhancements:**
+
+- Mark compatible with katello/certs 21.x [\#514](https://github.com/theforeman/puppet-katello/pull/514) ([ekohl](https://github.com/ekohl))
+- Use Foreman CA certificate bundle instead of removed certs::ca\_cert [\#513](https://github.com/theforeman/puppet-katello/pull/513) ([ehelms](https://github.com/ehelms))
+
+## [26.0.0](https://github.com/theforeman/puppet-katello/tree/26.0.0) (2025-02-13)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/25.2.0...26.0.0)
 
