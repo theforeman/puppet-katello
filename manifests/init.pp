@@ -45,7 +45,7 @@ class katello (
   Optional[Stdlib::Port] $candlepin_db_port = undef,
   String $candlepin_db_name = 'candlepin',
   String $candlepin_db_user = 'candlepin',
-  Optional[String] $candlepin_db_password = undef,
+  Optional[Variant[Sensitive[String], String]] $candlepin_db_password = undef,
   Boolean $candlepin_db_ssl = false,
   Boolean $candlepin_db_ssl_verify = true,
   Optional[Stdlib::Absolutepath] $candlepin_db_ssl_ca = undef,
