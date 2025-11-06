@@ -1,5 +1,14 @@
 # Changelog
 
+## [26.3.0](https://github.com/theforeman/puppet-katello/tree/26.3.0) (2025-11-06)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/26.2.0...26.3.0)
+
+**Implemented enhancements:**
+
+- Support puppet-candlepin 17.0.0, puppet-foreman 28.0.0 [\#519](https://github.com/theforeman/puppet-katello/pull/519) ([ehelms](https://github.com/ehelms))
+- Allow puppetlabs/apache 13.x [\#518](https://github.com/theforeman/puppet-katello/pull/518) ([shubhamsg199](https://github.com/shubhamsg199))
+
 ## [26.2.0](https://github.com/theforeman/puppet-katello/tree/26.2.0) (2025-08-08)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/26.1.0...26.2.0)
