@@ -1,5 +1,18 @@
 # Changelog
 
+## [27.0.0](https://github.com/theforeman/puppet-katello/tree/27.0.0) (2026-01-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/26.3.0...27.0.0)
+
+**Breaking changes:**
+
+- Drop support for Puppet 7 [\#522](https://github.com/theforeman/puppet-katello/pull/522) ([evgeni](https://github.com/evgeni))
+
+**Implemented enhancements:**
+
+- Add support for OpenVox [\#523](https://github.com/theforeman/puppet-katello/pull/523) ([evgeni](https://github.com/evgeni))
+- Allow theforeman/foreman 29.x [\#521](https://github.com/theforeman/puppet-katello/pull/521) ([evgeni](https://github.com/evgeni))
+
 ## [26.3.0](https://github.com/theforeman/puppet-katello/tree/26.3.0) (2025-11-06)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/26.2.0...26.3.0)
