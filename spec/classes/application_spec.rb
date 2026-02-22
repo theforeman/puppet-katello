@@ -49,10 +49,6 @@ describe 'katello::application' do
             '    :oauth_key: "katello"',
             '    :oauth_secret: "candlepin-secret"',
             '    :ca_cert_file: /etc/foreman/proxy_ca.pem',
-            '  :candlepin_events:',
-            '    :ssl_cert_file: /etc/foreman/client_cert.pem',
-            '    :ssl_key_file: /etc/foreman/client_key.pem',
-            '    :ssl_ca_file: /etc/foreman/proxy_ca.pem',
           ]
         end
 

@@ -25,12 +25,7 @@ class katello::application (
   $candlepin_oauth_key = $katello::params::candlepin_oauth_key
   $candlepin_oauth_secret = $katello::params::candlepin_oauth_secret
   $candlepin_ca_cert = $certs::foreman::ssl_ca_cert
-  $candlepin_events_ssl_cert = $certs::foreman::client_cert
-  $candlepin_events_ssl_key = $certs::foreman::client_key
   $manage_db = $foreman::db_manage
-
-  # Used in Candlepin
-  $artemis_client_dn = katello::build_dn([['CN', $certs::foreman::hostname], ['OU', $certs::foreman::org_unit], ['O', $certs::foreman::org], ['ST', $certs::foreman::state], ['C', $certs::foreman::country]])
 
   # Katello database seeding needs candlepin
   Anchor <| title == 'katello::repo' or title ==  'katello::candlepin' |> ->
