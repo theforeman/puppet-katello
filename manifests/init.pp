@@ -81,7 +81,6 @@ class katello (
     db_ssl_verify     => $candlepin_db_ssl_verify,
     db_ssl_ca         => $candlepin_db_ssl_ca,
     manage_db         => $candlepin_manage_db,
-    artemis_client_dn => $katello::application::artemis_client_dn,
     loggers           => $candlepin_loggers,
     facts_match_regex => $candlepin_facts_match_regex,
   }
