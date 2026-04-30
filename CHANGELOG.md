@@ -1,5 +1,17 @@
 # Changelog
 
+## [28.0.0](https://github.com/theforeman/puppet-katello/tree/28.0.0) (2026-04-30)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/27.0.0...28.0.0)
+
+**Breaking changes:**
+
+- Remove candlepin events\(artemis\) [\#525](https://github.com/theforeman/puppet-katello/pull/525) ([jturel](https://github.com/jturel))
+
+**Implemented enhancements:**
+
+- Allow katello/candlepin 18.x [\#527](https://github.com/theforeman/puppet-katello/pull/527) ([shubhamsg199](https://github.com/shubhamsg199))
+
 ## [27.0.0](https://github.com/theforeman/puppet-katello/tree/27.0.0) (2026-01-28)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/26.3.0...27.0.0)
