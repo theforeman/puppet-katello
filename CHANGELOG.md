@@ -1,5 +1,18 @@
 # Changelog
 
+## [29.0.0](https://github.com/theforeman/puppet-katello/tree/29.0.0) (2026-07-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/28.0.0...29.0.0)
+
+**Breaking changes:**
+
+- Update Candlepin Java requirement to Java 25 [\#529](https://github.com/theforeman/puppet-katello/pull/529) ([zjhuntin](https://github.com/zjhuntin))
+
+**Implemented enhancements:**
+
+- theforeman/foreman: Allow 30.x [\#530](https://github.com/theforeman/puppet-katello/pull/530) ([arvind4501](https://github.com/arvind4501))
+- puppet/extlib: Allow 8.x [\#528](https://github.com/theforeman/puppet-katello/pull/528) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [28.0.0](https://github.com/theforeman/puppet-katello/tree/28.0.0) (2026-04-30)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/27.0.0...28.0.0)
