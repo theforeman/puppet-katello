@@ -1,5 +1,13 @@
 # Changelog
 
+## [29.1.0](https://github.com/theforeman/puppet-katello/tree/29.1.0) (2026-07-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/29.0.0...29.1.0)
+
+**Implemented enhancements:**
+
+- candlepin: Allow 19.x [\#532](https://github.com/theforeman/puppet-katello/pull/532) ([arvind4501](https://github.com/arvind4501))
+
 ## [29.0.0](https://github.com/theforeman/puppet-katello/tree/29.0.0) (2026-07-29)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/28.0.0...29.0.0)
