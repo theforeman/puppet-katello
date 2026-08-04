@@ -5,7 +5,7 @@ class { 'katello::repo':
   repo_version => 'nightly',
 }
 class { 'candlepin::repo':
-  version => 'nightly',
+  version => '4.8',
 }
 
 group { 'foreman':
