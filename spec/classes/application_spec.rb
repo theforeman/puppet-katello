@@ -80,14 +80,9 @@ describe 'katello::application' do
 
         it { is_expected.to compile.with_all_deps }
 
-        let(:katello_yaml_content) do
-          [
-            '  :rest_client_timeout: 4000',
-          ]
-        end
-
         it 'should generate correct katello.yaml' do
-          verify_contents(catalogue, '/etc/foreman/plugins/katello.yaml', katello_yaml_content)
+          is_expected.to contain_file('/etc/foreman/plugins/katello.yaml')
+            .with_content(/^  :rest_client_timeout: 4000$/)
         end
       end
 
