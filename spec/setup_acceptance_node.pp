@@ -5,7 +5,7 @@ class { 'katello::repo':
   repo_version => 'nightly',
 }
 class { 'candlepin::repo':
-  version => '4.8',
+  version => if $facts['os']['release']['major'] == '9' { '4.8' } else { '5.0' }
 }
 
 group { 'foreman':
