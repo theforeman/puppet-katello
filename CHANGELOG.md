@@ -1,5 +1,21 @@
 # Changelog
 
+## [30.0.0](https://github.com/theforeman/puppet-katello/tree/30.0.0) (2026-11-10)
+
+[Full Changelog](https://github.com/theforeman/puppet-katello/compare/29.1.0...30.0.0)
+
+**Breaking changes:**
+
+- Require katello/candlepin 20.x and katello/certs 22.x; allow theforeman/foreman 32.x [\#542](https://github.com/theforeman/puppet-katello/pull/542) ([lzap](https://github.com/lzap))
+- Drop testing on puppet [\#537](https://github.com/theforeman/puppet-katello/pull/537) ([bastelfreak](https://github.com/bastelfreak))
+- Use certs directly instead of a keystore for Candlepin [\#534](https://github.com/theforeman/puppet-katello/pull/534) ([evgeni](https://github.com/evgeni))
+
+**Implemented enhancements:**
+
+- Mark compatible with katello/certs 22.x [\#540](https://github.com/theforeman/puppet-katello/pull/540) ([ogajduse](https://github.com/ogajduse))
+- puppetlabs/stdlib: Allow 10.x & theforeman/foreman: Allow 31.x [\#538](https://github.com/theforeman/puppet-katello/pull/538) ([bastelfreak](https://github.com/bastelfreak))
+- Add EL 10 support [\#535](https://github.com/theforeman/puppet-katello/pull/535) ([ekohl](https://github.com/ekohl))
+
 ## [29.1.0](https://github.com/theforeman/puppet-katello/tree/29.1.0) (2026-07-29)
 
 [Full Changelog](https://github.com/theforeman/puppet-katello/compare/29.0.0...29.1.0)
